@@ -1,0 +1,194 @@
+package application.java.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+import application.java.dao.AplicacionDao;
+import application.java.dao.AplicacionDaoImpl;
+import application.java.model.Aplicacion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+/**
+ * Class that manages all the events occurred in Aplicaciones.fxml
+ */
+public class ControllerAplicaciones {
+
+	@FXML
+	private TextField textFieldId;
+
+	@FXML
+	private TextField textFieldNuevoId;
+
+	@FXML
+	private TextField textFieldDescripcion;
+
+	@FXML
+	private TextField textFieldGestor;
+
+	@FXML
+	private TextField textFieldServidor;
+
+	@FXML
+	private TableColumn<Aplicacion, String> tableColumnId;
+
+	@FXML
+	private TableColumn<Aplicacion, String> tableColumnDescripcion;
+
+	@FXML
+	private TableColumn<Aplicacion, String> tableColumnGestor;
+
+	@FXML
+	private TableColumn<Aplicacion, Byte> tableColumnServidor;
+
+	@FXML
+	private TableView<Aplicacion> tableViewAplicaciones;
+
+	@FXML
+	public void initialize() {
+		// tableViewAplicaciones setup
+		// Columns values are assigned to the attributes within Aplicacion class
+		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+		tableColumnGestor.setCellValueFactory(new PropertyValueFactory<>("gestor"));
+		tableColumnServidor.setCellValueFactory(new PropertyValueFactory<>("servidor"));
+	}
+
+	@FXML
+	void mostrarTodo(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: mostrarTodo.");
+		updateTableViewAplicaciones(null);
+	}
+
+	@FXML
+	void buscar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: buscar.");
+		
+		List<Aplicacion> aplicaciones = new ArrayList<>();
+		if (textFieldId.getText().isBlank() && textFieldDescripcion.getText().isBlank()
+				&& textFieldGestor.getText().isBlank() && textFieldServidor.getText().isBlank()) {
+			showError("Los cuatro campos no pueden estar vacíos.");
+		} else {
+			try {
+				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+				if (textFieldServidor.getText().isBlank()) {
+					// Server is set to MIN_VALUE in order to represent empty servidor field
+					aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+							textFieldGestor.getText(), Byte.MIN_VALUE);
+				} else {
+					aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+							textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+			}
+		}
+
+		updateTableViewAplicaciones(aplicaciones);
+	}
+
+	@FXML
+	void anyadir(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: anyadir.");
+
+		if (textFieldId.getText().isBlank() || textFieldServidor.getText().isBlank()) {
+			showError("Los campos ID y Servidor no pueden estar vacíos.");
+		} else {
+			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			try {
+				if (!aplicacionDao
+						.insertAplicacion(new Aplicacion(textFieldId.getText(), textFieldDescripcion.getText(),
+								textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText())))) {
+					showError("Se produjo un error a la hora de añadir la aplicación.");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewAplicaciones(null);
+	}
+
+	@FXML
+	void eliminar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: eliminar.");
+
+		if (textFieldId.getText().isBlank()) {
+			showError("El campo ID no puede estar vacío.");
+		} else {
+			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			if (!aplicacionDao.deleteAplicacion(textFieldId.getText())) {
+				showError("Se produjo un error a la hora de eliminar la aplicación.");
+			}
+		}
+
+		// After the deletion the list is updated
+		updateTableViewAplicaciones(null);
+	}
+
+	@FXML
+	void modificar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: modificar.");
+
+		if (textFieldId.getText().isBlank()) {
+			showError("El campo ID no puede estar vacío.");
+		} else {
+			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			try {
+				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
+						new Aplicacion(textFieldNuevoId.getText(), textFieldDescripcion.getText(),
+								textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText())))) {
+					showError("Se produjo un error a la hora de modificar la aplicación.");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewAplicaciones(null);
+	}
+
+	/**
+	 * Updates the tableViewAplicaciones element. If listAplicaciones is null it
+	 * shows all the existing aplicaciones, otherwise shows the ones given in the
+	 * parameter.
+	 * 
+	 * @param listAplicaciones
+	 */
+	private void updateTableViewAplicaciones(List<Aplicacion> listAplicaciones) {
+		AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+		List<Aplicacion> aplicaciones;
+		if (listAplicaciones == null) { // Take all existing aplicaciones
+			aplicaciones = aplicacionDao.getAllAplicaciones();
+		} else { // Show the ones given
+			aplicaciones = listAplicaciones;
+		}
+
+		// List is converted into ObservableList type
+		ObservableList<Aplicacion> observableList = FXCollections.observableArrayList();
+		for (Aplicacion aplicacion : aplicaciones) {
+			observableList.add(aplicacion);
+		}
+
+		// Show items
+		tableViewAplicaciones.setItems(observableList);
+	}
+
+	public void showError(String message) {
+		Alert alert = new Alert(AlertType.ERROR, message);
+		alert.showAndWait();
+	}
+
+}
