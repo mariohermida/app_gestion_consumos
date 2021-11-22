@@ -23,10 +23,30 @@ public class AplicacionDaoImpl implements AplicacionDao {
 
 	@Override
 	public List<Aplicacion> getAllAplicaciones() {
+		return getAplicaciones("", "", "", Byte.MIN_VALUE);
+	}
+
+	@Override
+	public List<Aplicacion> getAplicaciones(String id, String descripcion, String gestor, byte servidor) {
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "SELECT * FROM aplicacion";
+			// Dynamic querying
+			// By default it shows all existing aplicaciones
+			String query = "SELECT * FROM Aplicacion WHERE 1 = 1";
+			if (!id.isBlank()) {
+				query += " AND ID LIKE '%" + id + "%'";
+			}
+			if (!descripcion.isBlank()) {
+				query += " AND Descripcion LIKE '%" + descripcion + "%'";
+			}
+			if (!gestor.isBlank()) {
+				query += " AND Gestor LIKE '%" + gestor + "%'";
+			}
+			if (servidor != Byte.MIN_VALUE) {
+				query += " AND Servidor = " + servidor;
+			}
+
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -43,39 +63,21 @@ public class AplicacionDaoImpl implements AplicacionDao {
 	}
 
 	@Override
-	public List<Aplicacion> getAplicaciones(String id, String descripcion, String gestor, byte servidor) {
-		List<Aplicacion> aplicaciones = new ArrayList<>();
+	public boolean updateAplicacion(String id, Aplicacion aplicacion) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-	
-			String query = "SELECT * FROM Aplicacion WHERE 1 = 1";
-			// Dynamic queries are used
-			if (!id.isBlank()) {
-				query += " AND ID LIKE '%" + id + "%'";
-			}
-			if (!descripcion.isBlank()) {
-				query += " AND Descripcion LIKE '%" + descripcion + "%'";
-			}
-			if (!gestor.isBlank()) {
-				query += " AND Gestor LIKE '%" + gestor + "%'";
-			}
-			if (servidor != Byte.MIN_VALUE) {
-				query += " AND Servidor = " + servidor;
-			}
-			
+			String query = "UPDATE Aplicacion SET ID = '" + aplicacion.getId() + "', Descripcion = '"
+					+ aplicacion.getDescripcion() + "', Gestor = '" + aplicacion.getGestor() + "', Servidor = "
+					+ aplicacion.getServidor() + " WHERE ID = '" + id + "'";
 			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				aplicaciones.add(new Aplicacion(rs.getString(1), rs.getString(2), rs.getString(3),
-						Byte.valueOf(rs.getString(4))));
-			}
+			st.execute(query);
 			connection.close();
-			return aplicaciones;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return aplicaciones;
+		return false;
 	}
 
 	@Override
@@ -100,25 +102,21 @@ public class AplicacionDaoImpl implements AplicacionDao {
 	public boolean deleteAplicaciones(String id, String descripcion, String gestor, byte servidor) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "DELETE FROM Aplicacion WHERE ID = '" + id + "'";
-			Statement st = connection.createStatement();
-			st.execute(query);
-			connection.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			// Dynamic querying
+			String query = "DELETE FROM Aplicacion WHERE 1 = 1";
+			if (!id.isBlank()) {
+				query += " AND ID LIKE '%" + id + "%'";
+			}
+			if (!descripcion.isBlank()) {
+				query += " AND Descripcion LIKE '%" + descripcion + "%'";
+			}
+			if (!gestor.isBlank()) {
+				query += " AND Gestor LIKE '%" + gestor + "%'";
+			}
+			if (servidor != Byte.MIN_VALUE) {
+				query += " AND Servidor = " + servidor;
+			}
 
-		return false;
-	}
-
-	@Override
-	public boolean updateAplicacion(String id, Aplicacion aplicacion) {
-		try {
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "UPDATE Aplicacion SET ID = '" + aplicacion.getId() + "', Descripcion = '"
-					+ aplicacion.getDescripcion() + "', Gestor = '" + aplicacion.getGestor() + "', Servidor = "
-					+ aplicacion.getServidor() + " WHERE ID = '" + id + "'";
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();

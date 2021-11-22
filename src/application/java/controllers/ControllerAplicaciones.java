@@ -66,6 +66,7 @@ public class ControllerAplicaciones {
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
 
+		// If all fields are empty it shows all existing aplicaciones
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
@@ -83,6 +84,43 @@ public class ControllerAplicaciones {
 		}
 
 		updateTableViewAplicaciones(aplicaciones);
+	}
+
+	@FXML
+	void modificar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: modificar.");
+		boolean error = false;
+
+		if (textFieldId.getText().isBlank()) {
+			showError("El campo ID no puede estar vacío.");
+			error = true;
+		} else {
+			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			String id = textFieldId.getText();
+			if (!textFieldNuevoId.getText().isBlank()) {
+				id = textFieldNuevoId.getText();
+			}
+			try {
+				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
+						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
+								Byte.valueOf(textFieldServidor.getText())))) {
+					showError("Se produjo un error a la hora de modificar la aplicación.");
+					error = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+				error = true;
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewAplicaciones(null);
+
+		// Fields are set to blank
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML
@@ -149,43 +187,6 @@ public class ControllerAplicaciones {
 		}
 
 		// After the deletion the list is updated
-		updateTableViewAplicaciones(null);
-
-		// Fields are set to blank
-		if (!error) {
-			setTextFieldsToBlank();
-		}
-	}
-
-	@FXML
-	void modificar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: modificar.");
-		boolean error = false;
-
-		if (textFieldId.getText().isBlank()) {
-			showError("El campo ID no puede estar vacío.");
-			error = true;
-		} else {
-			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-			String id = textFieldId.getText();
-			if (!textFieldNuevoId.getText().isBlank()) {
-				id = textFieldNuevoId.getText();
-			}
-			try {
-				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
-						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
-								Byte.valueOf(textFieldServidor.getText())))) {
-					showError("Se produjo un error a la hora de modificar la aplicación.");
-					error = true;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				showError("Campos incorrectos.");
-				error = true;
-			}
-		}
-
-		// After the insertion the list is updated
 		updateTableViewAplicaciones(null);
 
 		// Fields are set to blank
