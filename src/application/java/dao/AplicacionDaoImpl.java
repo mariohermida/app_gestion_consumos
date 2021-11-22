@@ -46,6 +46,7 @@ public class AplicacionDaoImpl implements AplicacionDao {
 			if (servidor != Byte.MIN_VALUE) {
 				query += " AND Servidor = " + servidor;
 			}
+
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -104,7 +105,7 @@ public class AplicacionDaoImpl implements AplicacionDao {
 			// Dynamic querying
 			String query = "DELETE FROM Aplicacion WHERE 1 = 1";
 			if (!id.isBlank()) {
-				query += " AND ID LIKE '%" + id + "%'";
+				query += " AND ID = '" + id + "'";
 			}
 			if (!descripcion.isBlank()) {
 				query += " AND Descripcion LIKE '%" + descripcion + "%'";
