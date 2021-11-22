@@ -7,11 +7,13 @@ public interface UsuarioDao {
 
 	public List<Usuario> getAllUsuarios();
 
-	public List<Usuario> getUsuarios(String id, String nombre, String telefono);
+	public List<Usuario> getUsuarios(String id, String nombre, String apellidos, String email, String telefono,
+			String direccion);
 
 	public boolean insertUsuario(Usuario usuario);
 
-	public boolean deleteUsuario(String id);
+	public boolean deleteUsuarios(String id, String nombre, String apellidos, String email, String telefono,
+			String direccion);
 
 	public boolean updateUsuario(String id, Usuario usuario);
 

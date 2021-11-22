@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import application.java.dao.UsuarioDao;
 import application.java.dao.UsuarioDaoImpl;
-import application.java.model.Aplicacion;
 import application.java.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,81 +76,26 @@ public class ControllerUsuarios {
 	}
 
 	@FXML
-	void mostrarTodo(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: mostrarTodo.");
-		updateTableViewUsuarios(null);
-	}
-
-	@FXML
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
 
 		List<Usuario> usuarios = new ArrayList<>();
-		if (textFieldId.getText().isBlank() && textFieldNombre.getText().isBlank()
-				&& textFieldTelefono.getText().isBlank()) {
-			showError("Al menos uno de los siguientes campos ha de no estar vacío: ID, Nombre y Teléfono.");
-		} else {
-			try {
-				UsuarioDao usuarioDao = new UsuarioDaoImpl();
-				usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
-						textFieldTelefono.getText());
-			} catch (Exception e) {
-				e.printStackTrace();
-				showError("Campos incorrectos.");
-			}
-		}
+		UsuarioDao usuarioDao = new UsuarioDaoImpl();
+		usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
+				textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
+				textFieldDireccion.getText());
 
 		updateTableViewUsuarios(usuarios);
 	}
 
 	@FXML
-	void anyadir(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: anyadir.");
-
-		if (textFieldId.getText().isBlank()) {
-			showError("El campo ID no puede estar vacío.");
-		} else {
-			UsuarioDao usuarioDao = new UsuarioDaoImpl();
-			if (!usuarioDao.insertUsuario(
-					new Usuario(textFieldId.getText(), textFieldNombre.getText(), textFieldApellidos.getText(),
-							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()))) {
-				showError("Se produjo un error a la hora de añadir el usuario.");
-			}
-		}
-
-		// After the insertion the list is updated
-		updateTableViewUsuarios(null);
-
-		// Fields are set to blank
-		setTextFieldsToBlank();
-	}
-
-	@FXML
-	void eliminar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: eliminar.");
-
-		if (textFieldId.getText().isBlank()) {
-			showError("El campo ID no puede estar vacío.");
-		} else {
-			UsuarioDao usuarioDao = new UsuarioDaoImpl();
-			if (!usuarioDao.deleteUsuario(textFieldId.getText())) {
-				showError("Se produjo un error a la hora de eliminar el usuario.");
-			}
-		}
-
-		// After the deletion the list is updated
-		updateTableViewUsuarios(null);
-
-		// Fields are set to blank
-		setTextFieldsToBlank();
-	}
-
-	@FXML
 	void modificar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: modificar.");
+		boolean error = false;
 
 		if (textFieldId.getText().isBlank()) {
 			showError("El campo ID no puede estar vacío.");
+			error = true;
 		} else {
 			UsuarioDao usuarioDao = new UsuarioDaoImpl();
 			String id = textFieldId.getText();
@@ -162,6 +106,7 @@ public class ControllerUsuarios {
 					new Usuario(id, textFieldNombre.getText(), textFieldApellidos.getText(), textFieldEmail.getText(),
 							textFieldTelefono.getText(), textFieldDireccion.getText()))) {
 				showError("Se produjo un error a la hora de modificar el usuario.");
+				error = true;
 			}
 		}
 
@@ -169,7 +114,65 @@ public class ControllerUsuarios {
 		updateTableViewUsuarios(null);
 
 		// Fields are set to blank
-		setTextFieldsToBlank();
+		if (!error) {
+			setTextFieldsToBlank();
+		}
+	}
+
+	@FXML
+	void anyadir(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: anyadir.");
+		boolean error = false;
+
+		if (textFieldId.getText().isBlank()) {
+			showError("El campo ID no puede estar vacío.");
+			error = true;
+		} else {
+			UsuarioDao usuarioDao = new UsuarioDaoImpl();
+			if (!usuarioDao.insertUsuario(
+					new Usuario(textFieldId.getText(), textFieldNombre.getText(), textFieldApellidos.getText(),
+							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()))) {
+				showError("Se produjo un error a la hora de añadir el usuario.");
+				error = true;
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewUsuarios(null);
+
+		// Fields are set to blank
+		if (!error) {
+			setTextFieldsToBlank();
+		}
+	}
+
+	@FXML
+	void eliminar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: eliminar.");
+		boolean error = false;
+
+		if (textFieldId.getText().isBlank() && textFieldNombre.getText().isBlank()
+				&& textFieldApellidos.getText().isBlank() && textFieldEmail.getText().isBlank()
+				&& textFieldTelefono.getText().isBlank() && textFieldDireccion.getText().isBlank()) {
+			showError("Los seis campos no pueden estar vacíos.");
+			error = true;
+		} else {
+			UsuarioDao usuarioDao = new UsuarioDaoImpl();
+			if (!usuarioDao.deleteUsuarios(textFieldId.getText(), textFieldNombre.getText(),
+					textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
+					textFieldDireccion.getText())) {
+				showError("Se produjo un error a la hora de eliminar el usuario.");
+				error = true;
+			}
+		}
+
+		// After the deletion the list is updated
+		updateTableViewUsuarios(null);
+
+		// Fields are set to blank
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML

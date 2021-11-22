@@ -13,7 +13,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1229.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerUsuarios">
    <children>
-      <Button layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="46.0" prefWidth="102.0" text="Restablecer&#10;campos" textAlignment="CENTER">
+      <Button layoutX="70.0" layoutY="120.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="52.0" prefWidth="102.0" text="Restablecer&#10;campos" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -70,27 +70,22 @@
             <TableColumn fx:id="tableColumnDireccion" prefWidth="219.0" text="Dirección" />
         </columns>
       </TableView>
-      <Button layoutX="667.0" layoutY="94.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="137.0" text="Buscar">
+      <Button layoutX="667.0" layoutY="96.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="137.0" text="Buscar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="667.0" layoutY="168.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="137.0" text="Añadir">
+      <Button layoutX="667.0" layoutY="168.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="137.0" text="Modificar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="844.0" layoutY="94.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="137.0" text="Modificar">
+      <Button layoutX="844.0" layoutY="97.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="137.0" text="Añadir">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
       <Button layoutX="844.0" layoutY="168.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="137.0" text="Eliminar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="1024.0" layoutY="131.0" mnemonicParsing="false" onAction="#mostrarTodo" prefHeight="46.0" prefWidth="137.0" text="Mostrar todo">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -43,27 +43,31 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 
 	@Override
-	public List<Usuario> getUsuarios(String id, String nombre, String telefono) {
+	public List<Usuario> getUsuarios(String id, String nombre, String apellidos, String email, String telefono,
+			String direccion) {
 		List<Usuario> usuarios = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			// Depending on the fields given a different query is created
-			String query;
-			if (id.isBlank() && nombre.isBlank()) { // Only telefono
-				query = "SELECT * FROM Usuario WHERE Telefono = '" + telefono + "'";
-			} else if (id.isBlank() && telefono.isBlank()) { // Only nombre
-				query = "SELECT * FROM Usuario WHERE Nombre = '" + nombre + "'";
-			} else if (nombre.isBlank() && telefono.isBlank()) { // Only id
-				query = "SELECT * FROM Usuario WHERE ID = '" + id + "'";
-			} else if (id.isBlank()) { // nombre and telefono
-				query = "SELECT * FROM Usuario WHERE Nombre = '" + nombre + "' AND Telefono = '" + telefono + "'";
-			} else if (nombre.isBlank()) { // id and telefono
-				query = "SELECT * FROM Usuario WHERE ID = '" + id + "' AND Telefono = '" + telefono + "'";
-			} else if (telefono.isBlank()) { // id and nombre
-				query = "SELECT * FROM Usuario WHERE ID = '" + id + "' AND Nombre = '" + nombre + "'";
-			} else { // All fields are not empty
-				query = "SELECT * FROM Usuario WHERE ID = '" + id + "' AND Nombre = '" + nombre + "' AND Telefono = '"
-						+ telefono + "'";
+			// Dynamic querying
+			// By default it shows all existing usuarios
+			String query = "SELECT * FROM Usuario WHERE 1 = 1";
+			if (!id.isBlank()) {
+				query += " AND ID LIKE '%" + id + "%'";
+			}
+			if (!nombre.isBlank()) {
+				query += " AND Nombre LIKE '%" + nombre + "%'";
+			}
+			if (!apellidos.isBlank()) {
+				query += " AND Apellidos LIKE '%" + apellidos + "%'";
+			}
+			if (!email.isBlank()) {
+				query += " AND Email LIKE '%" + email + "%'";
+			}
+			if (!telefono.isBlank()) {
+				query += " AND Telefono LIKE '%" + telefono + "%'";
+			}
+			if (!direccion.isBlank()) {
+				query += " AND Direccion LIKE '%" + direccion + "%'";
 			}
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
@@ -78,6 +82,25 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		}
 
 		return usuarios;
+	}
+
+	@Override
+	public boolean updateUsuario(String id, Usuario usuario) {
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "UPDATE Usuario SET ID = '" + usuario.getId() + "', Nombre = '" + usuario.getNombre()
+					+ "', Apellidos = '" + usuario.getApellidos() + "', Email = '" + usuario.getEmail()
+					+ "', Telefono = '" + usuario.getTelefono() + "', Direccion = '" + usuario.getDireccion()
+					+ "' WHERE ID = '" + id + "'";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	@Override
@@ -99,29 +122,30 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 
 	@Override
-	public boolean deleteUsuario(String id) {
+	public boolean deleteUsuarios(String id, String nombre, String apellidos, String email, String telefono,
+			String direccion) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "DELETE FROM Usuario WHERE ID = '" + id + "'";
-			Statement st = connection.createStatement();
-			st.execute(query);
-			connection.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean updateUsuario(String id, Usuario usuario) {
-		try {
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "UPDATE Usuario SET ID = '" + usuario.getId() + "', Nombre = '" + usuario.getNombre()
-					+ "', Apellidos = '" + usuario.getApellidos() + "', Email = '" + usuario.getEmail()
-					+ "', Telefono = '" + usuario.getTelefono() + "', Direccion = '" + usuario.getDireccion()
-					+ "' WHERE ID = '" + id + "'";
+			String query = "DELETE FROM Usuario WHERE 1 = 1";
+			if (!id.isBlank()) {
+				// ID must be taken as exact input, otherwise IDs containing id string will be deleted
+				query += " AND ID = '" + id + "'";
+			}
+			if (!nombre.isBlank()) {
+				query += " AND Nombre LIKE '%" + nombre + "%'";
+			}
+			if (!apellidos.isBlank()) {
+				query += " AND Apellidos LIKE '%" + apellidos + "%'";
+			}
+			if (!email.isBlank()) {
+				query += " AND Email LIKE '%" + email + "%'";
+			}
+			if (!telefono.isBlank()) {
+				query += " AND Telefono LIKE '%" + telefono + "%'";
+			}
+			if (!direccion.isBlank()) {
+				query += " AND Direccion LIKE '%" + direccion + "%'";
+			}
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
