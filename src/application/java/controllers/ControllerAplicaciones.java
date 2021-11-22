@@ -173,16 +173,19 @@ public class ControllerAplicaciones {
 					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
 							textFieldGestor.getText(), Byte.MIN_VALUE)) {
 						showError("Se produjo un error a la hora de eliminar la aplicación.");
+						error = true;
 					}
 				} else {
 					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
 							textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()))) {
 						showError("Se produjo un error a la hora de eliminar la aplicación.");
+						error = true;
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
+				error = true;
 			}
 		}
 

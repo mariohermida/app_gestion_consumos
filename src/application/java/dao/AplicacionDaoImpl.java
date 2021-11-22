@@ -46,7 +46,6 @@ public class AplicacionDaoImpl implements AplicacionDao {
 			if (servidor != Byte.MIN_VALUE) {
 				query += " AND Servidor = " + servidor;
 			}
-
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -116,7 +115,6 @@ public class AplicacionDaoImpl implements AplicacionDao {
 			if (servidor != Byte.MIN_VALUE) {
 				query += " AND Servidor = " + servidor;
 			}
-
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
