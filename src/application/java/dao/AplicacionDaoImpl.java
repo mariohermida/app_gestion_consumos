@@ -47,45 +47,22 @@ public class AplicacionDaoImpl implements AplicacionDao {
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			// Depending on the fields given a different query is created
-			String query;
-			if (id.isBlank() && descripcion.isBlank() && gestor.isBlank()) { // Only servidor
-				query = "SELECT * FROM Aplicacion WHERE Servidor = '" + servidor + "'";
-			} else if (id.isBlank() && descripcion.isBlank() && servidor == Byte.MIN_VALUE) { // Only gestor
-				query = "SELECT * FROM Aplicacion WHERE Gestor = '" + gestor + "'";
-			} else if (id.isBlank() && gestor.isBlank() && servidor == Byte.MIN_VALUE) { // Only descripcion
-				query = "SELECT * FROM Aplicacion WHERE Descripcion = '" + descripcion + "'";
-			} else if (descripcion.isBlank() && gestor.isBlank() && servidor == Byte.MIN_VALUE) { // Only id
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "'";
-			} else if (id.isBlank() && descripcion.isBlank()) { // Only gestor and servidor
-				query = "SELECT * FROM Aplicacion WHERE Gestor = '" + gestor + "' AND Servidor = '" + servidor + "'";
-			} else if (id.isBlank() && gestor.isBlank()) { // Only descripcion and servidor
-				query = "SELECT * FROM Aplicacion WHERE Descripcion = '" + descripcion + "' AND Servidor = '" + servidor
-						+ "'";
-			} else if (descripcion.isBlank() && gestor.isBlank()) { // Only id and servidor
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Servidor = '" + servidor + "'";
-			} else if (id.isBlank() && servidor == Byte.MIN_VALUE) { // Only descripcion and gestor
-				query = "SELECT * FROM Aplicacion WHERE Descripcion = '" + descripcion + "' AND Gestor = '" + gestor + "'";
-			} else if (descripcion.isBlank() && servidor == Byte.MIN_VALUE) { // Only id and gestor
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Gestor = '" + gestor + "'";
-			} else if (gestor.isBlank() && servidor == Byte.MIN_VALUE) { // Only id and descripcion
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Descripcion = '" + descripcion + "'";
-			} else if (id.isBlank()) { // descripcion, gestor and servidor
-				query = "SELECT * FROM Aplicacion WHERE Descripcion = '" + descripcion + "' AND Gestor = '" + gestor
-						+ "' AND Servidor = '" + servidor + "'";
-			} else if (descripcion.isBlank()) { // id, gestor and servidor
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Gestor = '" + gestor + "' AND Servidor = '"
-						+ servidor + "'";
-			} else if (gestor.isBlank()) { // id, descripcion and servidor
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Descripcion = '" + descripcion
-						+ "' AND Servidor = '" + servidor + "'";
-			} else if (servidor == Byte.MIN_VALUE) { // id, descripcion and gestor
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Descripcion = '" + descripcion
-						+ "' AND Gestor = '" + gestor + "'";
-			} else { // All fields are not empty
-				query = "SELECT * FROM Aplicacion WHERE ID = '" + id + "' AND Descripcion = '" + descripcion
-						+ "' AND Gestor = '" + gestor + "' AND Servidor = '" + servidor + "'";
+	
+			String query = "SELECT * FROM Aplicacion WHERE 1 = 1";
+			// Dynamic queries are used
+			if (!id.isBlank()) {
+				query += " AND ID LIKE '%" + id + "%'";
 			}
+			if (!descripcion.isBlank()) {
+				query += " AND Descripcion LIKE '%" + descripcion + "%'";
+			}
+			if (!gestor.isBlank()) {
+				query += " AND Gestor LIKE '%" + gestor + "%'";
+			}
+			if (servidor != Byte.MIN_VALUE) {
+				query += " AND Servidor = " + servidor;
+			}
+			
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -120,7 +97,7 @@ public class AplicacionDaoImpl implements AplicacionDao {
 	}
 
 	@Override
-	public boolean deleteAplicacion(String id) {
+	public boolean deleteAplicaciones(String id, String descripcion, String gestor, byte servidor) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			String query = "DELETE FROM Aplicacion WHERE ID = '" + id + "'";

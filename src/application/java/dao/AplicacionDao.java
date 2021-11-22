@@ -11,7 +11,7 @@ public interface AplicacionDao {
 
 	public boolean insertAplicacion(Aplicacion aplicacion);
 
-	public boolean deleteAplicacion(String id);
+	public boolean deleteAplicaciones(String id, String descripcion, String gestor, byte servidor);
 
 	public boolean updateAplicacion(String id, Aplicacion aplicacion);
 }

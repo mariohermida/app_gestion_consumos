@@ -63,34 +63,23 @@ public class ControllerAplicaciones {
 	}
 
 	@FXML
-	void mostrarTodo(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: mostrarTodo.");
-		updateTableViewAplicaciones(null);
-	}
-
-	@FXML
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
 
 		List<Aplicacion> aplicaciones = new ArrayList<>();
-		if (textFieldId.getText().isBlank() && textFieldDescripcion.getText().isBlank()
-				&& textFieldGestor.getText().isBlank() && textFieldServidor.getText().isBlank()) {
-			showError("Los cuatro campos no pueden estar vacíos.");
-		} else {
-			try {
-				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-				if (textFieldServidor.getText().isBlank()) {
-					// Server is set to MIN_VALUE in order to represent empty servidor field
-					aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-							textFieldGestor.getText(), Byte.MIN_VALUE);
-				} else {
-					aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-							textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				showError("Campos incorrectos.");
+		try {
+			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			if (textFieldServidor.getText().isBlank()) {
+				// Server is set to MIN_VALUE in order to represent empty servidor field
+				aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+						textFieldGestor.getText(), Byte.MIN_VALUE);
+			} else {
+				aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+						textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()));
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			showError("Campos incorrectos.");
 		}
 
 		updateTableViewAplicaciones(aplicaciones);
@@ -99,9 +88,11 @@ public class ControllerAplicaciones {
 	@FXML
 	void anyadir(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: anyadir.");
+		boolean error = false;
 
 		if (textFieldId.getText().isBlank() || textFieldServidor.getText().isBlank()) {
 			showError("Los campos ID y Servidor no pueden estar vacíos.");
+			error = true;
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
 			try {
@@ -109,10 +100,12 @@ public class ControllerAplicaciones {
 						.insertAplicacion(new Aplicacion(textFieldId.getText(), textFieldDescripcion.getText(),
 								textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de añadir la aplicación.");
+					error = true;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
+				error = true;
 			}
 		}
 
@@ -120,19 +113,38 @@ public class ControllerAplicaciones {
 		updateTableViewAplicaciones(null);
 
 		// Fields are set to blank
-		setTextFieldsToBlank();
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML
 	void eliminar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: eliminar.");
+		boolean error = false;
 
-		if (textFieldId.getText().isBlank()) {
-			showError("El campo ID no puede estar vacío.");
+		if (textFieldId.getText().isBlank() && textFieldDescripcion.getText().isBlank()
+				&& textFieldGestor.getText().isBlank() && textFieldServidor.getText().isBlank()) {
+			showError("Los cuatro campos no pueden estar vacíos.");
+			error = true;
 		} else {
-			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-			if (!aplicacionDao.deleteAplicacion(textFieldId.getText())) {
-				showError("Se produjo un error a la hora de eliminar la aplicación.");
+			try {
+				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+				if (textFieldServidor.getText().isBlank()) {
+					// Server is set to MIN_VALUE in order to represent empty servidor field
+					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+							textFieldGestor.getText(), Byte.MIN_VALUE)) {
+						showError("Se produjo un error a la hora de eliminar la aplicación.");
+					}
+				} else {
+					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+							textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()))) {
+						showError("Se produjo un error a la hora de eliminar la aplicación.");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
 			}
 		}
 
@@ -140,15 +152,19 @@ public class ControllerAplicaciones {
 		updateTableViewAplicaciones(null);
 
 		// Fields are set to blank
-		setTextFieldsToBlank();
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML
 	void modificar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: modificar.");
+		boolean error = false;
 
 		if (textFieldId.getText().isBlank()) {
 			showError("El campo ID no puede estar vacío.");
+			error = true;
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
 			String id = textFieldId.getText();
@@ -160,10 +176,12 @@ public class ControllerAplicaciones {
 						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
 								Byte.valueOf(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de modificar la aplicación.");
+					error = true;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
+				error = true;
 			}
 		}
 
@@ -171,7 +189,9 @@ public class ControllerAplicaciones {
 		updateTableViewAplicaciones(null);
 
 		// Fields are set to blank
-		setTextFieldsToBlank();
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML
@@ -185,7 +205,7 @@ public class ControllerAplicaciones {
 			textFieldServidor.setText(Byte.toString(aplicacion.getServidor()));
 		}
 	}
-	
+
 	@FXML
 	void restablecerCampos(ActionEvent event) {
 		setTextFieldsToBlank();
