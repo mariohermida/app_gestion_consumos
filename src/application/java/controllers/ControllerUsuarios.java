@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import application.java.dao.UsuarioDao;
 import application.java.dao.UsuarioDaoImpl;
+import application.java.model.Aplicacion;
 import application.java.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Class that manages all the events occurred in Usuarios.fxml
@@ -91,7 +93,8 @@ public class ControllerUsuarios {
 		} else {
 			try {
 				UsuarioDao usuarioDao = new UsuarioDaoImpl();
-				usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(), textFieldTelefono.getText());
+				usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
+						textFieldTelefono.getText());
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
@@ -118,6 +121,9 @@ public class ControllerUsuarios {
 
 		// After the insertion the list is updated
 		updateTableViewUsuarios(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
 	}
 
 	@FXML
@@ -135,6 +141,9 @@ public class ControllerUsuarios {
 
 		// After the deletion the list is updated
 		updateTableViewUsuarios(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
 	}
 
 	@FXML
@@ -158,6 +167,28 @@ public class ControllerUsuarios {
 
 		// After the insertion the list is updated
 		updateTableViewUsuarios(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
+	}
+
+	@FXML
+	void seleccionarUsuario(MouseEvent event) {
+		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
+
+		if (usuario != null) {
+			textFieldId.setText(usuario.getId());
+			textFieldNombre.setText(usuario.getNombre());
+			textFieldApellidos.setText(usuario.getApellidos());
+			textFieldEmail.setText(usuario.getEmail());
+			textFieldTelefono.setText(usuario.getTelefono());
+			textFieldDireccion.setText(usuario.getDireccion());
+		}
+	}
+
+	@FXML
+	void restablecerCampos(ActionEvent event) {
+		setTextFieldsToBlank();
 	}
 
 	/**
@@ -183,6 +214,20 @@ public class ControllerUsuarios {
 
 		// Show items
 		tableViewUsuarios.setItems(observableList);
+	}
+
+	/**
+	 * When an operation regarding the database is done all fields are set to blank
+	 * in order not to overwrite values.
+	 */
+	private void setTextFieldsToBlank() {
+		textFieldId.setText("");
+		textFieldNombre.setText("");
+		textFieldApellidos.setText("");
+		textFieldEmail.setText("");
+		textFieldTelefono.setText("");
+		textFieldDireccion.setText("");
+		textFieldNuevoId.setText("");
 	}
 
 	public void showError(String message) {
