@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1038.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1038.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerConsumos">
    <children>
       <Button layoutX="249.0" layoutY="39.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
          <font>
@@ -54,7 +54,7 @@
       <TextField fx:id="textFieldIdAplicacion" layoutX="236.0" layoutY="161.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldMes" layoutX="236.0" layoutY="198.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldConsumo" layoutX="236.0" layoutY="234.0" prefHeight="25.0" prefWidth="300.0" />
-      <TableView fx:id="tableViewConsumos" layoutX="24.0" layoutY="290.0" onMouseClicked="#seleccionarAplicacion" prefHeight="476.0" prefWidth="990.0">
+      <TableView fx:id="tableViewConsumos" layoutX="24.0" layoutY="290.0" onMouseClicked="#seleccionarConsumo" prefHeight="476.0" prefWidth="990.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
           <TableColumn fx:id="tableColumnIdUsuario" prefWidth="166.0" text="ID Usuario" />
