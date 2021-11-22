@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Class that manages all the events occurred in Aplicaciones.fxml
@@ -70,7 +71,7 @@ public class ControllerAplicaciones {
 	@FXML
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
-		
+
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		if (textFieldId.getText().isBlank() && textFieldDescripcion.getText().isBlank()
 				&& textFieldGestor.getText().isBlank() && textFieldServidor.getText().isBlank()) {
@@ -117,6 +118,9 @@ public class ControllerAplicaciones {
 
 		// After the insertion the list is updated
 		updateTableViewAplicaciones(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
 	}
 
 	@FXML
@@ -134,6 +138,9 @@ public class ControllerAplicaciones {
 
 		// After the deletion the list is updated
 		updateTableViewAplicaciones(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
 	}
 
 	@FXML
@@ -144,10 +151,14 @@ public class ControllerAplicaciones {
 			showError("El campo ID no puede estar vacío.");
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
+			String id = textFieldId.getText();
+			if (!textFieldNuevoId.getText().isBlank()) {
+				id = textFieldNuevoId.getText();
+			}
 			try {
 				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
-						new Aplicacion(textFieldNuevoId.getText(), textFieldDescripcion.getText(),
-								textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText())))) {
+						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
+								Byte.valueOf(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de modificar la aplicación.");
 				}
 			} catch (Exception e) {
@@ -158,6 +169,26 @@ public class ControllerAplicaciones {
 
 		// After the insertion the list is updated
 		updateTableViewAplicaciones(null);
+
+		// Fields are set to blank
+		setTextFieldsToBlank();
+	}
+
+	@FXML
+	void seleccionarAplicacion(MouseEvent event) {
+		Aplicacion aplicacion = tableViewAplicaciones.getSelectionModel().getSelectedItem();
+
+		if (aplicacion != null) {
+			textFieldId.setText(aplicacion.getId());
+			textFieldDescripcion.setText(aplicacion.getDescripcion());
+			textFieldGestor.setText(aplicacion.getGestor());
+			textFieldServidor.setText(Byte.toString(aplicacion.getServidor()));
+		}
+	}
+	
+	@FXML
+	void restablecerCampos(ActionEvent event) {
+		setTextFieldsToBlank();
 	}
 
 	/**
@@ -184,6 +215,18 @@ public class ControllerAplicaciones {
 
 		// Show items
 		tableViewAplicaciones.setItems(observableList);
+	}
+
+	/**
+	 * When an operation regarding the database is done all fields are set to blank
+	 * in order not to overwrite values.
+	 */
+	private void setTextFieldsToBlank() {
+		textFieldId.setText("");
+		textFieldDescripcion.setText("");
+		textFieldGestor.setText("");
+		textFieldServidor.setText("");
+		textFieldNuevoId.setText("");
 	}
 
 	public void showError(String message) {

@@ -43,7 +43,7 @@
       <TextField fx:id="textFieldDescripcion" layoutX="140.0" layoutY="124.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldGestor" layoutX="140.0" layoutY="161.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldServidor" layoutX="140.0" layoutY="198.0" prefHeight="25.0" prefWidth="300.0" />
-      <TableView fx:id="tableViewAplicaciones" layoutX="21.0" layoutY="263.0" prefHeight="455.0" prefWidth="997.0">
+      <TableView fx:id="tableViewAplicaciones" layoutX="21.0" layoutY="263.0" onMouseClicked="#seleccionarAplicacion" prefHeight="455.0" prefWidth="997.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
           <TableColumn fx:id="tableColumnDescripcion" prefWidth="377.0" text="Descripción" />
@@ -74,6 +74,11 @@
       <Button layoutX="853.0" layoutY="126.0" mnemonicParsing="false" onAction="#mostrarTodo" prefHeight="46.0" prefWidth="137.0" text="Mostrar todo">
          <font>
             <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="153.0" layoutY="39.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
+         <font>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Button>
    </children>
