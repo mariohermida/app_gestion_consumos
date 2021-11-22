@@ -1,8 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="761.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal"></Pane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1038.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
+   <children>
+      <Button layoutX="249.0" layoutY="39.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="112.0" layoutY="81.0" prefHeight="37.0" prefWidth="122.0" text="ID" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="310.0" layoutY="81.0" prefHeight="37.0" prefWidth="81.0" text="Nuevo ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="118.0" prefHeight="37.0" prefWidth="122.0" text="ID Usuario">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="155.0" prefHeight="37.0" prefWidth="122.0" text="ID Aplicación">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="192.0" prefHeight="37.0" prefWidth="122.0" text="Mes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="228.0" prefHeight="37.0" prefWidth="122.0" text="Consumo (MB)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldId" layoutX="161.0" layoutY="87.0" prefHeight="25.0" prefWidth="137.0" />
+      <TextField fx:id="textFieldNuevoId" layoutX="399.0" layoutY="87.0" prefHeight="25.0" prefWidth="137.0" />
+      <TextField fx:id="textFieldIdUsuario" layoutX="236.0" layoutY="124.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldIdAplicacion" layoutX="236.0" layoutY="161.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldMes" layoutX="236.0" layoutY="198.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldConsumo" layoutX="236.0" layoutY="234.0" prefHeight="25.0" prefWidth="300.0" />
+      <TableView fx:id="tableViewConsumos" layoutX="24.0" layoutY="290.0" onMouseClicked="#seleccionarAplicacion" prefHeight="476.0" prefWidth="990.0">
+        <columns>
+          <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
+          <TableColumn fx:id="tableColumnIdUsuario" prefWidth="166.0" text="ID Usuario" />
+            <TableColumn fx:id="tableColumnIdAplicacion" prefWidth="192.0" text="ID Aplicación" />
+            <TableColumn fx:id="tableColumnMes" prefWidth="222.0" text="Mes" />
+            <TableColumn fx:id="tableColumnConsumo" prefWidth="264.0" text="Consumo (MB)" />
+        </columns>
+      </TableView>
+      <Button layoutX="596.0" layoutY="114.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="137.0" text="Buscar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="596.0" layoutY="188.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="137.0" text="Modificar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="773.0" layoutY="114.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="137.0" text="Añadir">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="773.0" layoutY="188.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="137.0" text="Eliminar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
