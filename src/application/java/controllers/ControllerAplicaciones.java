@@ -70,14 +70,14 @@ public class ControllerAplicaciones {
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-			if (textFieldServidor.getText().isBlank()) {
-				// Server is set to MIN_VALUE in order to represent empty servidor field
-				aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-						textFieldGestor.getText(), Byte.MIN_VALUE);
-			} else {
-				aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-						textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()));
+			// Set default value for servidor field
+			byte servidor = Byte.MIN_VALUE;
+			// If the parameter is given, take it
+			if (!textFieldServidor.getText().isBlank()) {
+				servidor = Byte.valueOf(textFieldServidor.getText());
 			}
+			aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+					textFieldGestor.getText(), servidor);
 		} catch (Exception e) {
 			e.printStackTrace();
 			showError("Campos incorrectos.");
@@ -168,19 +168,14 @@ public class ControllerAplicaciones {
 		} else {
 			try {
 				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-				if (textFieldServidor.getText().isBlank()) {
-					// Server is set to MIN_VALUE in order to represent empty servidor field
-					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-							textFieldGestor.getText(), Byte.MIN_VALUE)) {
-						showError("Se produjo un error a la hora de eliminar la aplicación.");
-						error = true;
-					}
-				} else {
-					if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-							textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText()))) {
-						showError("Se produjo un error a la hora de eliminar la aplicación.");
-						error = true;
-					}
+				byte servidor = Byte.MIN_VALUE;
+				if (!textFieldServidor.getText().isBlank()) {
+					servidor = Byte.valueOf(textFieldServidor.getText());
+				}
+				if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
+						textFieldGestor.getText(), servidor)) {
+					showError("Se produjo un error a la hora de eliminar la aplicación.");
+					error = true;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
