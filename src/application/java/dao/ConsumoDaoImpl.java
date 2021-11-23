@@ -64,6 +64,24 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	}
 
 	@Override
+	public boolean updateConsumo(int id, Consumo consumo) {
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "UPDATE Consumo_usuario SET ID = " + consumo.getId() + ", ID_usuario = '" + consumo.getIdUsuario()
+					+ "', ID_aplicacion = '" + consumo.getIdAplicacion() + "', Mes = " + consumo.getMes()
+					+ ", Consumo = " + consumo.getConsumo() + " WHERE ID = '" + id + "'";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	@Override
 	public boolean insertConsumo(Consumo consumo) {
 
 		return false;
@@ -71,12 +89,6 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	@Override
 	public boolean deleteConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumo) {
-
-		return false;
-	}
-
-	@Override
-	public boolean updateConsumo(int id, Consumo consumo) {
 
 		return false;
 	}

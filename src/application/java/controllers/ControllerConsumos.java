@@ -118,6 +118,40 @@ public class ControllerConsumos {
 	@FXML
 	void modificar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: modificar.");
+		boolean error = false;
+
+		if (textFieldId.getText().isBlank()
+				|| Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString()) == (byte) 0) {
+			showError("El campo ID no puede estar vacío y el campo Mes no puede ser 0.");
+			error = true;
+		} else {
+			ConsumoDao consumoDao = new ConsumoDaoImpl();
+			try {
+				int id = Integer.parseInt(textFieldId.getText());
+				if (!textFieldNuevoId.getText().isBlank()) {
+					id = Integer.parseInt(textFieldNuevoId.getText());
+				}
+				if (!consumoDao.updateConsumo(Integer.parseInt(textFieldId.getText()),
+						new Consumo(id, textFieldIdUsuario.getText(), textFieldIdAplicacion.getText(),
+								Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
+								Integer.parseInt(textFieldNuevoConsumo.getText())))) {
+					showError("Se produjo un error a la hora de modificar el consumo.");
+					error = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+				error = true;
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewConsumos(null);
+
+		// Fields are set to blank
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML
