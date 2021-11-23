@@ -10,11 +10,10 @@ public interface UsuarioDao {
 	public List<Usuario> getUsuarios(String id, String nombre, String apellidos, String email, String telefono,
 			String direccion);
 
+	public boolean updateUsuario(String id, Usuario usuario);
+
 	public boolean insertUsuario(Usuario usuario);
 
 	public boolean deleteUsuarios(String id, String nombre, String apellidos, String email, String telefono,
 			String direccion);
-
-	public boolean updateUsuario(String id, Usuario usuario);
-
 }

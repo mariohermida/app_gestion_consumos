@@ -8,10 +8,10 @@ public interface AplicacionDao {
 	public List<Aplicacion> getAllAplicaciones();
 
 	public List<Aplicacion> getAplicaciones(String id, String descripcion, String gestor, byte servidor);
+	
+	public boolean updateAplicacion(String id, Aplicacion aplicacion);
 
 	public boolean insertAplicacion(Aplicacion aplicacion);
 
 	public boolean deleteAplicaciones(String id, String descripcion, String gestor, byte servidor);
-
-	public boolean updateAplicacion(String id, Aplicacion aplicacion);
 }
