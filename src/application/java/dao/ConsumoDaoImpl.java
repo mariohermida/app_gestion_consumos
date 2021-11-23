@@ -23,17 +23,18 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	@Override
 	public List<Consumo> getAllConsumos() {
-		return getConsumos(Integer.MIN_VALUE, "", "", (byte) 0, Integer.MIN_VALUE);
+		return getConsumos(Integer.MIN_VALUE, "", "", (byte) 0, 0, Integer.MAX_VALUE);
 	}
 
 	@Override
-	public List<Consumo> getConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumo) {
+	public List<Consumo> getConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumoMin,
+			int consumoMax) {
 		List<Consumo> consumos = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
 			// By default it shows all existing consumos
-			String query = "SELECT * FROM consumo_usuario WHERE 1 = 1";
+			String query = "SELECT * FROM consumo_usuario WHERE Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
 			if (id != Integer.MIN_VALUE) {
 				query += " AND ID = " + id;
 			}
@@ -45,9 +46,6 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			}
 			if (mes != 0) {
 				query += " AND Mes = " + mes;
-			}
-			if (consumo != Integer.MIN_VALUE) {
-				query += " AND Consumo = " + consumo;
 			}
 
 			Statement st = connection.createStatement();

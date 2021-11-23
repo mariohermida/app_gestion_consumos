@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import application.java.dao.ConsumoDao;
 import application.java.dao.ConsumoDaoImpl;
-import application.java.model.Aplicacion;
 import application.java.model.Consumo;
-import application.java.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,16 +42,22 @@ public class ControllerConsumos {
 			(byte) 4, (byte) 5, (byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 10, (byte) 11, (byte) 12);
 
 	@FXML
-	private TextField textFieldConsumo;
+	private TextField textFieldConsumoMin;
+
+	@FXML
+	private TextField textFieldConsumoMax;
+
+	@FXML
+	private TextField textFieldNuevoConsumo;
 
 	@FXML
 	private TableColumn<Consumo, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Consumo, Usuario> tableColumnIdUsuario;
+	private TableColumn<Consumo, String> tableColumnIdUsuario;
 
 	@FXML
-	private TableColumn<Consumo, Aplicacion> tableColumnIdAplicacion;
+	private TableColumn<Consumo, String> tableColumnIdAplicacion;
 
 	@FXML
 	private TableColumn<Consumo, Byte> tableColumnMes;
@@ -87,33 +91,22 @@ public class ControllerConsumos {
 		List<Consumo> consumos = new ArrayList<>();
 		try {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
-			// For fields that are empty integers MIN_VALUE is used in order not to trigger
-			// an exception
-			if (textFieldId.getText().isBlank()) {
-				if (textFieldConsumo.getText().isBlank()) {
-					consumos = consumoDao.getConsumos(Integer.MIN_VALUE, textFieldIdUsuario.getText(),
-							textFieldIdAplicacion.getText(),
-							Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
-							Integer.MIN_VALUE);
-				} else {
-					consumos = consumoDao.getConsumos(Integer.MIN_VALUE, textFieldIdUsuario.getText(),
-							textFieldIdAplicacion.getText(),
-							Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
-							Integer.valueOf(textFieldConsumo.getText()));
-				}
-			} else {
-				if (textFieldConsumo.getText().isBlank()) {
-					consumos = consumoDao.getConsumos(Integer.valueOf(textFieldId.getText()),
-							textFieldIdUsuario.getText(), textFieldIdAplicacion.getText(),
-							Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
-							Integer.MIN_VALUE);
-				} else {
-					consumos = consumoDao.getConsumos(Integer.valueOf(textFieldId.getText()),
-							textFieldIdUsuario.getText(), textFieldIdAplicacion.getText(),
-							Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
-							Integer.valueOf(textFieldConsumo.getText()));
-				}
+			// Set default values
+			int id = Integer.MIN_VALUE;
+			int consumoMin = 0;
+			int consumoMax = Integer.MAX_VALUE;
+			// Set given values if fields are not empty
+			if (!textFieldId.getText().isBlank()) {
+				id = Integer.valueOf(textFieldId.getText());
 			}
+			if (!textFieldConsumoMin.getText().isBlank()) {
+				consumoMin = Integer.valueOf(textFieldConsumoMin.getText());
+			}
+			if (!textFieldConsumoMax.getText().isBlank()) {
+				consumoMax = Integer.valueOf(textFieldConsumoMax.getText());
+			}
+			consumos = consumoDao.getConsumos(id, textFieldIdUsuario.getText(), textFieldIdAplicacion.getText(),
+					Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()), consumoMin, consumoMax);
 		} catch (Exception e) {
 			e.printStackTrace();
 			showError("Campos incorrectos.");
@@ -146,7 +139,7 @@ public class ControllerConsumos {
 			textFieldIdUsuario.setText(consumo.getIdUsuario());
 			textFieldIdAplicacion.setText(consumo.getIdAplicacion());
 			comboBoxMes.setValue(consumo.getMes());
-			textFieldConsumo.setText(Integer.toString(consumo.getConsumo()));
+			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
 		}
 	}
 
@@ -189,8 +182,10 @@ public class ControllerConsumos {
 		textFieldIdUsuario.setText("");
 		textFieldIdAplicacion.setText("");
 		comboBoxMes.setValue((byte) 0);
-		textFieldConsumo.setText("");
+		textFieldConsumoMin.setText("");
+		textFieldConsumoMax.setText("");
 		textFieldNuevoId.setText("");
+		textFieldNuevoConsumo.setText("");
 	}
 
 	public void showError(String message) {

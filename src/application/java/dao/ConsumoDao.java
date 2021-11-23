@@ -7,7 +7,7 @@ public interface ConsumoDao {
 
 	public List<Consumo> getAllConsumos();
 
-	public List<Consumo> getConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumo);
+	public List<Consumo> getConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumoMin, int consumoMax);
 
 	public boolean insertConsumo(Consumo consumo);
 
