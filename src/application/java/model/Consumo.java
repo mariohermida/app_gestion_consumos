@@ -1,21 +1,21 @@
 package application.java.model;
 
 /**
- * Class that defines the structure of Aplicacion-type object (DAO design
+ * Class that defines the structure of Consumo-type object (DAO design
  * pattern is applied)
  */
 public class Consumo {
 
 	private int id; // Primary key
-	private Usuario usuario;
-	private Aplicacion aplicacion;
-	private Mes mes;
+	private String idUsuario;
+	private String idAplicacion;
+	private byte mes;
 	private int consumo;
 
-	public Consumo(int id, Usuario usuario, Aplicacion aplicacion, Mes mes, int consumo) {
+	public Consumo(int id, String idUsuario, String idAplicacion, byte mes, int consumo) {
 		this.id = id;
-		this.usuario = usuario;
-		this.aplicacion = aplicacion;
+		this.idUsuario = idUsuario;
+		this.idAplicacion = idAplicacion;
 		this.mes = mes;
 		this.consumo = consumo;
 	}
@@ -28,27 +28,27 @@ public class Consumo {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setIdUsuario(String idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public Aplicacion getAplicacion() {
-		return aplicacion;
+	public String getIdAplicacion() {
+		return idAplicacion;
 	}
 
-	public void setAplicacion(Aplicacion aplicacion) {
-		this.aplicacion = aplicacion;
+	public void setIdAplicacion(String idAplicacion) {
+		this.idAplicacion = idAplicacion;
 	}
 
-	public Mes getMes() {
+	public byte getMes() {
 		return mes;
 	}
 
-	public void setMes(Mes mes) {
+	public void setMes(byte mes) {
 		this.mes = mes;
 	}
 
@@ -62,7 +62,7 @@ public class Consumo {
 
 	@Override
 	public String toString() {
-		return "Id: " + id + "; Usuario: " + usuario + "; Aplicación: " + aplicacion + "; Mes: " + mes + "; Consumo: "
+		return "Id: " + id + "; Usuario: " + idUsuario + "; Aplicación: " + idAplicacion + "; Mes: " + mes + "; Consumo: "
 				+ consumo;
 	}
 

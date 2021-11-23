@@ -52,7 +52,7 @@
       <TextField fx:id="textFieldNuevoId" layoutX="399.0" layoutY="87.0" prefHeight="25.0" prefWidth="137.0" />
       <TextField fx:id="textFieldIdUsuario" layoutX="236.0" layoutY="124.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldIdAplicacion" layoutX="236.0" layoutY="161.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldMes" layoutX="236.0" layoutY="198.0" prefHeight="25.0" prefWidth="300.0" />
+      <ComboBox fx:id="comboBoxMes" layoutX="236.0" layoutY="198.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldConsumo" layoutX="236.0" layoutY="234.0" prefHeight="25.0" prefWidth="300.0" />
       <TableView fx:id="tableViewConsumos" layoutX="24.0" layoutY="290.0" onMouseClicked="#seleccionarConsumo" prefHeight="476.0" prefWidth="990.0">
         <columns>
