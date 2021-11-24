@@ -60,8 +60,8 @@
       </Label>
       <TextField fx:id="textFieldId" layoutX="90.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
       <TextField fx:id="textFieldNuevoId" layoutX="328.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
-      <TextField fx:id="textFieldIdUsuario" layoutX="165.0" layoutY="125.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldIdAplicacion" layoutX="165.0" layoutY="162.0" prefHeight="25.0" prefWidth="300.0" />
+      <ComboBox fx:id="comboBoxIdUsuario" layoutX="165.0" layoutY="125.0" prefHeight="25.0" prefWidth="300.0" />
+      <ComboBox fx:id="comboBoxIdAplicacion" layoutX="165.0" layoutY="162.0" prefHeight="25.0" prefWidth="300.0" />
       <ComboBox fx:id="comboBoxMes" layoutX="165.0" layoutY="199.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldConsumoMin" layoutX="209.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor mínimo" />
       <TextField fx:id="textFieldConsumoMax" layoutX="359.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor máximo" />
