@@ -2,7 +2,6 @@ package application.java.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import application.java.dao.AplicacionDaoImpl;
 import application.java.dao.ConsumoDao;
 import application.java.dao.ConsumoDaoImpl;
@@ -194,6 +193,47 @@ public class ControllerConsumos {
 	@FXML
 	void anyadir(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: anyadir.");
+		boolean error = false;
+
+		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
+				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
+				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
+			showError("Los campos ID Usuario, ID Aplicación y Mes no pueden estar vacíos.");
+			error = true;
+		} else {
+			ConsumoDao consumoDao = new ConsumoDaoImpl();
+			// Set default values
+			int id = Integer.MIN_VALUE;
+			int consumo = 0;
+			// Set given values if fields are not empty
+			if (!textFieldNuevoId.getText().isBlank()) {
+				id = Integer.parseInt(textFieldNuevoId.getText());
+			}
+			if (!textFieldNuevoConsumo.getText().isBlank()) {
+				consumo = Integer.parseInt(textFieldNuevoConsumo.getText().toString());
+			}
+			try {
+				if (!consumoDao.insertConsumo(new Consumo(id,
+						comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
+						comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
+						Byte.valueOf(comboBoxMes.getSelectionModel().getSelectedItem().toString()), consumo))) {
+					showError("Se produjo un error a la hora de añadir la aplicación.");
+					error = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showError("Campos incorrectos.");
+				error = true;
+			}
+		}
+
+		// After the insertion the list is updated
+		updateTableViewConsumos(null);
+
+		// Fields are set to blank
+		if (!error) {
+			setTextFieldsToBlank();
+		}
 	}
 
 	@FXML

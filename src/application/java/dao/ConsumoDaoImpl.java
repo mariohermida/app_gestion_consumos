@@ -83,6 +83,23 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	@Override
 	public boolean insertConsumo(Consumo consumo) {
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			// By default ID is null, due to it is an autoincremental data type
+			String id = "NULL";
+			if (consumo.getId() != Integer.MIN_VALUE) {
+				id = Integer.toString(consumo.getId());
+			}
+			String query = "INSERT INTO Consumo_usuario (ID, ID_usuario, ID_aplicacion, Mes, Consumo) VALUES (" + id
+					+ ", '" + consumo.getIdUsuario() + "', '" + consumo.getIdAplicacion() + "', " + consumo.getMes()
+					+ ", " + consumo.getConsumo() + ")";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return false;
 	}
