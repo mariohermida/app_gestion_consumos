@@ -105,7 +105,33 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	}
 
 	@Override
-	public boolean deleteConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumo) {
+	public boolean deleteConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumoMin,
+			int consumoMax) {
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			// Dynamic querying
+			String query = "DELETE FROM consumo_usuario WHERE";
+			if (id != Integer.MIN_VALUE) {
+				query += " ID = " + id;
+			} else {
+				query += " Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
+				if (!idUsuario.isBlank()) {
+					query += " AND ID_usuario LIKE '%" + idUsuario + "%'";
+				}
+				if (!idAplicacion.isBlank()) {
+					query += " AND ID_aplicacion LIKE '%" + idAplicacion + "%'";
+				}
+				if (mes != 0) {
+					query += " AND Mes = " + mes;
+				}
+			}
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return false;
 	}

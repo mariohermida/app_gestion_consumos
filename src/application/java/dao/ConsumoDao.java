@@ -13,5 +13,5 @@ public interface ConsumoDao {
 
 	public boolean insertConsumo(Consumo consumo);
 
-	public boolean deleteConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumo);
+	public boolean deleteConsumos(int id, String idUsuario, String idAplicacion, byte mes, int consumoMin, int consumoMax);
 }
