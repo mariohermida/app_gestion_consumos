@@ -11,89 +11,145 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1038.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerConsumos">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1313.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerConsumos">
    <children>
-      <Button layoutX="178.0" layoutY="40.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
+      <Button layoutX="131.0" layoutY="43.0" mnemonicParsing="false" onAction="#restablecerCamposConsumo" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="41.0" layoutY="82.0" prefHeight="37.0" prefWidth="122.0" text="ID" textAlignment="RIGHT">
+      <Label layoutX="11.0" layoutY="82.0" prefHeight="37.0" prefWidth="122.0" text="ID" textAlignment="RIGHT">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="239.0" layoutY="82.0" prefHeight="37.0" prefWidth="81.0" text="Nuevo ID">
+      <Label layoutX="209.0" layoutY="82.0" prefHeight="37.0" prefWidth="81.0" text="Nuevo ID">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="119.0" prefHeight="37.0" prefWidth="122.0" text="ID Usuario">
+      <Label layoutX="11.0" layoutY="119.0" prefHeight="37.0" prefWidth="122.0" text="ID Usuario">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="156.0" prefHeight="37.0" prefWidth="122.0" text="ID Aplicación">
+      <Label layoutX="11.0" layoutY="156.0" prefHeight="37.0" prefWidth="122.0" text="ID Aplicación">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="193.0" prefHeight="37.0" prefWidth="122.0" text="Mes">
+      <Label layoutX="11.0" layoutY="193.0" prefHeight="37.0" prefWidth="122.0" text="Mes">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="229.0" prefHeight="37.0" prefWidth="179.0" text="Consumo (MB) entre">
+      <Label layoutX="11.0" layoutY="229.0" prefHeight="37.0" prefWidth="179.0" text="Consumo (MB) entre">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="321.0" layoutY="236.0" prefHeight="30.0" prefWidth="28.0" style="-fx-background-color: black;" text="  y" textAlignment="RIGHT" textFill="WHITE">
+      <Label layoutX="291.0" layoutY="236.0" prefHeight="30.0" prefWidth="28.0" text="  y" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="266.0" prefHeight="37.0" prefWidth="145.0" text="Nuevo consumo" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldId" layoutX="60.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
+      <TextField fx:id="textFieldNuevoId" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
+      <ComboBox fx:id="comboBoxIdUsuario" layoutX="135.0" layoutY="125.0" prefHeight="25.0" prefWidth="300.0" />
+      <ComboBox fx:id="comboBoxIdAplicacion" layoutX="135.0" layoutY="162.0" prefHeight="25.0" prefWidth="300.0" />
+      <ComboBox fx:id="comboBoxMes" layoutX="135.0" layoutY="199.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldConsumoMin" layoutX="179.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor mínimo" />
+      <TextField fx:id="textFieldConsumoMax" layoutX="329.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor máximo" />
+      <TextField fx:id="textFieldNuevoConsumo" layoutX="177.0" layoutY="272.0" prefHeight="25.0" prefWidth="145.0" />
+      <Button layoutX="452.0" layoutY="30.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="106.0" text="Buscar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
-      </Label>
-      <Label layoutX="508.0" layoutY="193.0" prefHeight="37.0" prefWidth="145.0" style="-fx-background-color: black;" text="Nuevo consumo" textAlignment="CENTER" textFill="WHITE">
+      </Button>
+      <Button layoutX="566.0" layoutY="30.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="106.0" text="Modificar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
-      </Label>
-      <TextField fx:id="textFieldId" layoutX="90.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
-      <TextField fx:id="textFieldNuevoId" layoutX="328.0" layoutY="88.0" prefHeight="25.0" prefWidth="137.0" />
-      <ComboBox fx:id="comboBoxIdUsuario" layoutX="165.0" layoutY="125.0" prefHeight="25.0" prefWidth="300.0" />
-      <ComboBox fx:id="comboBoxIdAplicacion" layoutX="165.0" layoutY="162.0" prefHeight="25.0" prefWidth="300.0" />
-      <ComboBox fx:id="comboBoxMes" layoutX="165.0" layoutY="199.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldConsumoMin" layoutX="209.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor mínimo" />
-      <TextField fx:id="textFieldConsumoMax" layoutX="359.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor máximo" />
-      <TextField fx:id="textFieldNuevoConsumo" layoutX="508.0" layoutY="235.0" prefHeight="25.0" prefWidth="145.0" />
-      <TableView fx:id="tableViewConsumos" layoutX="24.0" layoutY="290.0" onMouseClicked="#seleccionarConsumo" prefHeight="469.0" prefWidth="990.0">
+      </Button>
+      <Button layoutX="680.0" layoutY="30.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="106.0" text="Añadir">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="794.0" layoutY="30.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="106.0" text="Eliminar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableViewConsumos" layoutX="452.0" layoutY="87.0" onMouseClicked="#seleccionarConsumo" prefHeight="209.0" prefWidth="836.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
-          <TableColumn fx:id="tableColumnIdUsuario" prefWidth="166.0" text="ID Usuario" />
-            <TableColumn fx:id="tableColumnIdAplicacion" prefWidth="192.0" text="ID Aplicación" />
-            <TableColumn fx:id="tableColumnMes" prefWidth="222.0" text="Mes" />
-            <TableColumn fx:id="tableColumnConsumo" prefWidth="264.0" text="Consumo (MB)" />
+          <TableColumn fx:id="tableColumnIdUsuarioConsumos" prefWidth="190.0" text="ID Usuario" />
+            <TableColumn fx:id="tableColumnIdAplicacion" prefWidth="235.0" text="ID Aplicación" />
+            <TableColumn fx:id="tableColumnMes" prefWidth="76.0" text="Mes" />
+            <TableColumn fx:id="tableColumnConsumo" prefWidth="184.0" text="Consumo (MB)" />
         </columns>
       </TableView>
-      <Button layoutX="707.0" layoutY="114.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="137.0" text="Buscar">
+      <Button layoutX="134.0" layoutY="343.0" mnemonicParsing="false" onAction="#restablecerCamposUsuario" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="11.0" layoutY="382.0" prefHeight="37.0" prefWidth="23.0" text="ID" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="419.0" prefHeight="37.0" prefWidth="102.0" text="Nombre">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="456.0" prefHeight="37.0" prefWidth="102.0" text="Apellidos">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="493.0" prefHeight="37.0" prefWidth="102.0" text="Email">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="533.0" prefHeight="37.0" prefWidth="102.0" text="Teléfono">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="570.0" prefHeight="37.0" prefWidth="102.0" text="Dirección">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldIdUsuario" layoutX="114.0" layoutY="388.0" prefHeight="25.0" prefWidth="240.0" />
+      <TextField fx:id="textFieldNombre" layoutX="113.0" layoutY="426.0" prefHeight="25.0" prefWidth="240.0" />
+      <TextField fx:id="textFieldApellidos" layoutX="113.0" layoutY="462.0" prefHeight="25.0" prefWidth="240.0" />
+      <TextField fx:id="textFieldEmail" layoutX="113.0" layoutY="499.0" prefHeight="25.0" prefWidth="240.0" />
+      <TextField fx:id="textFieldTelefono" layoutX="113.0" layoutY="539.0" prefHeight="25.0" prefWidth="240.0" />
+      <TextField fx:id="textFieldDireccion" layoutX="113.0" layoutY="576.0" prefHeight="25.0" prefWidth="240.0" />
+      <Button layoutX="370.0" layoutY="340.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="46.0" prefWidth="157.0" text="Buscar usuario">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="707.0" layoutY="188.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="137.0" text="Modificar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="884.0" layoutY="114.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="137.0" text="Añadir">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="884.0" layoutY="188.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="137.0" text="Eliminar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
+      <TableView fx:id="tableViewUsuarios" layoutX="370.0" layoutY="395.0" onMouseClicked="#seleccionarUsuario" prefHeight="209.0" prefWidth="918.0">
+         <columns>
+            <TableColumn fx:id="tableColumnIdUsuario" prefWidth="99.0" text="ID" />
+            <TableColumn fx:id="tableColumnNombre" prefWidth="95.0" text="Nombre" />
+            <TableColumn fx:id="tableColumnApellidos" prefWidth="142.0" text="Apellidos" />
+            <TableColumn fx:id="tableColumnEmail" prefWidth="249.0" text="Email" />
+            <TableColumn fx:id="tableColumnTelefono" minWidth="6.0" prefWidth="92.0" text="Teléfono" />
+            <TableColumn fx:id="tableColumnDireccion" prefWidth="236.0" text="Dirección" />
+         </columns>
+      </TableView>
    </children>
 </Pane>
