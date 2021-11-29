@@ -74,7 +74,7 @@ public class ControllerAplicaciones {
 			byte servidor = Byte.MIN_VALUE;
 			// If the parameter is given, take it
 			if (!textFieldServidor.getText().isBlank()) {
-				servidor = Byte.valueOf(textFieldServidor.getText());
+				servidor = Byte.parseByte(textFieldServidor.getText());
 			}
 			aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
 					textFieldGestor.getText(), servidor);
@@ -103,7 +103,7 @@ public class ControllerAplicaciones {
 			try {
 				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
 						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
-								Byte.valueOf(textFieldServidor.getText())))) {
+								Byte.parseByte(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de modificar la aplicación.");
 					error = true;
 				}
@@ -136,7 +136,7 @@ public class ControllerAplicaciones {
 			try {
 				if (!aplicacionDao
 						.insertAplicacion(new Aplicacion(textFieldId.getText(), textFieldDescripcion.getText(),
-								textFieldGestor.getText(), Byte.valueOf(textFieldServidor.getText())))) {
+								textFieldGestor.getText(), Byte.parseByte(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de añadir la aplicación.");
 					error = true;
 				}
@@ -170,7 +170,7 @@ public class ControllerAplicaciones {
 				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
 				byte servidor = Byte.MIN_VALUE;
 				if (!textFieldServidor.getText().isBlank()) {
-					servidor = Byte.valueOf(textFieldServidor.getText());
+					servidor = Byte.parseByte(textFieldServidor.getText());
 				}
 				if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
 						textFieldGestor.getText(), servidor)) {

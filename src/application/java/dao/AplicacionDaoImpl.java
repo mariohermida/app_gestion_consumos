@@ -106,16 +106,18 @@ public class AplicacionDaoImpl implements AplicacionDao {
 			String query = "DELETE FROM Aplicacion WHERE 1 = 1";
 			if (!id.isBlank()) {
 				query += " AND ID = '" + id + "'";
+			} else {
+				if (!descripcion.isBlank()) {
+					query += " AND Descripcion LIKE '%" + descripcion + "%'";
+				}
+				if (!gestor.isBlank()) {
+					query += " AND Gestor LIKE '%" + gestor + "%'";
+				}
+				if (servidor != Byte.MIN_VALUE) {
+					query += " AND Servidor = " + servidor;
+				}
 			}
-			if (!descripcion.isBlank()) {
-				query += " AND Descripcion LIKE '%" + descripcion + "%'";
-			}
-			if (!gestor.isBlank()) {
-				query += " AND Gestor LIKE '%" + gestor + "%'";
-			}
-			if (servidor != Byte.MIN_VALUE) {
-				query += " AND Servidor = " + servidor;
-			}
+
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
