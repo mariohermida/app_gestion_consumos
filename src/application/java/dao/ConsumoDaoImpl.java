@@ -34,7 +34,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
 			// By default it shows all existing consumos
-			String query = "SELECT * FROM consumo_usuario WHERE Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
+			String query = "SELECT * FROM Consumo_usuario WHERE Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
 			if (id != Integer.MIN_VALUE) {
 				query += " AND ID = " + id;
 			}
@@ -110,7 +110,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
-			String query = "DELETE FROM consumo_usuario WHERE";
+			String query = "DELETE FROM Consumo_usuario WHERE";
 			if (id != Integer.MIN_VALUE) {
 				query += " ID = " + id;
 			} else {
