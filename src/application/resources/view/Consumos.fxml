@@ -151,5 +151,10 @@
             <TableColumn fx:id="tableColumnDireccion" prefWidth="236.0" text="Dirección" />
          </columns>
       </TableView>
+      <Button layoutX="319.0" layoutY="43.0" mnemonicParsing="false" onAction="#refrescarCampos" prefHeight="30.0" prefWidth="87.0" text="Refrescar">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

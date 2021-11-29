@@ -123,25 +123,7 @@ public class ControllerConsumos {
 		tableColumnMes.setCellValueFactory(new PropertyValueFactory<>("mes"));
 		tableColumnConsumo.setCellValueFactory(new PropertyValueFactory<>("consumo"));
 
-		// Usuarios are loaded into the convenient comboBox
-		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
-		List<Usuario> usuarioList = new ArrayList<>();
-		usuarioList = usuarioDao.getAllUsuarios();
-		ObservableList<String> observableList = FXCollections.observableArrayList();
-		for (Usuario usuario : usuarioList) {
-			observableList.add(usuario.getId());
-		}
-		comboBoxIdUsuario.setItems(observableList);
-
-		// Aplicaciones are loaded into the convenient comboBox
-		AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
-		List<Aplicacion> aplicacionList = new ArrayList<>();
-		aplicacionList = aplicacionDao.getAllAplicaciones();
-		observableList = FXCollections.observableArrayList();
-		for (Aplicacion aplicacion : aplicacionList) {
-			observableList.add(aplicacion.getId());
-		}
-		comboBoxIdAplicacion.setItems(observableList);
+		refrescarCampos(null);
 
 		// Different mes values are loaded into the convenient comboBox
 		comboBoxMes.setItems(FXCollections.observableArrayList((byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
@@ -393,6 +375,29 @@ public class ControllerConsumos {
 	@FXML
 	void restablecerCamposUsuario(ActionEvent event) {
 		setTextFieldsToBlankUsuario();
+	}
+
+	@FXML
+	void refrescarCampos(ActionEvent event) {
+		// Usuarios are loaded into the convenient comboBox
+		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+		List<Usuario> usuarioList = new ArrayList<>();
+		usuarioList = usuarioDao.getAllUsuarios();
+		ObservableList<String> observableList = FXCollections.observableArrayList();
+		for (Usuario usuario : usuarioList) {
+			observableList.add(usuario.getId());
+		}
+		comboBoxIdUsuario.setItems(observableList);
+
+		// Aplicaciones are loaded into the convenient comboBox
+		AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
+		List<Aplicacion> aplicacionList = new ArrayList<>();
+		aplicacionList = aplicacionDao.getAllAplicaciones();
+		observableList = FXCollections.observableArrayList();
+		for (Aplicacion aplicacion : aplicacionList) {
+			observableList.add(aplicacion.getId());
+		}
+		comboBoxIdAplicacion.setItems(observableList);
 	}
 
 	/**
