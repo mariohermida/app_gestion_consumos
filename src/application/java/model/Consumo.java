@@ -1,31 +1,22 @@
 package application.java.model;
 
 /**
- * Class that defines the structure of Consumo-type object (DAO design
- * pattern is applied)
+ * Class that defines the structure of Consumo-type object (DAO design pattern
+ * is applied)
  */
 public class Consumo {
 
-	private int id; // Primary key
+	// The primary key is the combination of idUsuario, idAplicacion and mes
 	private String idUsuario;
 	private String idAplicacion;
 	private byte mes;
 	private int consumo;
 
-	public Consumo(int id, String idUsuario, String idAplicacion, byte mes, int consumo) {
-		this.id = id;
+	public Consumo(String idUsuario, String idAplicacion, byte mes, int consumo) {
 		this.idUsuario = idUsuario;
 		this.idAplicacion = idAplicacion;
 		this.mes = mes;
 		this.consumo = consumo;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getIdUsuario() {
@@ -62,8 +53,8 @@ public class Consumo {
 
 	@Override
 	public String toString() {
-		return "Id: " + id + "; Usuario: " + idUsuario + "; Aplicación: " + idAplicacion + "; Mes: " + mes + "; Consumo: "
-				+ consumo;
+		return "Usuario: " + idUsuario + "; Aplicación: " + idAplicacion + "; Mes: " + mes
+				+ "; Consumo: " + consumo;
 	}
 
 }

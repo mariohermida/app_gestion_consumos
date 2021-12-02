@@ -31,12 +31,6 @@ public class ControllerConsumos {
 	// Fields for Consumo
 
 	@FXML
-	private TextField textFieldId;
-
-	@FXML
-	private TextField textFieldNuevoId;
-
-	@FXML
 	private ComboBox<String> comboBoxIdUsuario;
 
 	@FXML
@@ -53,9 +47,6 @@ public class ControllerConsumos {
 
 	@FXML
 	private TextField textFieldNuevoConsumo;
-
-	@FXML
-	private TableColumn<Consumo, Integer> tableColumnId;
 
 	@FXML
 	private TableColumn<Consumo, String> tableColumnIdUsuarioConsumos;
@@ -113,11 +104,12 @@ public class ControllerConsumos {
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
 
+	private Consumo selectedConsumo;
+
 	@FXML
 	public void initialize() {
 		// tableViewConsumos setup
 		// Columns values are assigned to attributes within Consumo class
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnIdUsuarioConsumos.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
 		tableColumnIdAplicacion.setCellValueFactory(new PropertyValueFactory<>("idAplicacion"));
 		tableColumnMes.setCellValueFactory(new PropertyValueFactory<>("mes"));
@@ -160,7 +152,7 @@ public class ControllerConsumos {
 		try {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			// Set default values
-			int id = Integer.MIN_VALUE, consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
+			int consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
 			String idAplicacion = "";
 			byte mes = 0;
 			// Check whether a usuario has been clicked or not
@@ -169,10 +161,6 @@ public class ControllerConsumos {
 				idUsuario = "";
 			} else {
 				idUsuario = specificUsuario;
-			}
-			// Set given values if fields are not empty
-			if (!textFieldId.getText().isBlank()) {
-				id = Integer.parseInt(textFieldId.getText());
 			}
 			if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null && specificUsuario == null) {
 				idUsuario = comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString();
@@ -189,7 +177,7 @@ public class ControllerConsumos {
 			if (!textFieldConsumoMax.getText().isBlank()) {
 				consumoMax = Integer.parseInt(textFieldConsumoMax.getText());
 			}
-			consumos = consumoDao.getConsumos(id, idUsuario, idAplicacion, mes, consumoMin, consumoMax);
+			consumos = consumoDao.getConsumos(idUsuario, idAplicacion, mes, consumoMin, consumoMax);
 		} catch (Exception e) {
 			e.printStackTrace();
 			showError("Campos incorrectos.");
@@ -216,26 +204,23 @@ public class ControllerConsumos {
 		System.out.println("Se ha presionado el botón: modificar.");
 		boolean error = false;
 
-		if (textFieldId.getText().isBlank() || comboBoxMes.getSelectionModel().getSelectedItem() == null
+		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
-			showError("Los campos ID, ID Usuario, ID Aplicación y Mes no pueden estar vacíos.");
+			showError("Los campos ID Usuario, ID Aplicación y Mes no pueden estar vacíos.");
 			error = true;
 		} else {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			try {
 				// Set default values
-				int id = Integer.parseInt(textFieldId.getText());
 				int consumo = 0;
 				// Set given values if fields are not empty
-				if (!textFieldNuevoId.getText().isBlank()) {
-					id = Integer.parseInt(textFieldNuevoId.getText());
-				}
 				if (!textFieldNuevoConsumo.getText().isBlank()) {
 					consumo = Integer.parseInt(textFieldNuevoConsumo.getText().toString());
 				}
-				if (!consumoDao.updateConsumo(Integer.parseInt(textFieldId.getText()),
-						new Consumo(id, comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
+				if (!consumoDao.updateConsumo(selectedConsumo.getIdUsuario(), selectedConsumo.getIdAplicacion(),
+						selectedConsumo.getMes(),
+						new Consumo(comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
 								comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
 								Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
 								consumo))) {
@@ -271,17 +256,13 @@ public class ControllerConsumos {
 		} else {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			// Set default values
-			int id = Integer.MIN_VALUE;
 			int consumo = 0;
 			try {
 				// Set given values if fields are not empty
-				if (!textFieldId.getText().isBlank()) {
-					id = Integer.parseInt(textFieldId.getText());
-				}
 				if (!textFieldNuevoConsumo.getText().isBlank()) {
 					consumo = Integer.parseInt(textFieldNuevoConsumo.getText().toString());
 				}
-				if (!consumoDao.insertConsumo(new Consumo(id,
+				if (!consumoDao.insertConsumo(new Consumo(
 						comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
 						comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
 						Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString()), consumo))) {
@@ -309,7 +290,7 @@ public class ControllerConsumos {
 		System.out.println("Se ha presionado el botón: eliminar.");
 		boolean error = false;
 
-		if (textFieldId.getText().isBlank() && comboBoxMes.getSelectionModel().getSelectedItem() == null
+		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null
 				&& textFieldConsumoMin.getText().isBlank() && textFieldConsumoMax.getText().isBlank()) {
@@ -320,13 +301,10 @@ public class ControllerConsumos {
 			try {
 				ConsumoDao consumoDao = new ConsumoDaoImpl();
 				// Set default values
-				int id = Integer.MIN_VALUE, consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
+				int consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
 				String idUsuario = "", idAplicacion = "";
 				byte mes = 0;
 				// Set given values if fields are not empty
-				if (!textFieldId.getText().isBlank()) {
-					id = Integer.parseInt(textFieldId.getText());
-				}
 				if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null) {
 					idUsuario = comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString();
 				}
@@ -342,7 +320,7 @@ public class ControllerConsumos {
 				if (!textFieldConsumoMax.getText().isBlank()) {
 					consumoMax = Integer.parseInt(textFieldConsumoMax.getText());
 				}
-				consumoDao.deleteConsumos(id, idUsuario, idAplicacion, mes, consumoMin, consumoMax);
+				consumoDao.deleteConsumos(idUsuario, idAplicacion, mes, consumoMin, consumoMax);
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
@@ -364,11 +342,12 @@ public class ControllerConsumos {
 		Consumo consumo = tableViewConsumos.getSelectionModel().getSelectedItem();
 
 		if (consumo != null) {
-			textFieldId.setText(Integer.toString(consumo.getId()));
 			comboBoxIdUsuario.setValue(consumo.getIdUsuario());
 			comboBoxIdAplicacion.setValue(consumo.getIdAplicacion());
 			comboBoxMes.setValue(consumo.getMes());
 			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
+
+			selectedConsumo = consumo;
 		}
 	}
 
@@ -384,7 +363,8 @@ public class ControllerConsumos {
 			textFieldTelefono.setText(usuario.getTelefono());
 			textFieldDireccion.setText(usuario.getDireccion());
 
-			// At the same time usuario information is loaded, consumos attached to that usuario
+			// At the same time usuario information is loaded, consumos attached to that
+			// usuario
 			// are shown
 			buscar(null, usuario.getId());
 		}
@@ -483,13 +463,11 @@ public class ControllerConsumos {
 	 * tableViewConsumos are set to blank in order not to overwrite values.
 	 */
 	private void setTextFieldsToBlankConsumo() {
-		textFieldId.setText("");
 		comboBoxIdUsuario.setValue(null);
 		comboBoxIdAplicacion.setValue(null);
 		comboBoxMes.setValue(null);
 		textFieldConsumoMin.setText("");
 		textFieldConsumoMax.setText("");
-		textFieldNuevoId.setText("");
 		textFieldNuevoConsumo.setText("");
 	}
 

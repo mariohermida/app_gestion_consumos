@@ -59,11 +59,10 @@ public class ControllerPrincipal {
 			consumos = consumoDao.getAllConsumos();
 			// For every existing consumo an array of strings is created
 			// First line includes the headers of the stored information
-			dataLines.add(new String[] { "Consumo ID", "Usuario ID", "Aplicacion ID", "Mes", "Consumo (MB)" });
+			dataLines.add(new String[] { "Usuario ID", "Aplicacion ID", "Mes", "Consumo (MB)" });
 			for (Consumo consumo : consumos) {
-				dataLines.add(new String[] { Integer.toString(consumo.getId()), consumo.getIdUsuario(),
-						consumo.getIdAplicacion(), Byte.toString(consumo.getMes()),
-						Integer.toString(consumo.getConsumo()) });
+				dataLines.add(new String[] { consumo.getIdUsuario(), consumo.getIdAplicacion(),
+						Byte.toString(consumo.getMes()), Integer.toString(consumo.getConsumo()) });
 			}
 
 			File csv = new File(file.getAbsolutePath());
