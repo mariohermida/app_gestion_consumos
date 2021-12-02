@@ -163,7 +163,7 @@ public class ControllerConsumos {
 			int id = Integer.MIN_VALUE, consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
 			String idAplicacion = "";
 			byte mes = 0;
-			// Check whether a user has been clicked or not
+			// Check whether a usuario has been clicked or not
 			String idUsuario;
 			if (specificUsuario == null) {
 				idUsuario = "";
@@ -384,7 +384,7 @@ public class ControllerConsumos {
 			textFieldTelefono.setText(usuario.getTelefono());
 			textFieldDireccion.setText(usuario.getDireccion());
 
-			// At the same time user information is loaded, consumos attached to that user
+			// At the same time usuario information is loaded, consumos attached to that usuario
 			// are shown
 			buscar(null, usuario.getId());
 		}
