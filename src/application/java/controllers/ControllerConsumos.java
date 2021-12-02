@@ -116,7 +116,7 @@ public class ControllerConsumos {
 	@FXML
 	public void initialize() {
 		// tableViewConsumos setup
-		// Columns values are assigned to the attributes within Consumo class
+		// Columns values are assigned to attributes within Consumo class
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnIdUsuarioConsumos.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
 		tableColumnIdAplicacion.setCellValueFactory(new PropertyValueFactory<>("idAplicacion"));
@@ -125,12 +125,12 @@ public class ControllerConsumos {
 
 		refrescarCampos(null);
 
-		// Different mes values are loaded into the convenient comboBox
+		// Possible mes values are loaded into the convenient comboBox
 		comboBoxMes.setItems(FXCollections.observableArrayList((byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
 				(byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 10, (byte) 11, (byte) 12));
 
 		// tableViewUsuarios setup
-		// Columns values are assigned to the attributes within Usuario class
+		// Columns values are assigned to attributes within Usuario class
 		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		tableColumnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
@@ -142,20 +142,39 @@ public class ControllerConsumos {
 	@FXML
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
+		buscar(event, null); // Ordinary search
+	}
 
+	/**
+	 * This is a general search method for searching consumos regarding a specific
+	 * usuario (when a usuario row is clicked on tableViewUsuarios). If
+	 * specificUsuario is not null, ordinary search is carried out, otherwise
+	 * specificUsuario's consumos are shown
+	 * 
+	 * @param event
+	 * @param specificUsuario
+	 */
+	void buscar(ActionEvent event, String specificUsuario) {
 		// If all fields are empty it shows all existing consumos
 		List<Consumo> consumos = new ArrayList<>();
 		try {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			// Set default values
 			int id = Integer.MIN_VALUE, consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
-			String idUsuario = "", idAplicacion = "";
+			String idAplicacion = "";
 			byte mes = 0;
+			// Check whether a user has been clicked or not
+			String idUsuario;
+			if (specificUsuario == null) {
+				idUsuario = "";
+			} else {
+				idUsuario = specificUsuario;
+			}
 			// Set given values if fields are not empty
 			if (!textFieldId.getText().isBlank()) {
 				id = Integer.parseInt(textFieldId.getText());
 			}
-			if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null) {
+			if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null && specificUsuario == null) {
 				idUsuario = comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString();
 			}
 			if (comboBoxIdAplicacion.getSelectionModel().getSelectedItem() != null) {
@@ -185,7 +204,7 @@ public class ControllerConsumos {
 
 		List<Usuario> usuarios = new ArrayList<>();
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
-		usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
+		usuarios = usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
 				textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
 				textFieldDireccion.getText());
 
@@ -364,6 +383,10 @@ public class ControllerConsumos {
 			textFieldEmail.setText(usuario.getEmail());
 			textFieldTelefono.setText(usuario.getTelefono());
 			textFieldDireccion.setText(usuario.getDireccion());
+
+			// At the same time user information is loaded, consumos attached to that user
+			// are shown
+			buscar(null, usuario.getId());
 		}
 	}
 
@@ -398,6 +421,11 @@ public class ControllerConsumos {
 			observableList.add(aplicacion.getId());
 		}
 		comboBoxIdAplicacion.setItems(observableList);
+
+		if (event != null) {
+			buscarUsuario(null);
+			buscar(null);
+		}
 	}
 
 	/**
