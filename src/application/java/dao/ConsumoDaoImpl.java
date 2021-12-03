@@ -23,11 +23,11 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	@Override
 	public List<Consumo> getAllConsumos() {
-		return getConsumos("", "", (byte) 0, 0, Integer.MAX_VALUE);
+		return getConsumos("", "", "", 0, Integer.MAX_VALUE);
 	}
 
 	@Override
-	public List<Consumo> getConsumos(String idUsuario, String idAplicacion, byte mes, int consumoMin, int consumoMax) {
+	public List<Consumo> getConsumos(String idUsuario, String idAplicacion, String mes, int consumoMin, int consumoMax) {
 		List<Consumo> consumos = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -40,14 +40,14 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			if (!idAplicacion.isBlank()) {
 				query += " AND ID_aplicacion LIKE '%" + idAplicacion + "%'";
 			}
-			if (mes != 0) {
-				query += " AND Mes = " + mes;
+			if (!mes.isBlank()) {
+				query += " AND Mes = '" + mes + "'";
 			}
 
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				consumos.add(new Consumo(rs.getString(1), rs.getString(2), Byte.valueOf(rs.getString(3)),
+				consumos.add(new Consumo(rs.getString(1), rs.getString(2), rs.getString(3),
 						Integer.valueOf(rs.getString(4))));
 			}
 			connection.close();
@@ -60,13 +60,13 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	}
 
 	@Override
-	public boolean updateConsumo(String oldIdUsuario, String oldIdAplicacion, byte oldMes, Consumo consumo) {
+	public boolean updateConsumo(String oldIdUsuario, String oldIdAplicacion, String oldMes, Consumo consumo) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			String query = "UPDATE Consumo_usuario SET ID_usuario = '" + consumo.getIdUsuario() + "', ID_aplicacion = '"
-					+ consumo.getIdAplicacion() + "', Mes = " + consumo.getMes() + ", Consumo = " + consumo.getConsumo()
-					+ " WHERE ID_usuario = '" + oldIdUsuario + "' AND ID_aplicacion = '" + oldIdAplicacion + "' AND Mes = "
-					+ oldMes;
+					+ consumo.getIdAplicacion() + "', Mes = '" + consumo.getMes() + "', Consumo = " + consumo.getConsumo()
+					+ " WHERE ID_usuario = '" + oldIdUsuario + "' AND ID_aplicacion = '" + oldIdAplicacion
+					+ "' AND Mes = '" + oldMes + "'";
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
@@ -83,7 +83,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			String query = "INSERT INTO Consumo_usuario (ID_usuario, ID_aplicacion, Mes, Consumo) VALUES ('"
-					+ consumo.getIdUsuario() + "', '" + consumo.getIdAplicacion() + "', " + consumo.getMes() + ", "
+					+ consumo.getIdUsuario() + "', '" + consumo.getIdAplicacion() + "', '" + consumo.getMes() + "', "
 					+ consumo.getConsumo() + ")";
 			Statement st = connection.createStatement();
 			st.execute(query);
@@ -97,7 +97,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	}
 
 	@Override
-	public boolean deleteConsumos(String idUsuario, String idAplicacion, byte mes, int consumoMin, int consumoMax) {
+	public boolean deleteConsumos(String idUsuario, String idAplicacion, String mes, int consumoMin, int consumoMax) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
@@ -109,8 +109,8 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			if (!idAplicacion.isBlank()) {
 				query += " AND ID_aplicacion LIKE '%" + idAplicacion + "%'";
 			}
-			if (mes != 0) {
-				query += " AND Mes = " + mes;
+			if (!mes.isBlank()) {
+				query += " AND Mes = '" + mes + "'";
 			}
 			Statement st = connection.createStatement();
 			st.execute(query);

@@ -62,7 +62,7 @@ public class ControllerPrincipal {
 			dataLines.add(new String[] { "Usuario ID", "Aplicacion ID", "Mes", "Consumo (MB)" });
 			for (Consumo consumo : consumos) {
 				dataLines.add(new String[] { consumo.getIdUsuario(), consumo.getIdAplicacion(),
-						Byte.toString(consumo.getMes()), Integer.toString(consumo.getConsumo()) });
+						consumo.getMes(), Integer.toString(consumo.getConsumo()) });
 			}
 
 			File csv = new File(file.getAbsolutePath());

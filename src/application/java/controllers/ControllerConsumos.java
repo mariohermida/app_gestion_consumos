@@ -55,7 +55,7 @@ public class ControllerConsumos {
 	private TableColumn<Consumo, String> tableColumnIdAplicacion;
 
 	@FXML
-	private TableColumn<Consumo, Byte> tableColumnMes;
+	private TableColumn<Consumo, String> tableColumnMes;
 
 	@FXML
 	private TableColumn<Consumo, Integer> tableColumnConsumo;
@@ -141,8 +141,7 @@ public class ControllerConsumos {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			// Set default values
 			int consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
-			String idAplicacion = "";
-			byte mes = 0;
+			String idAplicacion = "", mes = "";
 			// Check whether a usuario has been clicked or not
 			String idUsuario;
 			if (selectedUsuario == null) {
@@ -157,7 +156,7 @@ public class ControllerConsumos {
 				idAplicacion = comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString();
 			}
 			if (comboBoxMes.getSelectionModel().getSelectedItem() != null) {
-				mes = Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString());
+				mes = comboBoxMes.getSelectionModel().getSelectedItem().toString();
 			}
 			if (!textFieldConsumoMin.getText().isBlank()) {
 				consumoMin = Integer.parseInt(textFieldConsumoMin.getText());
@@ -210,8 +209,7 @@ public class ControllerConsumos {
 						selectedConsumo.getMes(),
 						new Consumo(comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
 								comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
-								Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString()),
-								consumo))) {
+								comboBoxMes.getSelectionModel().getSelectedItem().toString(), consumo))) {
 					showError("Se produjo un error a la hora de modificar el consumo.");
 					error = true;
 				}
@@ -250,10 +248,10 @@ public class ControllerConsumos {
 				if (!textFieldNuevoConsumo.getText().isBlank()) {
 					consumo = Integer.parseInt(textFieldNuevoConsumo.getText().toString());
 				}
-				if (!consumoDao.insertConsumo(new Consumo(
-						comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
-						comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
-						Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString()), consumo))) {
+				if (!consumoDao
+						.insertConsumo(new Consumo(comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString(),
+								comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString(),
+								comboBoxMes.getSelectionModel().getSelectedItem().toString(), consumo))) {
 					showError("Se produjo un error a la hora de añadir la aplicación.");
 					error = true;
 				}
@@ -290,8 +288,7 @@ public class ControllerConsumos {
 				ConsumoDao consumoDao = new ConsumoDaoImpl();
 				// Set default values
 				int consumoMin = Integer.MIN_VALUE, consumoMax = Integer.MAX_VALUE;
-				String idUsuario = "", idAplicacion = "";
-				byte mes = 0;
+				String idUsuario = "", idAplicacion = "", mes = "";
 				// Set given values if fields are not empty
 				if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null) {
 					idUsuario = comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString();
@@ -300,7 +297,7 @@ public class ControllerConsumos {
 					idAplicacion = comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString();
 				}
 				if (comboBoxMes.getSelectionModel().getSelectedItem() != null) {
-					mes = Byte.parseByte(comboBoxMes.getSelectionModel().getSelectedItem().toString());
+					mes = comboBoxMes.getSelectionModel().getSelectedItem().toString();
 				}
 				if (!textFieldConsumoMin.getText().isBlank()) {
 					consumoMin = Integer.parseInt(textFieldConsumoMin.getText());
@@ -332,7 +329,7 @@ public class ControllerConsumos {
 		if (consumo != null) {
 			comboBoxIdUsuario.setValue(consumo.getIdUsuario());
 			comboBoxIdAplicacion.setValue(consumo.getIdAplicacion());
-			comboBoxMes.setValue(mesToString(consumo.getMes()));
+			comboBoxMes.setValue(consumo.getMes());
 			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
 
 			selectedConsumo = consumo;
@@ -395,37 +392,6 @@ public class ControllerConsumos {
 		if (event != null) {
 			buscarUsuario(null);
 			buscar(null);
-		}
-	}
-
-	private String mesToString(byte mes) {
-		switch (mes) {
-		case 1:
-			return "Enero";
-		case 2:
-			return "Febrero";
-		case 3:
-			return "Marzo";
-		case 4:
-			return "Abril";
-		case 5:
-			return "Mayo";
-		case 6:
-			return "Junio";
-		case 7:
-			return "Julio";
-		case 8:
-			return "Agosto";
-		case 9:
-			return "Septiembre";
-		case 10:
-			return "Octubre";
-		case 11:
-			return "Noviembre";
-		case 12:
-			return "Diciembre";
-		default:
-			return "";
 		}
 	}
 

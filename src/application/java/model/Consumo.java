@@ -9,10 +9,10 @@ public class Consumo {
 	// The primary key is the combination of idUsuario, idAplicacion and mes
 	private String idUsuario;
 	private String idAplicacion;
-	private byte mes;
+	private String mes;
 	private int consumo;
 
-	public Consumo(String idUsuario, String idAplicacion, byte mes, int consumo) {
+	public Consumo(String idUsuario, String idAplicacion, String mes, int consumo) {
 		this.idUsuario = idUsuario;
 		this.idAplicacion = idAplicacion;
 		this.mes = mes;
@@ -35,11 +35,11 @@ public class Consumo {
 		this.idAplicacion = idAplicacion;
 	}
 
-	public byte getMes() {
+	public String getMes() {
 		return mes;
 	}
 
-	public void setMes(byte mes) {
+	public void setMes(String mes) {
 		this.mes = mes;
 	}
 
