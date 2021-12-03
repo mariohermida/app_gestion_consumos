@@ -37,7 +37,7 @@ public class ControllerConsumos {
 	private ComboBox<String> comboBoxIdAplicacion;
 
 	@FXML
-	private ComboBox<Byte> comboBoxMes;
+	private ComboBox<String> comboBoxMes;
 
 	@FXML
 	private TextField textFieldConsumoMin;
@@ -93,18 +93,19 @@ public class ControllerConsumos {
 	private TableColumn<Usuario, String> tableColumnApellidos;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnEmail;
+	private TableColumn<Usuario, String> tableColumnEmail;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnTelefono;
+	private TableColumn<Usuario, String> tableColumnTelefono;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnDireccion;
+	private TableColumn<Usuario, String> tableColumnDireccion;
 
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
 
-	private Consumo selectedConsumo;
+	private Consumo selectedConsumo; // Current consumo
+	private Usuario selectedUsuario; // Current usuario
 
 	@FXML
 	public void initialize() {
@@ -118,8 +119,8 @@ public class ControllerConsumos {
 		refrescarCampos(null);
 
 		// Possible mes values are loaded into the convenient comboBox
-		comboBoxMes.setItems(FXCollections.observableArrayList((byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
-				(byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 10, (byte) 11, (byte) 12));
+		comboBoxMes.setItems(FXCollections.observableArrayList("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"));
 
 		// tableViewUsuarios setup
 		// Columns values are assigned to attributes within Usuario class
@@ -134,19 +135,6 @@ public class ControllerConsumos {
 	@FXML
 	void buscar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: buscar.");
-		buscar(event, null); // Ordinary search
-	}
-
-	/**
-	 * This is a general search method for searching consumos regarding a specific
-	 * usuario (when a usuario row is clicked on tableViewUsuarios). If
-	 * specificUsuario is not null, ordinary search is carried out, otherwise
-	 * specificUsuario's consumos are shown
-	 * 
-	 * @param event
-	 * @param specificUsuario
-	 */
-	void buscar(ActionEvent event, String specificUsuario) {
 		// If all fields are empty it shows all existing consumos
 		List<Consumo> consumos = new ArrayList<>();
 		try {
@@ -157,12 +145,12 @@ public class ControllerConsumos {
 			byte mes = 0;
 			// Check whether a usuario has been clicked or not
 			String idUsuario;
-			if (specificUsuario == null) {
+			if (selectedUsuario == null) {
 				idUsuario = "";
 			} else {
-				idUsuario = specificUsuario;
+				idUsuario = selectedUsuario.getId();
 			}
-			if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null && specificUsuario == null) {
+			if (comboBoxIdUsuario.getSelectionModel().getSelectedItem() != null && selectedUsuario == null) {
 				idUsuario = comboBoxIdUsuario.getSelectionModel().getSelectedItem().toString();
 			}
 			if (comboBoxIdAplicacion.getSelectionModel().getSelectedItem() != null) {
@@ -344,7 +332,7 @@ public class ControllerConsumos {
 		if (consumo != null) {
 			comboBoxIdUsuario.setValue(consumo.getIdUsuario());
 			comboBoxIdAplicacion.setValue(consumo.getIdAplicacion());
-			comboBoxMes.setValue(consumo.getMes());
+			comboBoxMes.setValue(mesToString(consumo.getMes()));
 			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
 
 			selectedConsumo = consumo;
@@ -363,10 +351,11 @@ public class ControllerConsumos {
 			textFieldTelefono.setText(usuario.getTelefono());
 			textFieldDireccion.setText(usuario.getDireccion());
 
+			selectedUsuario = usuario;
+
 			// At the same time usuario information is loaded, consumos attached to that
-			// usuario
-			// are shown
-			buscar(null, usuario.getId());
+			// usuario are shown
+			buscar(null);
 		}
 	}
 
@@ -378,6 +367,7 @@ public class ControllerConsumos {
 	@FXML
 	void restablecerCamposUsuario(ActionEvent event) {
 		setTextFieldsToBlankUsuario();
+		selectedUsuario = null;
 	}
 
 	@FXML
@@ -405,6 +395,37 @@ public class ControllerConsumos {
 		if (event != null) {
 			buscarUsuario(null);
 			buscar(null);
+		}
+	}
+
+	private String mesToString(byte mes) {
+		switch (mes) {
+		case 1:
+			return "Enero";
+		case 2:
+			return "Febrero";
+		case 3:
+			return "Marzo";
+		case 4:
+			return "Abril";
+		case 5:
+			return "Mayo";
+		case 6:
+			return "Junio";
+		case 7:
+			return "Julio";
+		case 8:
+			return "Agosto";
+		case 9:
+			return "Septiembre";
+		case 10:
+			return "Octubre";
+		case 11:
+			return "Noviembre";
+		case 12:
+			return "Diciembre";
+		default:
+			return "";
 		}
 	}
 

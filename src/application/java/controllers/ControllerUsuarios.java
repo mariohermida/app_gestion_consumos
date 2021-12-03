@@ -52,13 +52,13 @@ public class ControllerUsuarios {
 	private TableColumn<Usuario, String> tableColumnApellidos;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnEmail;
+	private TableColumn<Usuario, String> tableColumnEmail;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnTelefono;
+	private TableColumn<Usuario, String> tableColumnTelefono;
 
 	@FXML
-	private TableColumn<Usuario, Byte> tableColumnDireccion;
+	private TableColumn<Usuario, String> tableColumnDireccion;
 
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
