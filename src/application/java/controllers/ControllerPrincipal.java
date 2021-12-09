@@ -43,7 +43,7 @@ public class ControllerPrincipal {
 	}
 
 	@FXML
-	void informesButton(ActionEvent event) {
+	void avanzadoButton(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: Informes.");
 		// openNewWindow("Informes", "Informes");
 

@@ -24,12 +24,12 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="383.0" layoutY="208.0" mnemonicParsing="false" onAction="#informesButton" prefHeight="82.0" prefWidth="268.0" style="-fx-background-color: #FA8072;" text="Informes">
+      <Button alignment="CENTER" layoutX="373.0" layoutY="315.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="82.0" prefWidth="268.0" style="-fx-background-color: #FA8072;" text="Avanzado">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="383.0" layoutY="322.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="82.0" prefWidth="268.0" style="-fx-background-color: #C5DA15;" text="AUDIT TRAIL">
+      <Button alignment="CENTER" layoutX="373.0" layoutY="193.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="82.0" prefWidth="268.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
          <font>
             <Font size="36.0" />
          </font>
