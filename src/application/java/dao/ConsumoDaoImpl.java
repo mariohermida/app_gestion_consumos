@@ -18,8 +18,8 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	// Database information
 	private final String DB_URL = "jdbc:mysql://localhost:3306/gestion_consumos";
-	private final String DB_USER = "root";
-	private final String DB_PASS = "root";
+	private final String DB_USER = "usuario";
+	private final String DB_PASS = "usuario";
 
 	@Override
 	public List<Consumo> getAllConsumos() {
