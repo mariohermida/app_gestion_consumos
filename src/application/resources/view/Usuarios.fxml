@@ -90,5 +90,10 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="841.0" layoutY="28.0" mnemonicParsing="false" onAction="#exportar" prefHeight="37.0" prefWidth="137.0" text="Exportar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

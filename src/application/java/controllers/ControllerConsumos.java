@@ -264,6 +264,11 @@ public class ControllerConsumos {
 			updateTableViewConsumos(null);
 		}
 	}
+	
+	@FXML
+	void exportar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: exportar.");
+	}
 
 	/*
 	 * The following methods take the values from Consumo textFields/comboBoxes. If

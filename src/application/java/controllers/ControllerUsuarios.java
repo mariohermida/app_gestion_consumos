@@ -174,6 +174,11 @@ public class ControllerUsuarios {
 			setTextFieldsToBlank();
 		}
 	}
+	
+	@FXML
+	void exportar(ActionEvent event) {
+		System.out.println("Se ha presionado el botón: exportar.");
+	}
 
 	@FXML
 	void seleccionarUsuario(MouseEvent event) {
