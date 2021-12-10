@@ -23,7 +23,7 @@ public class AuditTrailDaoImpl implements AuditTrailDao {
 	static final String DB_PASS = "root";
 
 	@Override
-	public List<AuditTrail> getAllAplicaciones() {
+	public List<AuditTrail> getAllLogs() {
 		List<AuditTrail> logs = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);

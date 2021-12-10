@@ -5,6 +5,6 @@ import application.java.model.AuditTrail;
 
 public interface AuditTrailDao {
 
-	public List<AuditTrail> getAllAplicaciones();
+	public List<AuditTrail> getAllLogs();
 
 }
