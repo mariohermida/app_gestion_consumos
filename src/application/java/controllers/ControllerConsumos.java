@@ -307,21 +307,7 @@ public class ControllerConsumos {
 	}
 
 	private String convertToCSV(String[] data) {
-		return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
-	}
-
-	/**
-	 * Special treatment for possible errors introduced while typing data
-	 * 
-	 * @param data Data to be escaped
-	 * @return
-	 */
-	private String escapeSpecialCharacters(String data) {
-		String escapedData = data.replaceAll("\\R", " ");
-		if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-			escapedData = "\"" + data + "\"";
-		}
-		return escapedData;
+		return Stream.of(data).collect(Collectors.joining(","));
 	}
 
 	/*
