@@ -44,52 +44,7 @@ public class ControllerPrincipal {
 
 	@FXML
 	void avanzadoButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Informes.");
-		// openNewWindow("Informes", "Informes");
-
-		// Set .csv file location
-		FileChooser fc = new FileChooser();
-		fc.getExtensionFilters().add(new ExtensionFilter("CSV files (*.csv)", "*.csv"));
-		File file = fc.showSaveDialog(null);
-
-		if (file != null) {
-			List<String[]> dataLines = new ArrayList<>(); // Formatted data to be stored
-			List<Consumo> consumos = new ArrayList<>();
-			ConsumoDaoImpl consumoDao = new ConsumoDaoImpl();
-			consumos = consumoDao.getAllConsumos();
-			// For every existing consumo an array of strings is created
-			// First line includes the headers of the stored information
-			dataLines.add(new String[] { "Usuario ID", "Aplicacion ID", "Mes", "Consumo (MB)" });
-			for (Consumo consumo : consumos) {
-				dataLines.add(new String[] { consumo.getIdUsuario(), consumo.getIdAplicacion(),
-						consumo.getMes(), Integer.toString(consumo.getConsumo()) });
-			}
-
-			File csv = new File(file.getAbsolutePath());
-			try (PrintWriter pw = new PrintWriter(csv)) {
-				dataLines.stream().map(this::convertToCSV).forEach(pw::println);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private String convertToCSV(String[] data) {
-		return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
-	}
-
-	/**
-	 * Special treatment for possible errors introduced while typing data
-	 * 
-	 * @param data Data to be escaped
-	 * @return
-	 */
-	private String escapeSpecialCharacters(String data) {
-		String escapedData = data.replaceAll("\\R", " ");
-		if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-			escapedData = "\"" + data + "\"";
-		}
-		return escapedData;
+		System.out.println("Se ha presionado el botón: Avanzado.");
 	}
 
 	@FXML

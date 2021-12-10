@@ -1,7 +1,12 @@
 package application.java.controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import application.java.dao.AplicacionDao;
 import application.java.dao.AplicacionDaoImpl;
 import application.java.model.Aplicacion;
@@ -16,6 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * Class that manages all the events occurred in Aplicaciones.fxml
@@ -192,10 +199,56 @@ public class ControllerAplicaciones {
 			setTextFieldsToBlank();
 		}
 	}
-	
+
 	@FXML
 	void exportar(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: exportar.");
+
+		List<Aplicacion> aplicaciones = tableViewAplicaciones.getItems();
+		if (aplicaciones.isEmpty()) {
+			showError("No se ha seleccionada nada para exportar.");
+		} else {
+			// Set .csv file location
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("CSV files (*.csv)", "*.csv"));
+			File file = fc.showSaveDialog(null);
+
+			if (file != null) {
+				List<String[]> dataLines = new ArrayList<>(); // Formatted data to be stored
+				// For every existing aplicacion an array of strings is created
+				// First line includes the headers of the stored information
+				dataLines.add(new String[] { "ID_Aplicación", "Descripción", "Gestor", "Servidor" });
+				for (Aplicacion aplicacion : aplicaciones) {
+					dataLines.add(new String[] { aplicacion.getId(), aplicacion.getDescripcion(),
+							aplicacion.getGestor(), Byte.toString(aplicacion.getServidor()) });
+				}
+
+				File csv = new File(file.getAbsolutePath());
+				try (PrintWriter pw = new PrintWriter(csv)) {
+					dataLines.stream().map(this::convertToCSV).forEach(pw::println);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private String convertToCSV(String[] data) {
+		return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
+	}
+
+	/**
+	 * Special treatment for possible errors introduced while typing data
+	 * 
+	 * @param data Data to be escaped
+	 * @return
+	 */
+	private String escapeSpecialCharacters(String data) {
+		String escapedData = data.replaceAll("\\R", " ");
+		if (data.contains(",") || data.contains("\"") || data.contains("'")) {
+			escapedData = "\"" + data + "\"";
+		}
+		return escapedData;
 	}
 
 	@FXML
