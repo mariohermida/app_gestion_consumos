@@ -79,6 +79,11 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="981.0" layoutY="30.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="106.0" text="Exportar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
       <TableView fx:id="tableViewConsumos" layoutX="452.0" layoutY="87.0" onMouseClicked="#seleccionarConsumo" prefHeight="209.0" prefWidth="836.0">
         <columns>
           <TableColumn fx:id="tableColumnIdUsuarioConsumos" prefWidth="190.0" text="ID Usuario" />
@@ -143,10 +148,5 @@
             <TableColumn fx:id="tableColumnDireccion" prefWidth="236.0" text="Dirección" />
          </columns>
       </TableView>
-      <Button layoutX="981.0" layoutY="30.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="106.0" text="Exportar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
    </children>
 </Pane>

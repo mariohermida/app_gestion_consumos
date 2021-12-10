@@ -70,6 +70,11 @@
             <TableColumn fx:id="tableColumnDireccion" prefWidth="219.0" text="Dirección" />
         </columns>
       </TableView>
+      <Button layoutX="842.0" layoutY="26.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="137.0" text="Exportar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
       <Button layoutX="756.0" layoutY="96.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="137.0" text="Buscar">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -86,11 +91,6 @@
          </font>
       </Button>
       <Button layoutX="933.0" layoutY="168.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="137.0" text="Eliminar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="842.0" layoutY="26.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="137.0" text="Exportar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
