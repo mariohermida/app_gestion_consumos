@@ -7,8 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ITextPDF_7.2.0"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.27.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ITextPDF_7.1.4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/iTextPDF_7.2.0"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

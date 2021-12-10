@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+
 import application.java.dao.AuditTrailDao;
 import application.java.dao.AuditTrailDaoImpl;
 import application.java.model.AuditTrail;
@@ -57,8 +63,15 @@ public class ControllerAuditTrail {
 	}
 
 	@FXML
-	void exportarPdf(ActionEvent event) {
+	void exportarPdf(ActionEvent event) throws FileNotFoundException {
 		System.out.println("Se ha presionado el botón: exportar a .pdf.");
+		/*Document document = null;
+		PdfDocument pdf;
+		pdf = new PdfDocument(new PdfWriter("C:/Users/SIC-LN-60/Desktop/mypdf.pdf"));
+		document = new Document(pdf);
+		String line = "Hello! Welcome to iTextPdf";
+		document.add(new Paragraph(line));
+		document.close();*/
 	}
 
 	@FXML
