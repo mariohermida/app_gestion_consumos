@@ -4,14 +4,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.net.URISyntaxException;
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 
 import application.java.dao.AplicacionDaoImpl;
+import application.java.dao.ConsumoDaoImpl;
+import application.java.dao.UsuarioDaoImpl;
 import application.java.model.Aplicacion;
+import application.java.model.Consumo;
+import application.java.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
 /**
@@ -20,7 +25,7 @@ import javafx.stage.FileChooser;
 public class ControllerImportacion {
 
 	@FXML
-	void importarAplicaciones(ActionEvent event) throws IOException, URISyntaxException, CsvException {
+	void importarAplicaciones(ActionEvent event) throws IOException, CsvValidationException {
 		System.out.println("Se ha presionado el botón: importarAplicaciones.");
 
 		FileChooser fc = new FileChooser();
@@ -43,13 +48,57 @@ public class ControllerImportacion {
 	}
 
 	@FXML
-	void importarUsuarios(ActionEvent event) {
+	void importarUsuarios(ActionEvent event) throws IOException, CsvValidationException {
 		System.out.println("Se ha presionado el botón: importarUsuarios.");
+
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Seleccione el archivo a importar:");
+		File file = fc.showOpenDialog(null);
+
+		Reader reader = new FileReader(file);
+
+		CSVReader csvReader = new CSVReader(reader);
+		csvReader.readNext(); // Headers are not stored
+
+		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+		String[] nextRecord;
+		while ((nextRecord = csvReader.readNext()) != null) {
+			usuarioDao.insertUsuario(new Usuario(nextRecord[0], nextRecord[1], nextRecord[2], nextRecord[3],
+					nextRecord[4], nextRecord[5]));
+		}
+		reader.close();
+		csvReader.close();
 	}
 
 	@FXML
-	void importarConsumos(ActionEvent event) {
+	void importarConsumos(ActionEvent event) throws IOException, CsvValidationException {
 		System.out.println("Se ha presionado el botón: importarConsumos.");
+
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Seleccione el archivo a importar:");
+		File file = fc.showOpenDialog(null);
+
+		Reader reader = new FileReader(file);
+
+		CSVReader csvReader = new CSVReader(reader);
+		csvReader.readNext(); // Headers are not stored
+
+		ConsumoDaoImpl consumoDao = new ConsumoDaoImpl();
+		String[] nextRecord;
+		while ((nextRecord = csvReader.readNext()) != null) {
+			if (!consumoDao.insertConsumo(
+					new Consumo(nextRecord[0], nextRecord[1], nextRecord[2], Integer.parseInt(nextRecord[3])))) {
+				showError("Se produjo un error a la hora de importar el consumo: " + nextRecord[0] + ", "
+						+ nextRecord[1] + ", " + nextRecord[2]);
+			}
+		}
+		reader.close();
+		csvReader.close();
+	}
+
+	public void showError(String message) {
+		Alert alert = new Alert(AlertType.ERROR, message);
+		alert.showAndWait();
 	}
 
 }
