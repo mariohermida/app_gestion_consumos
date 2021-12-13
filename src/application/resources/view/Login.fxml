@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="239.0" prefWidth="301.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
+   <children>
+      <Button layoutX="74.0" layoutY="153.0" mnemonicParsing="false" onAction="#acceder" prefHeight="50.0" prefWidth="130.0" text="Acceder">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="15.0" layoutY="56.0" prefHeight="37.0" prefWidth="90.0" text="Usuario" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="99.0" prefHeight="37.0" prefWidth="90.0" text="Contraseña">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldUsuario" layoutX="114.0" layoutY="62.0" prefHeight="25.0" prefWidth="166.0" />
+      <TextField fx:id="textFieldContrasenya" layoutX="114.0" layoutY="105.0" prefHeight="25.0" prefWidth="166.0" />
+   </children>
+</Pane>
