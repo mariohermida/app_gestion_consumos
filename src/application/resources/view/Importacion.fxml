@@ -11,4 +11,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1038.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerImportacion" />
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="411.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerImportacion">
+   <children>
+      <Button layoutX="95.0" layoutY="56.0" mnemonicParsing="false" onAction="#importarAplicaciones" prefHeight="46.0" prefWidth="221.0" text="Importar aplicaciones">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="95.0" layoutY="139.0" mnemonicParsing="false" onAction="#importarUsuarios" prefHeight="46.0" prefWidth="221.0" text="Importar usuarios">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="95.0" layoutY="219.0" mnemonicParsing="false" onAction="#importarConsumos" prefHeight="46.0" prefWidth="221.0" text="Importar consumos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
