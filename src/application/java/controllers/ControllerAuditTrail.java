@@ -65,13 +65,13 @@ public class ControllerAuditTrail {
 	@FXML
 	void exportarPdf(ActionEvent event) throws FileNotFoundException {
 		System.out.println("Se ha presionado el botón: exportar a .pdf.");
-		/*Document document = null;
+		Document document = null;
 		PdfDocument pdf;
 		pdf = new PdfDocument(new PdfWriter("C:/Users/SIC-LN-60/Desktop/mypdf.pdf"));
 		document = new Document(pdf);
 		String line = "Hello! Welcome to iTextPdf";
 		document.add(new Paragraph(line));
-		document.close();*/
+		document.close();
 	}
 
 	@FXML
