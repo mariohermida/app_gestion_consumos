@@ -2,16 +2,23 @@ package application.java.controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 
 import application.java.dao.AuditTrailDao;
 import application.java.dao.AuditTrailDaoImpl;
@@ -63,15 +70,46 @@ public class ControllerAuditTrail {
 	}
 
 	@FXML
-	void exportarPdf(ActionEvent event) throws FileNotFoundException {
+	void exportarPdf(ActionEvent event) throws IOException {
 		System.out.println("Se ha presionado el botón: exportar a .pdf.");
-		Document document = null;
-		PdfDocument pdf;
-		pdf = new PdfDocument(new PdfWriter("C:/Users/SIC-LN-60/Desktop/mypdf.pdf"));
-		document = new Document(pdf);
-		String line = "Hello! Welcome to iTextPdf";
-		document.add(new Paragraph(line));
-		document.close();
+
+		List<AuditTrail> auditTrail = tableViewAuditTrail.getItems();
+		if (auditTrail.isEmpty()) {
+			showError("Audit Trail vacío.");
+		} else {
+			// Set .pdf file location
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("PDF files (*.pdf)", "*.pdf"));
+			File file = fc.showSaveDialog(null);
+
+			if (file != null) {
+				Document document = null;
+				PdfDocument pdf;
+				pdf = new PdfDocument(new PdfWriter(file));
+				document = new Document(pdf);
+
+				// Set title
+				Paragraph paragraph = new Paragraph("Audit Trail: Logs").setFontColor(new DeviceRgb(8, 73, 117))
+						.setFontSize(20f).setBold();
+				paragraph.getAccessibilityProperties().setRole(StandardRoles.H1);
+				document.add(paragraph);
+
+				// Set data
+				PdfFont boldFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+				for (AuditTrail log : auditTrail) {
+					document.add(new Paragraph().add(new Text("ID: ").setFont(boldFont)).add(new Text(log.getId())));
+					document.add(
+							new Paragraph().add(new Text("Tipo: ").setFont(boldFont)).add(new Text(log.getTipo())));
+					document.add(
+							new Paragraph().add(new Text("Acción: ").setFont(boldFont)).add(new Text(log.getAccion())));
+					document.add(new Paragraph().add(new Text("Fecha y hora: ").setFont(boldFont))
+							.add(new Text(log.getFechaHora())));
+					document.add(new Paragraph().add(new Text("Usuario BBDD: ").setFont(boldFont))
+							.add(new Text(log.getUsuarioBBDD() + "\n\n")));
+				}
+				document.close();
+			}
+		}
 	}
 
 	@FXML
