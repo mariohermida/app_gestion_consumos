@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
 /**
@@ -20,13 +21,13 @@ public class ControllerLogin {
 	private TextField textFieldUsuario;
 
 	@FXML
-	private TextField textFieldContrasenya;
+	private PasswordField passwordFieldContrasenya;
 
 	@FXML
 	void acceder(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: acceder.");
 
-		if (textFieldUsuario.getText().equals("user") && textFieldContrasenya.getText().equals("pass")) {
+		if (textFieldUsuario.getText().equals("user") && passwordFieldContrasenya.getText().equals("pass")) {
 			openNewWindow("Importacion", "Importación de datos");
 		} else {
 			showError("Credenciales incorrectas");
