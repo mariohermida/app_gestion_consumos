@@ -7,6 +7,9 @@ import java.io.Reader;
 import java.net.URISyntaxException;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+
+import application.java.dao.AplicacionDaoImpl;
+import application.java.model.Aplicacion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
@@ -21,22 +24,22 @@ public class ControllerImportacion {
 		System.out.println("Se ha presionado el botón: importarAplicaciones.");
 
 		FileChooser fc = new FileChooser();
-		fc.setTitle("Seleccione el archivo a importar");
+		fc.setTitle("Seleccione el archivo a importar:");
 		File file = fc.showOpenDialog(null);
 
 		Reader reader = new FileReader(file);
 
 		CSVReader csvReader = new CSVReader(reader);
+		csvReader.readNext(); // Headers are not stored
+
+		AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
 		String[] nextRecord;
-		csvReader.readNext(); // Headers are skipped
 		while ((nextRecord = csvReader.readNext()) != null) {
-            for (String cell : nextRecord) {
-                System.out.print(cell + "\t");
-            }
-            System.out.println();
-        }
-	    reader.close();
-	    csvReader.close();
+			aplicacionDao.insertAplicacion(
+					new Aplicacion(nextRecord[0], nextRecord[1], nextRecord[2], Byte.parseByte(nextRecord[3])));
+		}
+		reader.close();
+		csvReader.close();
 	}
 
 	@FXML
