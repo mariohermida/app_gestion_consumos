@@ -34,6 +34,7 @@ public class ControllerPrincipal {
 	@FXML
 	void avanzadoButton(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: Avanzado.");
+		openNewWindow("Login", "Login");
 	}
 
 	@FXML
