@@ -40,8 +40,10 @@ public class ControllerImportacion {
 		AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
 		String[] nextRecord;
 		while ((nextRecord = csvReader.readNext()) != null) {
-			aplicacionDao.insertAplicacion(
-					new Aplicacion(nextRecord[0], nextRecord[1], nextRecord[2], Byte.parseByte(nextRecord[3])));
+			if (!aplicacionDao.insertAplicacion(
+					new Aplicacion(nextRecord[0], nextRecord[1], nextRecord[2], Byte.parseByte(nextRecord[3])))) {
+				showError("Se produjo un error a la hora de importar la aplicación: " + nextRecord[0]);
+			}
 		}
 		reader.close();
 		csvReader.close();
@@ -63,8 +65,10 @@ public class ControllerImportacion {
 		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
 		String[] nextRecord;
 		while ((nextRecord = csvReader.readNext()) != null) {
-			usuarioDao.insertUsuario(new Usuario(nextRecord[0], nextRecord[1], nextRecord[2], nextRecord[3],
-					nextRecord[4], nextRecord[5]));
+			if (!usuarioDao.insertUsuario(new Usuario(nextRecord[0], nextRecord[1], nextRecord[2], nextRecord[3],
+					nextRecord[4], nextRecord[5]))) {
+				showError("Se produjo un error a la hora de importar el usuario: " + nextRecord[0]);
+			}
 		}
 		reader.close();
 		csvReader.close();
