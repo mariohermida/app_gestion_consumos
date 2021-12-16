@@ -42,7 +42,7 @@
       <TextField fx:id="textFieldDescripcion" layoutX="197.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldGestor" layoutX="197.0" layoutY="132.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldServidor" layoutX="197.0" layoutY="169.0" prefHeight="25.0" prefWidth="300.0" />
-      <TableView fx:id="tableViewAplicaciones" layoutX="21.0" layoutY="215.0" onMouseClicked="#seleccionarAplicacion" prefHeight="468.0" prefWidth="997.0">
+      <TableView fx:id="tableViewAplicaciones" layoutX="21.0" layoutY="215.0" onMouseClicked="#selectAplicacion" prefHeight="468.0" prefWidth="997.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
           <TableColumn fx:id="tableColumnDescripcion" prefWidth="377.0" text="Descripción" />

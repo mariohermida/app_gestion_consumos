@@ -76,14 +76,8 @@ public class ControllerAplicaciones {
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-			// Set default value for servidor field
-			byte servidor = Byte.MIN_VALUE;
-			// If the parameter is given, take it
-			if (!textFieldServidor.getText().isBlank()) {
-				servidor = Byte.parseByte(textFieldServidor.getText());
-			}
 			aplicaciones = aplicacionDao.getAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-					textFieldGestor.getText(), servidor);
+					textFieldGestor.getText(), getServidorValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			showError("Campos incorrectos.");
@@ -116,12 +110,10 @@ public class ControllerAplicaciones {
 			}
 		}
 
-		// After the insertion the list is updated
-		updateTableViewAplicaciones(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewAplicaciones(null);
 		}
 	}
 
@@ -149,12 +141,10 @@ public class ControllerAplicaciones {
 			}
 		}
 
-		// After the insertion the list is updated
-		updateTableViewAplicaciones(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewAplicaciones(null);
 		}
 	}
 
@@ -170,12 +160,8 @@ public class ControllerAplicaciones {
 		} else {
 			try {
 				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-				byte servidor = Byte.MIN_VALUE;
-				if (!textFieldServidor.getText().isBlank()) {
-					servidor = Byte.parseByte(textFieldServidor.getText());
-				}
 				if (!aplicacionDao.deleteAplicaciones(textFieldId.getText(), textFieldDescripcion.getText(),
-						textFieldGestor.getText(), servidor)) {
+						textFieldGestor.getText(), getServidorValue())) {
 					showError("Se produjo un error a la hora de eliminar la aplicación.");
 					error = true;
 				}
@@ -186,12 +172,10 @@ public class ControllerAplicaciones {
 			}
 		}
 
-		// After the deletion the list is updated
-		updateTableViewAplicaciones(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the deletion the list is updated
+			updateTableViewAplicaciones(null);
 		}
 	}
 
@@ -232,8 +216,20 @@ public class ControllerAplicaciones {
 		return Stream.of(data).collect(Collectors.joining(","));
 	}
 
+	/**
+	 * It checks if any servidor value has been input. If not, return default one.
+	 * 
+	 * @return wanted servidor value
+	 */
+	private byte getServidorValue() {
+		if (!textFieldServidor.getText().isBlank()) {
+			return Byte.parseByte(textFieldServidor.getText());
+		}
+		return Byte.MIN_VALUE;
+	}
+
 	@FXML
-	void seleccionarAplicacion(MouseEvent event) {
+	void selectAplicacion(MouseEvent event) {
 		Aplicacion aplicacion = tableViewAplicaciones.getSelectionModel().getSelectedItem();
 
 		if (aplicacion != null) {
