@@ -2,7 +2,7 @@ package application.java.model;
 
 /**
  * Class that defines the structure of Consumo-type object (DAO design pattern
- * is applied)
+ * is applied). It represents the model.
  */
 public class Consumo {
 
@@ -23,38 +23,16 @@ public class Consumo {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(String idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
 	public String getIdAplicacion() {
 		return idAplicacion;
-	}
-
-	public void setIdAplicacion(String idAplicacion) {
-		this.idAplicacion = idAplicacion;
 	}
 
 	public String getMes() {
 		return mes;
 	}
 
-	public void setMes(String mes) {
-		this.mes = mes;
-	}
-
 	public int getConsumo() {
 		return consumo;
-	}
-
-	public void setConsumo(int consumo) {
-		this.consumo = consumo;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario: " + idUsuario + "; Aplicación: " + idAplicacion + "; Mes: " + mes
-				+ "; Consumo: " + consumo;
 	}
 
 }

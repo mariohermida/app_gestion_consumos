@@ -22,37 +22,16 @@ public class Aplicacion {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public String getGestor() {
 		return gestor;
 	}
 
-	public void setGestor(String gestor) {
-		this.gestor = gestor;
-	}
-
 	public byte getServidor() {
 		return servidor;
-	}
-
-	public void setServidor(byte servidor) {
-		this.servidor = servidor;
-	}
-
-	@Override
-	public String toString() {
-		return "Id: " + id + "; Descripción: " + descripcion + "; Gestor: " + gestor + "; Servidor: " + servidor;
 	}
 
 }

@@ -2,7 +2,7 @@ package application.java.model;
 
 /**
  * Class that defines the structure of AuditTrail-type object (DAO design
- * pattern is applied)
+ * pattern is applied). It represents the model.
  */
 public class AuditTrail {
 
@@ -24,46 +24,20 @@ public class AuditTrail {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getTipo() {
 		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public String getAccion() {
 		return accion;
 	}
 
-	public void setAccion(String accion) {
-		this.accion = accion;
-	}
-
 	public String getFechaHora() {
 		return fechaHora;
 	}
 
-	public void setFechaHora(String fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-
 	public String getUsuarioBBDD() {
 		return usuarioBBDD;
-	}
-
-	public void setUsuarioBBDD(String usuarioBBDD) {
-		this.usuarioBBDD = usuarioBBDD;
-	}
-
-	@Override
-	public String toString() {
-		return "Id: " + id + "; Tipo: " + tipo + "; Acción: " + accion + "; Marca de tiempo: " + fechaHora
-				+ "; Usuario BBDD: " + usuarioBBDD;
 	}
 
 }
