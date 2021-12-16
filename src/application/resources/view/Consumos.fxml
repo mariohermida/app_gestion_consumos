@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1313.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerConsumos">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1313.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerConsumos">
    <children>
       <Button layoutX="131.0" layoutY="43.0" mnemonicParsing="false" onAction="#restablecerCamposConsumo" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
          <font>
@@ -84,7 +84,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="tableViewConsumos" layoutX="452.0" layoutY="87.0" onMouseClicked="#seleccionarConsumo" prefHeight="209.0" prefWidth="836.0">
+      <TableView fx:id="tableViewConsumos" layoutX="452.0" layoutY="87.0" onMouseClicked="#selectConsumo" prefHeight="209.0" prefWidth="836.0">
         <columns>
           <TableColumn fx:id="tableColumnIdUsuarioConsumos" prefWidth="190.0" text="ID Usuario" />
             <TableColumn fx:id="tableColumnIdAplicacion" prefWidth="246.0" text="ID Aplicación" />
@@ -138,7 +138,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="tableViewUsuarios" layoutX="370.0" layoutY="395.0" onMouseClicked="#seleccionarUsuario" prefHeight="209.0" prefWidth="918.0">
+      <TableView fx:id="tableViewUsuarios" layoutX="370.0" layoutY="395.0" onMouseClicked="#selectUsuario" prefHeight="209.0" prefWidth="918.0">
          <columns>
             <TableColumn fx:id="tableColumnIdUsuario" prefWidth="99.0" text="ID" />
             <TableColumn fx:id="tableColumnNombre" prefWidth="95.0" text="Nombre" />

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import application.java.dao.AplicacionDaoImpl;
 import application.java.dao.ConsumoDao;
 import application.java.dao.ConsumoDaoImpl;
@@ -182,6 +181,7 @@ public class ControllerConsumos {
 		System.out.println("Se ha presionado el botón: modificar.");
 		boolean error = false;
 
+		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
@@ -195,6 +195,8 @@ public class ControllerConsumos {
 								getMesValue(), getNuevoConsumoValue()))) {
 					showError("Se produjo un error a la hora de modificar el consumo.");
 					error = true;
+				} else { // If no errors occur
+					// STILL TO BE COMPLETED
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -206,7 +208,7 @@ public class ControllerConsumos {
 		if (!error) {
 			setTextFieldsToBlankConsumo();
 			// List is updated
-			updateTableViewConsumos(null);
+			updateTableViewConsumos(consumos);
 		}
 	}
 
@@ -225,7 +227,7 @@ public class ControllerConsumos {
 			try {
 				if (!consumoDao.insertConsumo(new Consumo(getIdUsuarioValue(), getIdAplicacionValue(), getMesValue(),
 						getNuevoConsumoValue()))) {
-					showError("Se produjo un error a la hora de añadir la aplicación.");
+					showError("Se produjo un error a la hora de añadir el consumo.");
 					error = true;
 				}
 			} catch (Exception e) {
@@ -247,6 +249,7 @@ public class ControllerConsumos {
 		System.out.println("Se ha presionado el botón: eliminar.");
 		boolean error = false;
 
+		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null
@@ -257,8 +260,16 @@ public class ControllerConsumos {
 		} else {
 			try {
 				ConsumoDao consumoDao = new ConsumoDaoImpl();
-				consumoDao.deleteConsumos(getIdUsuarioValue(), getIdAplicacionValue(), getMesValue(),
-						getConsumoMinValue(), getConsumoMaxValue());
+				if (!consumoDao.deleteConsumos(getIdUsuarioValue(), getIdAplicacionValue(), getMesValue(),
+						getConsumoMinValue(), getConsumoMaxValue())) {
+					showError("Se produjo un error a la hora de eliminar el consumo.");
+					error = true;
+				} else { // If no errors occur
+					// STILL TO BE COMPLETED
+					if (selectedUsuario != null) {
+						consumos = consumoDao.getConsumos(selectedUsuario.getId(), "", "", 0, Integer.MAX_VALUE);
+					}
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				showError("Campos incorrectos.");
@@ -269,7 +280,7 @@ public class ControllerConsumos {
 		if (!error) {
 			setTextFieldsToBlankConsumo();
 			// List is updated
-			updateTableViewConsumos(null);
+			updateTableViewConsumos(consumos);
 		}
 	}
 
@@ -362,7 +373,7 @@ public class ControllerConsumos {
 	 */
 
 	@FXML
-	void seleccionarConsumo(MouseEvent event) {
+	void selectConsumo(MouseEvent event) {
 		Consumo consumo = tableViewConsumos.getSelectionModel().getSelectedItem();
 
 		if (consumo != null) {
@@ -376,7 +387,7 @@ public class ControllerConsumos {
 	}
 
 	@FXML
-	void seleccionarUsuario(MouseEvent event) {
+	void selectUsuario(MouseEvent event) {
 		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
