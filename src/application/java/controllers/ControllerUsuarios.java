@@ -32,9 +32,6 @@ public class ControllerUsuarios {
 	private TextField textFieldId;
 
 	@FXML
-	private TextField textFieldNuevoId;
-
-	@FXML
 	private TextField textFieldNombre;
 
 	@FXML
@@ -69,6 +66,8 @@ public class ControllerUsuarios {
 
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
+
+	private Usuario selectedUsuario; // Current usuario
 
 	@FXML
 	public void initialize() {
@@ -105,24 +104,18 @@ public class ControllerUsuarios {
 			error = true;
 		} else {
 			UsuarioDao usuarioDao = new UsuarioDaoImpl();
-			String id = textFieldId.getText();
-			if (!textFieldNuevoId.getText().isBlank()) {
-				id = textFieldNuevoId.getText();
-			}
-			if (!usuarioDao.updateUsuario(textFieldId.getText(),
-					new Usuario(id, textFieldNombre.getText(), textFieldApellidos.getText(), textFieldEmail.getText(),
-							textFieldTelefono.getText(), textFieldDireccion.getText()))) {
+			if (!usuarioDao.updateUsuario(selectedUsuario.getId(),
+					new Usuario(textFieldId.getText(), textFieldNombre.getText(), textFieldApellidos.getText(),
+							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()))) {
 				showError("Se produjo un error a la hora de modificar el usuario.");
 				error = true;
 			}
 		}
 
-		// After the insertion the list is updated
-		updateTableViewUsuarios(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewUsuarios(null);
 		}
 	}
 
@@ -144,12 +137,10 @@ public class ControllerUsuarios {
 			}
 		}
 
-		// After the insertion the list is updated
-		updateTableViewUsuarios(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewUsuarios(null);
 		}
 	}
 
@@ -173,12 +164,10 @@ public class ControllerUsuarios {
 			}
 		}
 
-		// After the deletion the list is updated
-		updateTableViewUsuarios(null);
-
-		// Fields are set to blank
 		if (!error) {
 			setTextFieldsToBlank();
+			// After the deletion the list is updated
+			updateTableViewUsuarios(null);
 		}
 	}
 
@@ -220,7 +209,7 @@ public class ControllerUsuarios {
 	}
 
 	@FXML
-	void seleccionarUsuario(MouseEvent event) {
+	void selectUsuario(MouseEvent event) {
 		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
@@ -230,6 +219,8 @@ public class ControllerUsuarios {
 			textFieldEmail.setText(usuario.getEmail());
 			textFieldTelefono.setText(usuario.getTelefono());
 			textFieldDireccion.setText(usuario.getDireccion());
+
+			selectedUsuario = usuario;
 		}
 	}
 
@@ -274,7 +265,6 @@ public class ControllerUsuarios {
 		textFieldEmail.setText("");
 		textFieldTelefono.setText("");
 		textFieldDireccion.setText("");
-		textFieldNuevoId.setText("");
 	}
 
 	public void showError(String message) {
