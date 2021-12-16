@@ -33,9 +33,6 @@ public class ControllerAplicaciones {
 	private TextField textFieldId;
 
 	@FXML
-	private TextField textFieldNuevoId;
-
-	@FXML
 	private TextField textFieldDescripcion;
 
 	@FXML
@@ -58,6 +55,8 @@ public class ControllerAplicaciones {
 
 	@FXML
 	private TableView<Aplicacion> tableViewAplicaciones;
+
+	private Aplicacion selectedAplicacion; // Current aplicacion
 
 	@FXML
 	public void initialize() {
@@ -103,13 +102,9 @@ public class ControllerAplicaciones {
 			error = true;
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-			String id = textFieldId.getText();
-			if (!textFieldNuevoId.getText().isBlank()) {
-				id = textFieldNuevoId.getText();
-			}
 			try {
-				if (!aplicacionDao.updateAplicacion(textFieldId.getText(),
-						new Aplicacion(id, textFieldDescripcion.getText(), textFieldGestor.getText(),
+				if (!aplicacionDao.updateAplicacion(selectedAplicacion.getId(),
+						new Aplicacion(textFieldId.getText(), textFieldDescripcion.getText(), textFieldGestor.getText(),
 								Byte.parseByte(textFieldServidor.getText())))) {
 					showError("Se produjo un error a la hora de modificar la aplicación.");
 					error = true;
@@ -246,6 +241,8 @@ public class ControllerAplicaciones {
 			textFieldDescripcion.setText(aplicacion.getDescripcion());
 			textFieldGestor.setText(aplicacion.getGestor());
 			textFieldServidor.setText(Byte.toString(aplicacion.getServidor()));
+
+			selectedAplicacion = aplicacion;
 		}
 	}
 
@@ -289,7 +286,6 @@ public class ControllerAplicaciones {
 		textFieldDescripcion.setText("");
 		textFieldGestor.setText("");
 		textFieldServidor.setText("");
-		textFieldNuevoId.setText("");
 	}
 
 	public void showError(String message) {
