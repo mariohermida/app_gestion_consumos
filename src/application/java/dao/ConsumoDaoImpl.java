@@ -35,10 +35,10 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			// By default it shows all existing consumos
 			String query = "SELECT * FROM Consumo_usuario WHERE Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
 			if (!idUsuario.isBlank()) {
-				query += " AND ID_usuario LIKE '%" + idUsuario + "%'";
+				query += " AND ID_usuario = '" + idUsuario + "'";
 			}
 			if (!idAplicacion.isBlank()) {
-				query += " AND ID_aplicacion LIKE '%" + idAplicacion + "%'";
+				query += " AND ID_aplicacion = '" + idAplicacion + "'";
 			}
 			if (!mes.isBlank()) {
 				query += " AND Mes = '" + mes + "'";
@@ -104,10 +104,10 @@ public class ConsumoDaoImpl implements ConsumoDao {
 			String query = "DELETE FROM Consumo_usuario WHERE";
 			query += " Consumo BETWEEN " + consumoMin + " AND " + consumoMax;
 			if (!idUsuario.isBlank()) {
-				query += " AND ID_usuario LIKE '%" + idUsuario + "%'";
+				query += " AND ID_usuario ='" + idUsuario + "'";
 			}
 			if (!idAplicacion.isBlank()) {
-				query += " AND ID_aplicacion LIKE '%" + idAplicacion + "%'";
+				query += " AND ID_aplicacion = '" + idAplicacion + "'";
 			}
 			if (!mes.isBlank()) {
 				query += " AND Mes = '" + mes + "'";
