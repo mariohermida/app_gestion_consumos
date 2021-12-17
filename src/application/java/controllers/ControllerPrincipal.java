@@ -1,11 +1,14 @@
 package application.java.controllers;
 
 import java.io.IOException;
+
+import application.java.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -58,11 +61,15 @@ public class ControllerPrincipal {
 		}
 
 		// Set stage settings
-		Scene scene = new Scene(root);
 		Stage mystage = new Stage();
 		mystage.setTitle(titleName);
-		mystage.setScene(scene);
+		mystage.setScene(new Scene(root));
 		mystage.setResizable(false);
+
+		// Establish the mainStage as the parent window
+		mystage.initModality(Modality.WINDOW_MODAL);
+		mystage.initOwner(Main.mainStage);
+
 		mystage.show();
 	}
 

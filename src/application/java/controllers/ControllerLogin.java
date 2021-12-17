@@ -51,10 +51,9 @@ public class ControllerLogin {
 		}
 
 		// Set stage settings
-		Scene scene = new Scene(root);
 		Stage mystage = new Stage();
 		mystage.setTitle(titleName);
-		mystage.setScene(scene);
+		mystage.setScene(new Scene(root));
 		mystage.setResizable(false);
 		mystage.show();
 	}

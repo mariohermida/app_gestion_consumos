@@ -10,15 +10,18 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 
+	// It points to the main window, in order to be visible by others stages
+	public static Stage mainStage;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
 		// Set this view as the main one
 		primaryStage.setOnCloseRequest(e -> Platform.exit());
-		
+
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("../resources/view/Principal.fxml"));
@@ -27,12 +30,14 @@ public class Main extends Application {
 		}
 
 		// Set stage settings
-		Scene scene = new Scene(root);
 		Stage mystage = new Stage();
 		mystage.setTitle("Aplicación de gestión de consumos");
-		mystage.setScene(scene);
+		mystage.setScene(new Scene(root));
 		mystage.setResizable(false);
 		mystage.show();
+
+		// Set mainStage pointer to the main window (this)
+		mainStage = primaryStage;
 	}
 
 }
