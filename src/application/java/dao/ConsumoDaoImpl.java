@@ -23,7 +23,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	@Override
 	public List<Consumo> getAllConsumos() {
-		return getConsumos("", "", "", 0, Integer.MAX_VALUE);
+		return getConsumos("", "", "", Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	@Override

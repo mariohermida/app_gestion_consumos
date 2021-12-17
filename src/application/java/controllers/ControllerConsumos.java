@@ -111,6 +111,9 @@ public class ControllerConsumos {
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
 
+	private List<String> currentFiltersInfo1; // Current search filters for: idUsuario, idApp and Mes
+	private List<Integer> currentFiltersInfo2; // Current search filters for: min and max consumo
+
 	private Consumo selectedConsumo; // Current consumo
 	private Usuario selectedUsuario; // Current usuario
 
@@ -137,6 +140,9 @@ public class ControllerConsumos {
 		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		tableColumnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 		tableColumnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+
+		currentFiltersInfo1 = new ArrayList<>();
+		currentFiltersInfo2 = new ArrayList<>();
 	}
 
 	@FXML
@@ -153,6 +159,18 @@ public class ControllerConsumos {
 			} else {
 				idUsuario = selectedUsuario.getId();
 			}
+
+			// Search filters are stored every time a search is done. This way, when
+			// deleting, inserting and modifying, the consumos will be displayed according
+			// to the last search filters
+			currentFiltersInfo1.removeAll(currentFiltersInfo1);
+			currentFiltersInfo2.removeAll(currentFiltersInfo2);
+			currentFiltersInfo1.add(idUsuario);
+			currentFiltersInfo1.add(getIdAplicacionValue());
+			currentFiltersInfo1.add(getMesValue());
+			currentFiltersInfo2.add(getConsumoMinValue());
+			currentFiltersInfo2.add(getConsumoMaxValue());
+
 			consumos = consumoDao.getConsumos(idUsuario, getIdAplicacionValue(), getMesValue(), getConsumoMinValue(),
 					getConsumoMaxValue());
 		} catch (Exception e) {
@@ -196,7 +214,8 @@ public class ControllerConsumos {
 					showError("Se produjo un error a la hora de modificar el consumo.");
 					error = true;
 				} else { // If no errors occur
-					// STILL TO BE COMPLETED
+					consumos = consumoDao.getConsumos(currentFiltersInfo1.get(0), currentFiltersInfo1.get(1),
+							currentFiltersInfo1.get(2), currentFiltersInfo2.get(0), currentFiltersInfo2.get(1));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -217,6 +236,7 @@ public class ControllerConsumos {
 		System.out.println("Se ha presionado el botón: anyadir.");
 		boolean error = false;
 
+		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
@@ -229,6 +249,9 @@ public class ControllerConsumos {
 						getNuevoConsumoValue()))) {
 					showError("Se produjo un error a la hora de añadir el consumo.");
 					error = true;
+				} else { // If no errors occur
+					consumos = consumoDao.getConsumos(currentFiltersInfo1.get(0), currentFiltersInfo1.get(1),
+							currentFiltersInfo1.get(2), currentFiltersInfo2.get(0), currentFiltersInfo2.get(1));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -240,7 +263,7 @@ public class ControllerConsumos {
 		if (!error) {
 			setTextFieldsToBlankConsumo();
 			// List is updated
-			updateTableViewConsumos(null);
+			updateTableViewConsumos(consumos);
 		}
 	}
 
@@ -265,10 +288,8 @@ public class ControllerConsumos {
 					showError("Se produjo un error a la hora de eliminar el consumo.");
 					error = true;
 				} else { // If no errors occur
-					// STILL TO BE COMPLETED
-					if (selectedUsuario != null) {
-						consumos = consumoDao.getConsumos(selectedUsuario.getId(), "", "", 0, Integer.MAX_VALUE);
-					}
+					consumos = consumoDao.getConsumos(currentFiltersInfo1.get(0), currentFiltersInfo1.get(1),
+							currentFiltersInfo1.get(2), currentFiltersInfo2.get(0), currentFiltersInfo2.get(1));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
