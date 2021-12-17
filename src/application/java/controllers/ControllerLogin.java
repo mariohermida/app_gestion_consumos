@@ -29,6 +29,8 @@ public class ControllerLogin {
 
 		if (textFieldUsuario.getText().equals("user") && passwordFieldContrasenya.getText().equals("pass")) {
 			openNewWindow("Importacion", "Importación de datos");
+		} else if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("root")) {
+			openNewWindow("AuditTrail", "Audit Trail");
 		} else {
 			showError("Credenciales incorrectas");
 		}

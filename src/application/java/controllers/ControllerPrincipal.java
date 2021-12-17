@@ -34,14 +34,13 @@ public class ControllerPrincipal {
 	@FXML
 	void avanzadoButton(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: Avanzado.");
-//		openNewWindow("Login", "Login");
-		openNewWindow("Importacion", "Ventana de prueba");
+		openNewWindow("Login", "Login - Importación");
 	}
 
 	@FXML
 	void auditTrailButton(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: Audit Trail.");
-		openNewWindow("AuditTrail", "Audit Trail");
+		openNewWindow("Login", "Login - Audit Trail");
 	}
 
 	/**
