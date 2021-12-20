@@ -43,7 +43,7 @@ public class ControllerPrincipal {
 	@FXML
 	void auditTrailButton(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: Audit Trail.");
-		openNewWindow("Login", "Login - Audit Trail");
+		openNewWindow("AuditTrail", "Audit Trail");
 	}
 
 	/**

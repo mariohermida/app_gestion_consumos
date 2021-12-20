@@ -27,10 +27,8 @@ public class ControllerLogin {
 	void acceder(ActionEvent event) {
 		System.out.println("Se ha presionado el botón: acceder.");
 
-		if (textFieldUsuario.getText().equals("user") && passwordFieldContrasenya.getText().equals("pass")) {
+		if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("sica")) {
 			openNewWindow("Importacion", "Importación de datos");
-		} else if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("root")) {
-			openNewWindow("AuditTrail", "Audit Trail");
 		} else {
 			showError("Credenciales incorrectas");
 		}
