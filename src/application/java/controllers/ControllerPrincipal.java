@@ -55,7 +55,7 @@ public class ControllerPrincipal {
 	private void openNewWindow(String fileName, String titleName) {
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("../../resources/view/" + fileName + ".fxml"));
+			root = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -24,7 +24,7 @@ public class Main extends Application {
 
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("../resources/view/Principal.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
