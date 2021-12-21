@@ -18,31 +18,26 @@ public class ControllerPrincipal {
 
 	@FXML
 	void aplicacionesButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Aplicaciones.");
 		openNewWindow("Aplicaciones", "Aplicaciones");
 	}
 
 	@FXML
 	void usuariosButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Usuarios.");
 		openNewWindow("Usuarios", "Usuarios");
 	}
 
 	@FXML
 	void consumosButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Consumos.");
 		openNewWindow("Consumos", "Consumos de usuarios");
 	}
 
 	@FXML
 	void avanzadoButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Avanzado.");
 		openNewWindow("Login", "Login - Importación");
 	}
 
 	@FXML
 	void auditTrailButton(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: Audit Trail.");
 		openNewWindow("AuditTrail", "Audit Trail");
 	}
 

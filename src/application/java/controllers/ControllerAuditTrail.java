@@ -71,8 +71,6 @@ public class ControllerAuditTrail {
 
 	@FXML
 	void exportarPdf(ActionEvent event) throws IOException {
-		System.out.println("Se ha presionado el botón: exportar a .pdf.");
-
 		List<AuditTrail> auditTrail = tableViewAuditTrail.getItems();
 		if (auditTrail.isEmpty()) {
 			showError("Audit Trail vacío.");
@@ -114,8 +112,6 @@ public class ControllerAuditTrail {
 
 	@FXML
 	void exportarCsv(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: exportar a .csv.");
-
 		List<AuditTrail> auditTrail = tableViewAuditTrail.getItems();
 		if (auditTrail.isEmpty()) {
 			showError("Audit Trail vacío.");
@@ -151,7 +147,6 @@ public class ControllerAuditTrail {
 
 	@FXML
 	void refrescar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: refrescar.");
 		updateTableViewAuditTrail();
 	}
 

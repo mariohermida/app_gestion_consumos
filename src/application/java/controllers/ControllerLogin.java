@@ -25,8 +25,6 @@ public class ControllerLogin {
 
 	@FXML
 	void acceder(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: acceder.");
-
 		if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("sica")) {
 			openNewWindow("Importacion", "Importación de datos");
 		} else {

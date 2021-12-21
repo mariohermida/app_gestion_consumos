@@ -70,8 +70,6 @@ public class ControllerAplicaciones {
 
 	@FXML
 	void buscar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: buscar.");
-
 		// If all fields are empty it shows all existing aplicaciones
 		List<Aplicacion> aplicaciones = new ArrayList<>();
 		try {
@@ -88,7 +86,6 @@ public class ControllerAplicaciones {
 
 	@FXML
 	void modificar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: modificar.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank()) {
@@ -119,7 +116,6 @@ public class ControllerAplicaciones {
 
 	@FXML
 	void anyadir(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: anyadir.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank() || textFieldServidor.getText().isBlank()) {
@@ -150,7 +146,6 @@ public class ControllerAplicaciones {
 
 	@FXML
 	void eliminar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: eliminar.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank() && textFieldDescripcion.getText().isBlank()
@@ -181,8 +176,6 @@ public class ControllerAplicaciones {
 
 	@FXML
 	void exportar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: exportar.");
-
 		List<Aplicacion> aplicaciones = tableViewAplicaciones.getItems();
 		if (aplicaciones.isEmpty()) {
 			showError("No se ha seleccionada nada para exportar.");

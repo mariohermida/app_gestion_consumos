@@ -147,7 +147,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void buscar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: buscar.");
 		// If all fields are empty it shows all existing consumos
 		List<Consumo> consumos = new ArrayList<>();
 		try {
@@ -183,8 +182,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void buscarUsuario(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: buscarUsuario.");
-
 		List<Usuario> usuarios = new ArrayList<>();
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
 		usuarios = usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
@@ -196,7 +193,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void modificar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: modificar.");
 		boolean error = false;
 
 		List<Consumo> consumos = new ArrayList<>();
@@ -233,7 +229,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void anyadir(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: anyadir.");
 		boolean error = false;
 
 		List<Consumo> consumos = new ArrayList<>();
@@ -269,7 +264,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void eliminar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: eliminar.");
 		boolean error = false;
 
 		List<Consumo> consumos = new ArrayList<>();
@@ -307,8 +301,6 @@ public class ControllerConsumos {
 
 	@FXML
 	void exportar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: exportar.");
-
 		List<Consumo> consumos = tableViewConsumos.getItems();
 		if (consumos.isEmpty()) {
 			showError("No se ha seleccionada nada para exportar.");

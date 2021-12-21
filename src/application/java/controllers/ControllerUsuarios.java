@@ -83,8 +83,6 @@ public class ControllerUsuarios {
 
 	@FXML
 	void buscar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: buscar.");
-
 		List<Usuario> usuarios = new ArrayList<>();
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
 		usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
@@ -96,7 +94,6 @@ public class ControllerUsuarios {
 
 	@FXML
 	void modificar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: modificar.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank()) {
@@ -121,7 +118,6 @@ public class ControllerUsuarios {
 
 	@FXML
 	void anyadir(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: anyadir.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank()) {
@@ -146,7 +142,6 @@ public class ControllerUsuarios {
 
 	@FXML
 	void eliminar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: eliminar.");
 		boolean error = false;
 
 		if (textFieldId.getText().isBlank() && textFieldNombre.getText().isBlank()
@@ -173,8 +168,6 @@ public class ControllerUsuarios {
 
 	@FXML
 	void exportar(ActionEvent event) {
-		System.out.println("Se ha presionado el botón: exportar.");
-
 		List<Usuario> usuarios = tableViewUsuarios.getItems();
 		if (usuarios.isEmpty()) {
 			showError("No se ha seleccionada nada para exportar.");
