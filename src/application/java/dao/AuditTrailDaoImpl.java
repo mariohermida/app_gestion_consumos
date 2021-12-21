@@ -18,9 +18,8 @@ public class AuditTrailDaoImpl implements AuditTrailDao {
 
 	// Database information
 	static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_consumos";
-	// Root permissions are needed to retrieve the logs
-	static final String DB_USER = "root";
-	static final String DB_PASS = "root";
+	static final String DB_USER = "user";
+	static final String DB_PASS = "pass";
 
 	@Override
 	public List<AuditTrail> getAllLogs() {

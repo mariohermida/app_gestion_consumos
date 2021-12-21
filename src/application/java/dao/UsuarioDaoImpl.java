@@ -18,8 +18,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	// Database information
 	static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_consumos";
-	static final String DB_USER = "usuario";
-	static final String DB_PASS = "usuario";
+	static final String DB_USER = "user";
+	static final String DB_PASS = "pass";
 
 	@Override
 	public List<Usuario> getAllUsuarios() {
