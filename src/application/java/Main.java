@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 
 	// It points to the main window, in order to be visible by others stages
-	public static Stage mainStage;
+	//public static Stage mainStage;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -37,7 +37,7 @@ public class Main extends Application {
 		mystage.show();
 
 		// Set mainStage pointer to the main window (this)
-		mainStage = primaryStage;
+		//mainStage = primaryStage;
 	}
 
 }

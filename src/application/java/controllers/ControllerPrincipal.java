@@ -62,8 +62,8 @@ public class ControllerPrincipal {
 		mystage.setResizable(false);
 
 		// Establish the mainStage as the parent window
-		mystage.initModality(Modality.WINDOW_MODAL);
-		mystage.initOwner(Main.mainStage);
+		//mystage.initModality(Modality.WINDOW_MODAL);
+		//mystage.initOwner(Main.mainStage);
 
 		mystage.show();
 	}
