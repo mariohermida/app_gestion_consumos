@@ -1,4 +1,5 @@
 .image {
     -fx-background-image:url('/application/resources/images/logoSICA.png');
     -fx-background-size: 100% 100%;
+    -fx-background-color: rgba(0,0,0,0.1);
 }
