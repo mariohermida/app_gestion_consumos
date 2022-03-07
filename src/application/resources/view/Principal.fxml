@@ -7,32 +7,32 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal">
    <children>
-      <Button alignment="CENTER" layoutX="341.0" layoutY="294.0" mnemonicParsing="false" onAction="#aplicacionesButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Aplicaciones">
+      <Button alignment="CENTER" layoutX="470.0" layoutY="317.0" mnemonicParsing="false" onAction="#aplicacionesButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Aplicaciones">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="341.0" layoutY="366.0" mnemonicParsing="false" onAction="#usuariosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Usuarios">
+      <Button alignment="CENTER" layoutX="470.0" layoutY="389.0" mnemonicParsing="false" onAction="#usuariosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Usuarios">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="341.0" layoutY="437.0" mnemonicParsing="false" onAction="#consumosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Consumos">
+      <Button alignment="CENTER" layoutX="470.0" layoutY="460.0" mnemonicParsing="false" onAction="#consumosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Consumos">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="547.0" layoutY="407.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #FA8072;" text="Avanzado">
+      <Button alignment="CENTER" layoutX="676.0" layoutY="430.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #FA8072;" text="Avanzado">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="547.0" layoutY="332.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
+      <Button alignment="CENTER" layoutX="676.0" layoutY="355.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="316.0" layoutY="240.0" prefHeight="23.0" prefWidth="423.0" style="-fx-background-color: black;" text="¡Bienvenido al software de gestión de consumos!" textFill="WHITE">
+      <Label layoutX="445.0" layoutY="263.0" prefHeight="23.0" prefWidth="423.0" style="-fx-background-color: black;" text="¡Bienvenido al software de gestión de consumos!" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

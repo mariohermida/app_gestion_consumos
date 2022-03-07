@@ -8,39 +8,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
    <children>
-      <Button layoutX="279.0" layoutY="24.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
+      <Button layoutX="406.0" layoutY="52.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="105.0" layoutY="62.0" prefHeight="37.0" prefWidth="23.0" text="ID" textAlignment="RIGHT">
+      <Label layoutX="232.0" layoutY="90.0" prefHeight="37.0" prefWidth="23.0" text="ID" textAlignment="RIGHT">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="105.0" layoutY="99.0" prefHeight="37.0" prefWidth="102.0" text="Descripción">
+      <Label layoutX="232.0" layoutY="127.0" prefHeight="37.0" prefWidth="102.0" text="Descripción">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="105.0" layoutY="136.0" prefHeight="37.0" prefWidth="102.0" text="Gestor">
+      <Label layoutX="232.0" layoutY="164.0" prefHeight="37.0" prefWidth="102.0" text="Gestor">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="105.0" layoutY="173.0" prefHeight="37.0" prefWidth="102.0" text="Servidor">
+      <Label layoutX="232.0" layoutY="201.0" prefHeight="37.0" prefWidth="102.0" text="Servidor">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="textFieldId" layoutX="207.0" layoutY="68.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldDescripcion" layoutX="207.0" layoutY="105.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldGestor" layoutX="207.0" layoutY="142.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldServidor" layoutX="207.0" layoutY="179.0" prefHeight="25.0" prefWidth="300.0" />
-      <TableView fx:id="tableViewAplicaciones" layoutX="31.0" layoutY="225.0" onMouseClicked="#selectAplicacion" prefHeight="468.0" prefWidth="997.0">
+      <TextField fx:id="textFieldId" layoutX="334.0" layoutY="96.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldDescripcion" layoutX="334.0" layoutY="133.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldGestor" layoutX="334.0" layoutY="170.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldServidor" layoutX="334.0" layoutY="207.0" prefHeight="25.0" prefWidth="300.0" />
+      <TableView fx:id="tableViewAplicaciones" layoutX="158.0" layoutY="253.0" onMouseClicked="#selectAplicacion" prefHeight="468.0" prefWidth="997.0">
          <columns>
             <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
             <TableColumn fx:id="tableColumnDescripcion" prefWidth="377.0" text="Descripción" />
@@ -48,27 +47,27 @@
             <TableColumn fx:id="tableColumnServidor" prefWidth="231.0" text="Servidor" />
          </columns>
       </TableView>
-      <Button layoutX="841.0" layoutY="107.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="113.0" text="Exportar">
+      <Button layoutX="968.0" layoutY="135.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="113.0" text="Exportar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="563.0" layoutY="70.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="113.0" text="Buscar">
+      <Button layoutX="690.0" layoutY="98.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="113.0" text="Buscar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="563.0" layoutY="144.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="113.0" text="Modificar">
+      <Button layoutX="690.0" layoutY="172.0" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="113.0" text="Modificar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="707.0" layoutY="70.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="113.0" text="Añadir">
+      <Button layoutX="834.0" layoutY="98.0" mnemonicParsing="false" onAction="#anyadir" prefHeight="46.0" prefWidth="113.0" text="Añadir">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="707.0" layoutY="144.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="113.0" text="Eliminar">
+      <Button layoutX="834.0" layoutY="172.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="113.0" text="Eliminar">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
