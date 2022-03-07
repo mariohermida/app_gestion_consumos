@@ -32,7 +32,7 @@ public class ControllerImportacion {
 	@FXML
 	void importarAplicaciones(ActionEvent event) throws IOException, CsvValidationException {
 		FileChooser fc = new FileChooser();
-		fc.setTitle("Seleccione el archivo a importar:");
+		fc.setTitle("Seleccione el archivo de aplicaciones a importar:");
 		File file = fc.showOpenDialog(null);
 
 		Reader reader = new FileReader(file);
@@ -55,7 +55,7 @@ public class ControllerImportacion {
 	@FXML
 	void importarUsuarios(ActionEvent event) throws IOException, CsvValidationException {
 		FileChooser fc = new FileChooser();
-		fc.setTitle("Seleccione el archivo a importar:");
+		fc.setTitle("Seleccione el archivo de usuarios a importar:");
 		File file = fc.showOpenDialog(null);
 
 		Reader reader = new FileReader(file);
@@ -78,7 +78,7 @@ public class ControllerImportacion {
 	@FXML
 	void importarConsumos(ActionEvent event) throws IOException, CsvValidationException {
 		FileChooser fc = new FileChooser();
-		fc.setTitle("Seleccione el archivo a importar:");
+		fc.setTitle("Seleccione el archivo de consumos a importar:");
 		File file = fc.showOpenDialog(null);
 
 		Reader reader = new FileReader(file);
