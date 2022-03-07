@@ -27,19 +27,23 @@ public class ControllerLogin {
 	@FXML
 	void acceder(ActionEvent event) {
 		if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("sica")) {
-			openNewWindow("Importacion", "Importación de datos");
+			openNewWindow("Importacion");
 		} else {
 			showError("Credenciales incorrectas");
 		}
+	}
+	
+	@FXML
+	void atras(ActionEvent event) {
+		openNewWindow("Principal");
 	}
 
 	/**
 	 * Shows a new view according to the .fxml file called fileName
 	 * 
 	 * @param fileName
-	 * @param titleName
 	 */
-	private void openNewWindow(String fileName, String titleName) {
+	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
 		try {
 			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));

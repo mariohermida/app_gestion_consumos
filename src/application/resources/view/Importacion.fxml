@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerImportacion">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerImportacion">
    <children>
       <Button layoutX="546.0" layoutY="282.0" mnemonicParsing="false" onAction="#importarAplicaciones" prefHeight="46.0" prefWidth="221.0" text="Importar aplicaciones">
          <font>
@@ -17,6 +17,11 @@
          </font>
       </Button>
       <Button layoutX="546.0" layoutY="445.0" mnemonicParsing="false" onAction="#importarConsumos" prefHeight="46.0" prefWidth="221.0" text="Importar consumos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#atras" prefHeight="46.0" prefWidth="102.0" text="Atrás &lt;-">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

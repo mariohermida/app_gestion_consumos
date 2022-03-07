@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAplicaciones">
    <children>
       <Button layoutX="406.0" layoutY="52.0" mnemonicParsing="false" onAction="#restablecerCampos" prefHeight="30.0" prefWidth="157.0" text="Restablecer campos">
          <font>
@@ -68,6 +68,11 @@
          </font>
       </Button>
       <Button layoutX="834.0" layoutY="172.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="113.0" text="Eliminar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#atras" prefHeight="46.0" prefWidth="102.0" text="Atrás &lt;-">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -15,14 +15,19 @@ import application.java.model.Consumo;
 import application.java.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 /**
  * Class that manages all the events occurred in Importacion.fxml
  */
 public class ControllerImportacion {
+	
+	@FXML
+	private AnchorPane rootPane;
 
 	@FXML
 	void importarAplicaciones(ActionEvent event) throws IOException, CsvValidationException {
@@ -45,7 +50,7 @@ public class ControllerImportacion {
 		}
 		reader.close();
 		csvReader.close();
-	}
+	}	
 
 	@FXML
 	void importarUsuarios(ActionEvent event) throws IOException, CsvValidationException {
@@ -92,6 +97,17 @@ public class ControllerImportacion {
 		}
 		reader.close();
 		csvReader.close();
+	}
+	
+	@FXML
+	void atras(ActionEvent event) {
+		AnchorPane pane = null;
+		try {
+			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		rootPane.getChildren().setAll(pane);
 	}
 
 	public void showError(String message) {

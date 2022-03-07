@@ -26,5 +26,10 @@
       </Label>
       <TextField fx:id="textFieldUsuario" layoutX="623.0" layoutY="319.0" prefHeight="25.0" prefWidth="166.0" />
       <PasswordField fx:id="passwordFieldContrasenya" layoutX="623.0" layoutY="364.0" prefHeight="25.0" prefWidth="166.0" />
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#atras" prefHeight="46.0" prefWidth="102.0" text="Atrás &lt;-">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

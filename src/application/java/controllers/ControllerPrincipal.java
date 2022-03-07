@@ -16,36 +16,35 @@ public class ControllerPrincipal {
 
 	@FXML
 	void aplicacionesButton(ActionEvent event) {
-		openNewWindow("Aplicaciones", "Aplicaciones");
+		openNewWindow("Aplicaciones");
 	}
 
 	@FXML
 	void usuariosButton(ActionEvent event) {
-		openNewWindow("Usuarios", "Usuarios");
+		openNewWindow("Usuarios");
 	}
 
 	@FXML
 	void consumosButton(ActionEvent event) {
-		openNewWindow("Consumos", "Consumos de usuarios");
+		openNewWindow("Consumos");
 	}
 
 	@FXML
 	void avanzadoButton(ActionEvent event) {
-		openNewWindow("Login", "Login - Importación");
+		openNewWindow("Login");
 	}
 
 	@FXML
 	void auditTrailButton(ActionEvent event) {
-		openNewWindow("AuditTrail", "Audit Trail");
+		openNewWindow("AuditTrail");
 	}
 
 	/**
 	 * Shows a new view according to the .fxml file called fileName
 	 * 
 	 * @param fileName
-	 * @param titleName
 	 */
-	private void openNewWindow(String fileName, String titleName) {
+	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
 		try {
 			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
