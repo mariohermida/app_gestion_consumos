@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
@@ -16,6 +17,9 @@ import javafx.stage.Stage;
  * Class that manages all the events occurred in Login.fxml
  */
 public class ControllerLogin {
+	
+	@FXML
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField textFieldUsuario;
@@ -39,7 +43,7 @@ public class ControllerLogin {
 	 * @param titleName
 	 */
 	private void openNewWindow(String fileName, String titleName) {
-		Parent root = null;
+		/*Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 		} catch (IOException e) {
@@ -51,7 +55,15 @@ public class ControllerLogin {
 		mystage.setTitle(titleName);
 		mystage.setScene(new Scene(root));
 		mystage.setResizable(false);
-		mystage.show();
+		mystage.show();*/
+		
+		AnchorPane pane = null;
+		try {
+			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		rootPane.getChildren().setAll(pane);
 	}
 
 	public void showError(String message) {
