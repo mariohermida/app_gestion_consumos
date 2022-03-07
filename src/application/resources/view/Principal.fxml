@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="487.0" styleClass="image" stylesheets="@/application/resources/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal">
    <children>
-      <Button alignment="CENTER" layoutX="57.0" layoutY="68.0" mnemonicParsing="false" onAction="#aplicacionesButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Aplicaciones">
+      <Button alignment="CENTER" layoutX="341.0" layoutY="294.0" mnemonicParsing="false" onAction="#aplicacionesButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Aplicaciones">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="57.0" layoutY="140.0" mnemonicParsing="false" onAction="#usuariosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Usuarios">
+      <Button alignment="CENTER" layoutX="341.0" layoutY="366.0" mnemonicParsing="false" onAction="#usuariosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Usuarios">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="57.0" layoutY="211.0" mnemonicParsing="false" onAction="#consumosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Consumos">
+      <Button alignment="CENTER" layoutX="341.0" layoutY="437.0" mnemonicParsing="false" onAction="#consumosButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #7FB3D5;" text="Consumos">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="263.0" layoutY="181.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #FA8072;" text="Avanzado">
+      <Button alignment="CENTER" layoutX="547.0" layoutY="407.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #FA8072;" text="Avanzado">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="263.0" layoutY="106.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
+      <Button alignment="CENTER" layoutX="547.0" layoutY="332.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="51.0" prefWidth="176.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="32.0" layoutY="14.0" prefHeight="23.0" prefWidth="423.0" style="-fx-background-color: black;" text="¡Bienvenido al software de gestión de consumos!" textFill="WHITE">
+      <Label layoutX="316.0" layoutY="240.0" prefHeight="23.0" prefWidth="423.0" style="-fx-background-color: black;" text="¡Bienvenido al software de gestión de consumos!" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
    </children>
-</Pane>
+</AnchorPane>

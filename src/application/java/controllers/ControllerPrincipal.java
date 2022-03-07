@@ -6,12 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * Class that manages all the events occurred in Principal.fxml
  */
 public class ControllerPrincipal {
+	
+	@FXML
+	private AnchorPane rootPane;
 
 	@FXML
 	void aplicacionesButton(ActionEvent event) {
@@ -45,7 +49,7 @@ public class ControllerPrincipal {
 	 * @param titleName
 	 */
 	private void openNewWindow(String fileName, String titleName) {
-		Parent root = null;
+		/*Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 		} catch (IOException e) {
@@ -62,7 +66,15 @@ public class ControllerPrincipal {
 		//mystage.initModality(Modality.WINDOW_MODAL);
 		//mystage.initOwner(Main.mainStage);
 
-		mystage.show();
+		mystage.show();*/
+		
+		AnchorPane pane = null;
+		try {
+			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		rootPane.getChildren().setAll(pane);
 	}
 
 }
