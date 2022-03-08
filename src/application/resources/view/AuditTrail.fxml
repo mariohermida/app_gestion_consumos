@@ -8,6 +8,11 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerAuditTrail">
    <children>
+      <Button layoutX="376.0" layoutY="27.0" mnemonicParsing="false" onAction="#refrescar" prefHeight="46.0" prefWidth="163.0" text="Refrescar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
       <Button layoutX="613.0" layoutY="27.0" mnemonicParsing="false" onAction="#exportarPdf" prefHeight="46.0" prefWidth="163.0" text="Exportar a .pdf">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -18,20 +23,16 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="tableViewAuditTrail" layoutX="66.0" layoutY="94.0" prefHeight="652.0" prefWidth="1182.0">
+      <TableView fx:id="tableViewAuditTrail" layoutX="8.0" layoutY="94.0" prefHeight="652.0" prefWidth="1297.0">
          <columns>
             <TableColumn fx:id="tableColumnId" prefWidth="36.0" text="ID" />
-            <TableColumn fx:id="tableColumnTipo" prefWidth="71.0" text="Tipo" />
-            <TableColumn fx:id="tableColumnAccion" prefWidth="779.0" text="Acción" />
-            <TableColumn fx:id="tableColumnFechaHora" prefWidth="132.0" text="Fecha y hora" />
-            <TableColumn fx:id="tableColumnUsuarioBBDD" minWidth="6.0" prefWidth="162.0" text="Usuario BBDD" />
+            <TableColumn fx:id="tableColumnTipo" prefWidth="64.0" text="Tipo" />
+            <TableColumn fx:id="tableColumnTabla" prefWidth="66.0" text="Tabla" />
+            <TableColumn fx:id="tableColumnAccion" prefWidth="903.0" text="Acción" />
+            <TableColumn fx:id="tableColumnFechaHora" prefWidth="116.0" text="Fecha y hora" />
+            <TableColumn fx:id="tableColumnUsuarioBBDD" minWidth="6.0" prefWidth="108.0" text="Usuario BBDD" />
          </columns>
       </TableView>
-      <Button layoutX="376.0" layoutY="27.0" mnemonicParsing="false" onAction="#refrescar" prefHeight="46.0" prefWidth="163.0" text="Refrescar">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
       <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#atras" prefHeight="46.0" prefWidth="102.0" text="Atrás &lt;-">
          <font>
             <Font name="System Bold" size="18.0" />

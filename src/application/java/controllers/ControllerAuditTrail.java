@@ -47,6 +47,9 @@ public class ControllerAuditTrail {
 
 	@FXML
 	private TableColumn<AuditTrail, String> tableColumnTipo;
+	
+	@FXML
+	private TableColumn<AuditTrail, String> tableColumnTabla;
 
 	@FXML
 	private TableColumn<AuditTrail, String> tableColumnAccion;
@@ -67,6 +70,7 @@ public class ControllerAuditTrail {
 		// Columns values are assigned to the attributes within AuditTrail class
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+		tableColumnTabla.setCellValueFactory(new PropertyValueFactory<>("tabla"));
 		tableColumnAccion.setCellValueFactory(new PropertyValueFactory<>("accion"));
 		tableColumnFechaHora.setCellValueFactory(new PropertyValueFactory<>("fechaHora"));
 		tableColumnUsuarioBBDD.setCellValueFactory(new PropertyValueFactory<>("usuarioBBDD"));
@@ -104,6 +108,8 @@ public class ControllerAuditTrail {
 					document.add(
 							new Paragraph().add(new Text("Tipo: ").setFont(boldFont)).add(new Text(log.getTipo())));
 					document.add(
+							new Paragraph().add(new Text("Tabla: ").setFont(boldFont)).add(new Text(log.getTabla())));
+					document.add(
 							new Paragraph().add(new Text("Acción: ").setFont(boldFont)).add(new Text(log.getAccion())));
 					document.add(new Paragraph().add(new Text("Fecha y hora: ").setFont(boldFont))
 							.add(new Text(log.getFechaHora())));
@@ -132,7 +138,7 @@ public class ControllerAuditTrail {
 				// First line includes the headers of the stored information
 				dataLines.add(new String[] { "ID", "Tipo", "Acción", "Fecha y hora", "Usuario BBDD" });
 				for (AuditTrail log : auditTrail) {
-					dataLines.add(new String[] { log.getId(), log.getTipo(), log.getAccion(), log.getFechaHora(),
+					dataLines.add(new String[] { log.getId(), log.getTipo(), log.getTabla(), log.getAccion(), log.getFechaHora(),
 							log.getUsuarioBBDD() });
 				}
 

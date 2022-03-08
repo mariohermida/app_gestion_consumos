@@ -31,7 +31,7 @@ public class AuditTrailDaoImpl implements AuditTrailDao {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				logs.add(new AuditTrail(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5)));
+						rs.getString(5), rs.getString(6)));
 			}
 			connection.close();
 			return logs;
