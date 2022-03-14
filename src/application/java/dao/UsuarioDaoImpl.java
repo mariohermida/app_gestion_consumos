@@ -23,23 +23,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Override
 	public List<Usuario> getAllUsuarios() {
-		List<Usuario> usuarios = new ArrayList<>();
-		try {
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "SELECT * FROM usuario";
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				usuarios.add(new Usuario(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6)));
-			}
-			connection.close();
-			return usuarios;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return usuarios;
+		return getUsuarios("", "", "", "", "", "");
 	}
 
 	@Override
