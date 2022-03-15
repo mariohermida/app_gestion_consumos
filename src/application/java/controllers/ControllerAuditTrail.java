@@ -31,6 +31,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -38,16 +39,19 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ControllerAuditTrail {
-	
+
 	@FXML
 	private AnchorPane rootPane;
+
+	@FXML
+	private TextField textFieldMovs;
 
 	@FXML
 	private TableColumn<AuditTrail, String> tableColumnId;
 
 	@FXML
 	private TableColumn<AuditTrail, String> tableColumnTipo;
-	
+
 	@FXML
 	private TableColumn<AuditTrail, String> tableColumnTabla;
 
@@ -136,10 +140,10 @@ public class ControllerAuditTrail {
 				List<String[]> dataLines = new ArrayList<>(); // Formatted data to be stored
 				// For every existing log an array of strings is created
 				// First line includes the headers of the stored information
-				dataLines.add(new String[] { "ID", "Tipo", "Acción", "Fecha y hora", "Usuario BBDD" });
+				dataLines.add(new String[] { "ID", "Tipo", "Tabla", "Acción", "Fecha y hora", "Usuario BBDD" });
 				for (AuditTrail log : auditTrail) {
-					dataLines.add(new String[] { log.getId(), log.getTipo(), log.getTabla(), log.getAccion(), log.getFechaHora(),
-							log.getUsuarioBBDD() });
+					dataLines.add(new String[] { log.getId(), log.getTipo(), log.getTabla(), log.getAccion(),
+							log.getFechaHora(), log.getUsuarioBBDD() });
 				}
 
 				File csv = new File(file.getAbsolutePath());
@@ -152,6 +156,32 @@ public class ControllerAuditTrail {
 		}
 	}
 
+	@FXML
+	void exportarCsvUltimosMovs(ActionEvent event) {
+		List<AuditTrail> auditTrail = tableViewAuditTrail.getItems();
+		if (auditTrail.isEmpty()) {
+			showError("Audit Trail vacío.");
+		} else {
+
+			List<String[]> dataLines = new ArrayList<>(); // Formatted data to be stored
+			// Obtain only the last x movements
+			AuditTrail log;
+			for (int i = auditTrail.size() - Integer.parseInt(textFieldMovs.getText()); i < auditTrail.size(); i++) {
+				log = auditTrail.get(i);
+				dataLines.add(new String[] { log.getId(), log.getTipo(), log.getTabla(), log.getAccion(),
+						log.getFechaHora(), log.getUsuarioBBDD() });
+			}
+
+			File file = new File("/Users/SIC-LN-34/Desktop/M/log_original.csv");
+			File csv = new File(file.getAbsolutePath());
+			try (PrintWriter pw = new PrintWriter(csv)) {
+				dataLines.stream().map(this::convertToCSV).forEach(pw::println);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private String convertToCSV(String[] data) {
 		return Stream.of(data).collect(Collectors.joining(","));
 	}
@@ -160,7 +190,7 @@ public class ControllerAuditTrail {
 	void refrescar(ActionEvent event) {
 		updateTableViewAuditTrail();
 	}
-	
+
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
