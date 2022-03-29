@@ -40,14 +40,14 @@ public class ControllerConsumos {
 
 	@FXML
 	private AnchorPane rootPane;
-	
+
 	// Fields for Consumo
 
 	@FXML
 	private ComboBox<String> comboBoxIdUsuario;
 
 	@FXML
-	private ComboBox<String> comboBoxIdAplicacion;
+	private ComboBox<String> comboBoxAplicacion;
 
 	@FXML
 	private ComboBox<String> comboBoxMes;
@@ -171,12 +171,12 @@ public class ControllerConsumos {
 			currentFiltersInfo1.removeAll(currentFiltersInfo1);
 			currentFiltersInfo2.removeAll(currentFiltersInfo2);
 			currentFiltersInfo1.add(idUsuario);
-			currentFiltersInfo1.add(getIdAplicacionValue());
+			currentFiltersInfo1.add(getAplicacionValue());
 			currentFiltersInfo1.add(getMesValue());
 			currentFiltersInfo2.add(getConsumoMinValue());
 			currentFiltersInfo2.add(getConsumoMaxValue());
 
-			consumos = consumoDao.getConsumos(idUsuario, getIdAplicacionValue(), getMesValue(), getConsumoMinValue(),
+			consumos = consumoDao.getConsumos(idUsuario, getAplicacionValue(), getMesValue(), getConsumoMinValue(),
 					getConsumoMaxValue());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -204,15 +204,15 @@ public class ControllerConsumos {
 		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
-				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
+				|| comboBoxAplicacion.getSelectionModel().getSelectedItem() == null) {
 			showError("Los campos ID Usuario, ID Aplicación y Mes no pueden estar vacíos.");
 			error = true;
 		} else {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			try {
 				if (!consumoDao.updateConsumo(selectedConsumo.getIdUsuario(), selectedConsumo.getIdAplicacion(),
-						selectedConsumo.getMes(), new Consumo(getIdUsuarioValue(), getIdAplicacionValue(),
-								getMesValue(), getNuevoConsumoValue()))) {
+						selectedConsumo.getMes(), new Consumo(getIdUsuarioValue(), getAplicacionValue(), getMesValue(),
+								getNuevoConsumoValue()))) {
 					showError("Se produjo un error a la hora de modificar el consumo.");
 					error = true;
 				} else { // If no errors occur
@@ -240,13 +240,13 @@ public class ControllerConsumos {
 		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				|| comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
-				|| comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null) {
+				|| comboBoxAplicacion.getSelectionModel().getSelectedItem() == null) {
 			showError("Los campos ID Usuario, ID Aplicación y Mes no pueden estar vacíos.");
 			error = true;
 		} else {
 			ConsumoDao consumoDao = new ConsumoDaoImpl();
 			try {
-				if (!consumoDao.insertConsumo(new Consumo(getIdUsuarioValue(), getIdAplicacionValue(), getMesValue(),
+				if (!consumoDao.insertConsumo(new Consumo(getIdUsuarioValue(), getAplicacionValue(), getMesValue(),
 						getNuevoConsumoValue()))) {
 					showError("Se produjo un error a la hora de añadir el consumo.");
 					error = true;
@@ -275,7 +275,7 @@ public class ControllerConsumos {
 		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
-				&& comboBoxIdAplicacion.getSelectionModel().getSelectedItem() == null
+				&& comboBoxAplicacion.getSelectionModel().getSelectedItem() == null
 				&& textFieldConsumoMin.getText().isBlank() && textFieldConsumoMax.getText().isBlank()) {
 			showError(
 					"Al menos uno de los siguiente campos ha de no estar vacío: ID Usuario, ID Aplicación, Mes, ConsumoMin y consumoMax.");
@@ -283,7 +283,7 @@ public class ControllerConsumos {
 		} else {
 			try {
 				ConsumoDao consumoDao = new ConsumoDaoImpl();
-				if (!consumoDao.deleteConsumos(getIdUsuarioValue(), getIdAplicacionValue(), getMesValue(),
+				if (!consumoDao.deleteConsumos(getIdUsuarioValue(), getAplicacionValue(), getMesValue(),
 						getConsumoMinValue(), getConsumoMaxValue())) {
 					showError("Se produjo un error a la hora de eliminar el consumo.");
 					error = true;
@@ -352,9 +352,9 @@ public class ControllerConsumos {
 		return "";
 	}
 
-	private String getIdAplicacionValue() {
-		if (comboBoxIdAplicacion.getSelectionModel().getSelectedItem() != null) {
-			return comboBoxIdAplicacion.getSelectionModel().getSelectedItem().toString();
+	private String getAplicacionValue() {
+		if (comboBoxAplicacion.getSelectionModel().getSelectedItem() != null) {
+			return comboBoxAplicacion.getSelectionModel().getSelectedItem().toString();
 		}
 		return "";
 	}
@@ -397,7 +397,7 @@ public class ControllerConsumos {
 
 		if (consumo != null) {
 			comboBoxIdUsuario.setValue(consumo.getIdUsuario());
-			comboBoxIdAplicacion.setValue(consumo.getIdAplicacion());
+			comboBoxAplicacion.setValue(consumo.getIdAplicacion());
 			comboBoxMes.setValue(consumo.getMes());
 			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
 
@@ -454,16 +454,17 @@ public class ControllerConsumos {
 		aplicacionList = aplicacionDao.getAllAplicaciones();
 		observableList = FXCollections.observableArrayList();
 		for (Aplicacion aplicacion : aplicacionList) {
-			observableList.add(aplicacion.getId());
+			observableList.add(aplicacion.getId() + " - " + aplicacion.getDescripcion() + " - " + aplicacion.getGestor()
+					+ " - " + aplicacion.getServidor());
 		}
-		comboBoxIdAplicacion.setItems(observableList);
+		comboBoxAplicacion.setItems(observableList);
 
 		if (event != null) {
 			buscarUsuario(null);
 			buscar(null);
 		}
 	}
-	
+
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
@@ -531,7 +532,7 @@ public class ControllerConsumos {
 	 */
 	private void setTextFieldsToBlankConsumo() {
 		comboBoxIdUsuario.setValue(null);
-		comboBoxIdAplicacion.setValue(null);
+		comboBoxAplicacion.setValue(null);
 		comboBoxMes.setValue(null);
 		textFieldConsumoMin.setText("");
 		textFieldConsumoMax.setText("");
