@@ -131,12 +131,7 @@
       <TextField fx:id="textFieldApellidos" layoutX="120.0" layoutY="556.0" prefHeight="25.0" prefWidth="240.0" />
       <TextField fx:id="textFieldEmail" layoutX="120.0" layoutY="593.0" prefHeight="25.0" prefWidth="240.0" />
       <TextField fx:id="textFieldTelefono" layoutX="120.0" layoutY="633.0" prefHeight="25.0" prefWidth="240.0" />
-      <TextField fx:id="textFieldDireccion" layoutX="120.0" layoutY="670.0" prefHeight="25.0" prefWidth="240.0" />
-      <Button layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="46.0" prefWidth="157.0" text="Buscar usuario">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
+      <TextField fx:id="textFieldDireccion" layoutX="120.0" layoutY="669.0" prefHeight="25.0" prefWidth="240.0" />
       <TableView fx:id="tableViewUsuarios" layoutX="377.0" layoutY="489.0" onMouseClicked="#selectUsuario" prefHeight="209.0" prefWidth="918.0">
          <columns>
             <TableColumn fx:id="tableColumnIdUsuario" prefWidth="99.0" text="ID" />

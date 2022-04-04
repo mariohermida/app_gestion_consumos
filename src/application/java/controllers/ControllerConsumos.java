@@ -231,17 +231,6 @@ public class ControllerConsumos {
 	}
 
 	@FXML
-	void buscarUsuario(ActionEvent event) {
-		List<Usuario> usuarios = new ArrayList<>();
-		UsuarioDao usuarioDao = new UsuarioDaoImpl();
-		usuarios = usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
-				textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
-				textFieldDireccion.getText());
-
-		updateTableViewUsuarios(usuarios);
-	}
-
-	@FXML
 	void modificar(ActionEvent event) {
 		boolean error = false;
 
@@ -504,7 +493,6 @@ public class ControllerConsumos {
 		comboBoxAplicacion.setItems(observableList);
 
 		if (event != null) {
-			buscarUsuario(null);
 			buscar(null);
 		}
 	}
