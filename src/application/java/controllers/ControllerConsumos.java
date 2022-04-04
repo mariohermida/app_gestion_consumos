@@ -62,6 +62,9 @@ public class ControllerConsumos {
 	private TextField textFieldNuevoConsumo;
 
 	@FXML
+	private TextField textFieldIdAplicacion;
+
+	@FXML
 	private TableColumn<Consumo, String> tableColumnIdUsuarioConsumos;
 
 	@FXML
@@ -126,7 +129,7 @@ public class ControllerConsumos {
 	@FXML
 	public void initialize() {
 		// tableViewConsumos setup
-		// Columns values are assigned to attributes within Consumo class
+		// Column values are assigned to attributes within Consumo class
 		tableColumnIdUsuarioConsumos.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
 		tableColumnIdAplicacion.setCellValueFactory(new PropertyValueFactory<>("idAplicacion"));
 		tableColumnMes.setCellValueFactory(new PropertyValueFactory<>("mes"));
@@ -139,7 +142,7 @@ public class ControllerConsumos {
 				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"));
 
 		// tableViewUsuarios setup
-		// Columns values are assigned to attributes within Usuario class
+		// Column values are assigned to attributes within Usuario class
 		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		tableColumnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
@@ -149,6 +152,47 @@ public class ControllerConsumos {
 
 		currentFiltersInfo1 = new ArrayList<>();
 		currentFiltersInfo2 = new ArrayList<>();
+
+		// Dynamic search for all usuario fields
+		// Once a change on any field is made the tableView is updated
+		// Filters can be used altogether
+		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+		textFieldIdUsuario.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(
+					usuarioDao.getUsuarios(newValue, textFieldNombre.getText(), textFieldApellidos.getText(),
+							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		});
+
+		textFieldNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(
+					usuarioDao.getUsuarios(textFieldIdUsuario.getText(), newValue, textFieldApellidos.getText(),
+							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		});
+
+		textFieldApellidos.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
+					newValue, textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		});
+
+		textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
+					textFieldApellidos.getText(), newValue, textFieldTelefono.getText(), textFieldDireccion.getText()));
+		});
+
+		textFieldTelefono.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
+					textFieldApellidos.getText(), textFieldEmail.getText(), newValue, textFieldDireccion.getText()));
+		});
+
+		textFieldDireccion.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
+					textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(), newValue));
+		});
+
+		// Initially, all consumos and usuarios are shown
+		updateTableViewConsumos(null);
+		updateTableViewUsuarios(null);
+
 	}
 
 	@FXML

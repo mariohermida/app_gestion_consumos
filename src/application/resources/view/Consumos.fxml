@@ -26,11 +26,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="356.0" prefHeight="37.0" prefWidth="87.0" text="Aplicación">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label layoutX="18.0" layoutY="214.0" prefHeight="37.0" prefWidth="122.0" text="Mes">
          <font>
             <Font size="18.0" />
@@ -51,12 +46,18 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="18.0" layoutY="356.0" prefHeight="37.0" prefWidth="87.0" text="Aplicación">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <ComboBox fx:id="comboBoxIdUsuario" layoutX="142.0" layoutY="172.0" prefHeight="25.0" prefWidth="300.0" />
-      <ComboBox fx:id="comboBoxAplicacion" layoutX="459.0" layoutY="362.0" prefHeight="25.0" prefWidth="431.0" />
       <ComboBox fx:id="comboBoxMes" layoutX="142.0" layoutY="220.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldConsumoMin" layoutX="186.0" layoutY="266.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor mínimo" />
       <TextField fx:id="textFieldConsumoMax" layoutX="336.0" layoutY="266.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor máximo" />
       <TextField fx:id="textFieldNuevoConsumo" layoutX="184.0" layoutY="314.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField fx:id="textFieldAplicacion" layoutX="121.0" layoutY="362.0" prefHeight="25.0" prefWidth="318.0" />
+      <ComboBox fx:id="comboBoxAplicacion" layoutX="459.0" layoutY="362.0" prefHeight="25.0" prefWidth="431.0" />
       <Button layoutX="459.0" layoutY="98.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="106.0" text="Buscar">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -151,6 +152,5 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="textFieldAplicacion" layoutX="121.0" layoutY="362.0" prefHeight="25.0" prefWidth="318.0" />
    </children>
 </AnchorPane>
