@@ -1,11 +1,17 @@
 package application.java.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 import application.java.model.Usuario;
 
 /**
@@ -16,10 +22,24 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	private Connection connection;
 
-	// Database information
-	static final String DB_URL = "jdbc:mysql://localhost:3306/gestion_consumos";
-	static final String DB_USER = "user";
-	static final String DB_PASS = "pass";
+	// Database credentials
+	final String DB_URL;
+	final String DB_USER;
+	final String DB_PASS;
+
+	public UsuarioDaoImpl() {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		DB_URL = properties.getProperty("url");
+		DB_USER = properties.getProperty("user");
+		DB_PASS = properties.getProperty("pass");
+	}
 
 	@Override
 	public List<Usuario> getAllUsuarios() {
@@ -112,7 +132,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			String query = "DELETE FROM Usuario WHERE 1 = 1";
 			if (!id.isBlank()) {
-				// ID must be taken as exact input, otherwise IDs containing id string will be deleted
+				// ID must be taken as exact input, otherwise IDs containing id string will be
+				// deleted
 				query += " AND ID = '" + id + "'";
 			}
 			if (!nombre.isBlank()) {

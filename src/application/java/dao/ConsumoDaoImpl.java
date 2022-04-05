@@ -1,11 +1,17 @@
 package application.java.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 import application.java.model.Consumo;
 
 /**
@@ -16,10 +22,24 @@ public class ConsumoDaoImpl implements ConsumoDao {
 
 	private Connection connection;
 
-	// Database information
-	private final String DB_URL = "jdbc:mysql://localhost:3306/gestion_consumos";
-	private final String DB_USER = "user";
-	private final String DB_PASS = "pass";
+	// Database credentials
+	final String DB_URL;
+	final String DB_USER;
+	final String DB_PASS;
+
+	public ConsumoDaoImpl() {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		DB_URL = properties.getProperty("url");
+		DB_USER = properties.getProperty("user");
+		DB_PASS = properties.getProperty("pass");
+	}
 
 	@Override
 	public List<Consumo> getAllConsumos() {
@@ -27,7 +47,8 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	}
 
 	@Override
-	public List<Consumo> getConsumos(String idUsuario, String idAplicacion, String mes, int consumoMin, int consumoMax) {
+	public List<Consumo> getConsumos(String idUsuario, String idAplicacion, String mes, int consumoMin,
+			int consumoMax) {
 		List<Consumo> consumos = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -64,9 +85,9 @@ public class ConsumoDaoImpl implements ConsumoDao {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			String query = "UPDATE Consumo_usuario SET ID_usuario = '" + consumo.getIdUsuario() + "', ID_aplicacion = '"
-					+ consumo.getIdAplicacion() + "', Mes = '" + consumo.getMes() + "', Consumo = " + consumo.getConsumo()
-					+ " WHERE ID_usuario = '" + oldIdUsuario + "' AND ID_aplicacion = '" + oldIdAplicacion
-					+ "' AND Mes = '" + oldMes + "'";
+					+ consumo.getIdAplicacion() + "', Mes = '" + consumo.getMes() + "', Consumo = "
+					+ consumo.getConsumo() + " WHERE ID_usuario = '" + oldIdUsuario + "' AND ID_aplicacion = '"
+					+ oldIdAplicacion + "' AND Mes = '" + oldMes + "'";
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
