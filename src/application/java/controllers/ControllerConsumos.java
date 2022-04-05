@@ -62,7 +62,7 @@ public class ControllerConsumos {
 	private TextField textFieldNuevoConsumo;
 
 	@FXML
-	private TextField textFieldIdAplicacion;
+	private TextField textFieldAplicacion;
 
 	@FXML
 	private TableColumn<Consumo, String> tableColumnIdUsuarioConsumos;
@@ -120,7 +120,7 @@ public class ControllerConsumos {
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
 
-	private List<String> currentFiltersInfo1; // Current search filters for: idUsuario, idApp and Mes
+	private List<String> currentFiltersInfo1; // Current search filters for: idUsuario, App and Mes
 	private List<Integer> currentFiltersInfo2; // Current search filters for: min and max consumo
 
 	private Consumo selectedConsumo; // Current consumo
@@ -152,6 +152,22 @@ public class ControllerConsumos {
 
 		currentFiltersInfo1 = new ArrayList<>();
 		currentFiltersInfo2 = new ArrayList<>();
+
+		// Dynamic search for id aplicacion
+		textFieldAplicacion.textProperty().addListener((observable, oldValue, newValue) -> {
+			AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
+			// All aplicaciones that meet the name in the text field will be displayed in
+			// the combobox
+			List<Aplicacion> listAplicaciones = aplicacionDao.getAplicaciones(newValue, "", "", Byte.MIN_VALUE);
+			ObservableList<String> observableList = FXCollections.observableArrayList();
+			for (Aplicacion aplicacion : listAplicaciones) {
+				observableList.add(aplicacion.getId() + " - " + aplicacion.getDescripcion() + " - "
+						+ aplicacion.getGestor() + " - " + aplicacion.getServidor());
+				comboBoxAplicacion.setValue(aplicacion.getId() + " - " + aplicacion.getDescripcion() + " - "
+						+ aplicacion.getGestor() + " - " + aplicacion.getServidor());
+			}
+			comboBoxAplicacion.setItems(observableList);
+		});
 
 		// Dynamic search for all usuario fields
 		// Once a change on any field is made the tableView is updated
@@ -195,6 +211,19 @@ public class ControllerConsumos {
 
 	}
 
+	private void updateSearchFilters() {
+		// Search filters are stored every time a search is done. This way, when
+		// deleting, inserting or modifying, the consumos will be displayed according
+		// to the last search filters
+		currentFiltersInfo1.removeAll(currentFiltersInfo1);
+		currentFiltersInfo2.removeAll(currentFiltersInfo2);
+		currentFiltersInfo1.add(getIdUsuarioValue());
+		currentFiltersInfo1.add(getAplicacionValue());
+		currentFiltersInfo1.add(getMesValue());
+		currentFiltersInfo2.add(getConsumoMinValue());
+		currentFiltersInfo2.add(getConsumoMaxValue());
+	}
+
 	@FXML
 	void buscar(ActionEvent event) {
 		// If all fields are empty it shows all existing consumos
@@ -209,16 +238,7 @@ public class ControllerConsumos {
 				idUsuario = selectedUsuario.getId();
 			}
 
-			// Search filters are stored every time a search is done. This way, when
-			// deleting, inserting and modifying, the consumos will be displayed according
-			// to the last search filters
-			currentFiltersInfo1.removeAll(currentFiltersInfo1);
-			currentFiltersInfo2.removeAll(currentFiltersInfo2);
-			currentFiltersInfo1.add(idUsuario);
-			currentFiltersInfo1.add(getAplicacionValue());
-			currentFiltersInfo1.add(getMesValue());
-			currentFiltersInfo2.add(getConsumoMinValue());
-			currentFiltersInfo2.add(getConsumoMaxValue());
+			updateSearchFilters();
 
 			consumos = consumoDao.getConsumos(idUsuario, getAplicacionValue(), getMesValue(), getConsumoMinValue(),
 					getConsumoMaxValue());
@@ -233,6 +253,8 @@ public class ControllerConsumos {
 	@FXML
 	void modificar(ActionEvent event) {
 		boolean error = false;
+
+		updateSearchFilters();
 
 		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
@@ -311,7 +333,7 @@ public class ControllerConsumos {
 				&& comboBoxAplicacion.getSelectionModel().getSelectedItem() == null
 				&& textFieldConsumoMin.getText().isBlank() && textFieldConsumoMax.getText().isBlank()) {
 			showError(
-					"Al menos uno de los siguiente campos ha de no estar vacío: ID Usuario, ID Aplicación, Mes, ConsumoMin y consumoMax.");
+					"Al menos uno de los siguientes campos no ha de estar vacío: ID Usuario, ID Aplicación, Mes, ConsumoMin y consumoMax.");
 			error = true;
 		} else {
 			try {
@@ -387,7 +409,10 @@ public class ControllerConsumos {
 
 	private String getAplicacionValue() {
 		if (comboBoxAplicacion.getSelectionModel().getSelectedItem() != null) {
-			return comboBoxAplicacion.getSelectionModel().getSelectedItem().toString();
+			// The content is split due to this format is used:
+			// idAplicacion - descripcion - gestor - servidor
+			// The only element wanted is the idAplicacion
+			return comboBoxAplicacion.getSelectionModel().getSelectedItem().toString().split(" -")[0];
 		}
 		return "";
 	}
@@ -427,13 +452,21 @@ public class ControllerConsumos {
 	@FXML
 	void selectConsumo(MouseEvent event) {
 		Consumo consumo = tableViewConsumos.getSelectionModel().getSelectedItem();
+		AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
 
-		if (consumo != null) {
+		if (consumo != null) { // Check that consumo is not null
+			// Get all aplicacion information related to consumo from database
+			Aplicacion aplicacion = aplicacionDao.getAplicaciones(consumo.getIdAplicacion(), "", "", Byte.MIN_VALUE)
+					.get(0);
+
+			// Set values in cells
 			comboBoxIdUsuario.setValue(consumo.getIdUsuario());
-			comboBoxAplicacion.setValue(consumo.getIdAplicacion());
+			comboBoxAplicacion.setValue(aplicacion.getId() + " - " + aplicacion.getDescripcion() + " - "
+					+ aplicacion.getGestor() + " - " + aplicacion.getServidor());
 			comboBoxMes.setValue(consumo.getMes());
 			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
 
+			// Assign current consumo to the selected one
 			selectedConsumo = consumo;
 		}
 	}

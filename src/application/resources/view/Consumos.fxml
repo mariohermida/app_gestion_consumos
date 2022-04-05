@@ -51,6 +51,11 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="199.0" layoutY="387.0" prefHeight="37.0" prefWidth="163.0" text="(buscador dinámico)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <ComboBox fx:id="comboBoxIdUsuario" layoutX="142.0" layoutY="172.0" prefHeight="25.0" prefWidth="300.0" />
       <ComboBox fx:id="comboBoxMes" layoutX="142.0" layoutY="220.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldConsumoMin" layoutX="186.0" layoutY="266.0" prefHeight="25.0" prefWidth="106.0" promptText="Valor mínimo" />
