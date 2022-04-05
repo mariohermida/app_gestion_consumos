@@ -86,6 +86,9 @@ public class ControllerUsuarios {
 		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		tableColumnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 		tableColumnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+		
+		//Initially, all existing usuarios are shown
+		updateTableViewUsuarios(null);
 	}
 
 	@FXML

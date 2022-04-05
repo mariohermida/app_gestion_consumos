@@ -72,6 +72,9 @@ public class ControllerAplicaciones {
 		tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
 		tableColumnGestor.setCellValueFactory(new PropertyValueFactory<>("gestor"));
 		tableColumnServidor.setCellValueFactory(new PropertyValueFactory<>("servidor"));
+		
+		// Initially, all existing aplicaciones are shown
+		updateTableViewAplicaciones(null);
 	}
 
 	@FXML
