@@ -123,9 +123,11 @@ public class ControllerConsumos {
 	private List<String> currentFiltersInfo1; // Current search filters for: idUsuario, App and Mes
 	private List<Integer> currentFiltersInfo2; // Current search filters for: min and max consumo
 
-	private Consumo selectedConsumo; // Current consumo
-	private Usuario selectedUsuario; // Current usuario
+	private Consumo selectedConsumo; // Current consumo (user mouse click)
+	private Usuario selectedUsuario; // Current usuario (user mouse click
 
+	// This method is called once this class is created
+	// It is the first function to be executed
 	@FXML
 	public void initialize() {
 		// tableViewConsumos setup
@@ -211,6 +213,10 @@ public class ControllerConsumos {
 
 	}
 
+	/**
+	 * Method that takes the last values retrieved from both textfields and
+	 * comboboxes. It is used for storing the info while modifying a consumo.
+	 */
 	private void updateSearchFilters() {
 		// Search filters are stored every time a search is done. This way, when
 		// deleting, inserting or modifying, the consumos will be displayed according
@@ -254,6 +260,9 @@ public class ControllerConsumos {
 	void modificar(ActionEvent event) {
 		boolean error = false;
 
+		// Update the values for having the possibility of modifying a consumo
+		// The consumo to update is taken from the selected consumos (mouse click)
+		// The new values to be assigned for the consumo are taken from the comboboxes
 		updateSearchFilters();
 
 		List<Consumo> consumos = new ArrayList<>();
@@ -360,6 +369,7 @@ public class ControllerConsumos {
 		}
 	}
 
+	// It does export only the consumos shown in the tableViewConsumos
 	@FXML
 	void exportar(ActionEvent event) {
 		List<Consumo> consumos = tableViewConsumos.getItems();
