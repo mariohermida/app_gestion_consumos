@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +32,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * Class that manages all the events occurred in Aplicaciones.fxml
  */
 public class ControllerAplicaciones {
+	
+	@FXML
+	private Label labelId;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -66,6 +70,10 @@ public class ControllerAplicaciones {
 
 	@FXML
 	public void initialize() {
+		
+		// Example of changing label text
+		labelId.textProperty().setValue("example");
+		
 		// tableViewAplicaciones setup
 		// Columns values are assigned to the attributes within Aplicacion class
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));

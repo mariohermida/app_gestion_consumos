@@ -418,7 +418,7 @@ public class ControllerConsumos {
 	}
 
 	private String getAplicacionValue() {
-		if (comboBoxAplicacion.getSelectionModel().getSelectedItem() != null && !textFieldAplicacion.getText().isBlank()) {
+		if (comboBoxAplicacion.getSelectionModel().getSelectedItem() != null) {
 			// The content is split due to this format is used:
 			// idAplicacion - descripcion - gestor - servidor
 			// The only element wanted is the idAplicacion
