@@ -1,11 +1,13 @@
 package application.java.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import application.java.dao.AplicacionDaoImpl;
@@ -27,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -44,6 +47,21 @@ public class ControllerEntity3 {
 	// Fields for Consumo
 
 	@FXML
+	private Label label1;
+
+	@FXML
+	private Label label2;
+
+	@FXML
+	private Label label3;
+
+	@FXML
+	private Label label4;
+
+	@FXML
+	private Label label5;
+
+	@FXML
 	private ComboBox<String> comboBoxIdUsuario;
 
 	@FXML
@@ -53,28 +71,28 @@ public class ControllerEntity3 {
 	private ComboBox<String> comboBoxMes;
 
 	@FXML
-	private TextField textFieldConsumoMin;
+	private TextField textField1;
 
 	@FXML
-	private TextField textFieldConsumoMax;
+	private TextField textField2;
 
 	@FXML
-	private TextField textFieldNuevoConsumo;
+	private TextField textField3;
 
 	@FXML
-	private TextField textFieldAplicacion;
+	private TextField textField4;
 
 	@FXML
-	private TableColumn<Consumo, String> tableColumnIdUsuarioConsumos;
+	private TableColumn<Consumo, String> tableColumn1;
 
 	@FXML
-	private TableColumn<Consumo, String> tableColumnIdAplicacion;
+	private TableColumn<Consumo, String> tableColumn2;
 
 	@FXML
-	private TableColumn<Consumo, String> tableColumnMes;
+	private TableColumn<Consumo, String> tableColumn3;
 
 	@FXML
-	private TableColumn<Consumo, Integer> tableColumnConsumo;
+	private TableColumn<Consumo, Integer> tableColumn4;
 
 	@FXML
 	private TableView<Consumo> tableViewConsumos;
@@ -82,40 +100,58 @@ public class ControllerEntity3 {
 	// Fields for Usuario
 
 	@FXML
-	private TextField textFieldIdUsuario;
+	private Label label6;
 
 	@FXML
-	private TextField textFieldNombre;
+	private Label label7;
 
 	@FXML
-	private TextField textFieldApellidos;
+	private Label label8;
 
 	@FXML
-	private TextField textFieldEmail;
+	private Label label9;
 
 	@FXML
-	private TextField textFieldTelefono;
+	private Label label10;
 
 	@FXML
-	private TextField textFieldDireccion;
+	private Label label11;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnIdUsuario;
+	private TextField textField5;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnNombre;
+	private TextField textField6;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnApellidos;
+	private TextField textField7;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnEmail;
+	private TextField textField8;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnTelefono;
+	private TextField textField9;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnDireccion;
+	private TextField textField10;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn5;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn6;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn7;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn8;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn9;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn10;
 
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
@@ -126,37 +162,74 @@ public class ControllerEntity3 {
 	private Consumo selectedConsumo; // Current consumo (user mouse click)
 	private Usuario selectedUsuario; // Current usuario (user mouse click
 
+	// Object for retrieving the values stored in file
+	private Properties properties = new Properties();
+
 	// This method is called once this class is created
 	// It is the first function to be executed
 	@FXML
 	public void initialize() {
+		// Label texts are retrieved from file
+		try {
+			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\titles.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		label1.setText(properties.getProperty("entity3_title1"));
+		label2.setText(properties.getProperty("entity3_title2"));
+		label3.setText(properties.getProperty("entity3_title3"));
+		label4.setText(properties.getProperty("entity3_title4"));
+		label5.setText(properties.getProperty("entity3_title5"));
+		
+		tableColumn1.setText(properties.getProperty("entity3_title1"));
+		tableColumn2.setText(properties.getProperty("entity3_title2"));
+		tableColumn3.setText(properties.getProperty("entity3_title3"));
+		tableColumn4.setText(properties.getProperty("entity3_title4"));
+		
 		// tableViewConsumos setup
 		// Column values are assigned to attributes within Consumo class
-		tableColumnIdUsuarioConsumos.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
-		tableColumnIdAplicacion.setCellValueFactory(new PropertyValueFactory<>("idAplicacion"));
-		tableColumnMes.setCellValueFactory(new PropertyValueFactory<>("mes"));
-		tableColumnConsumo.setCellValueFactory(new PropertyValueFactory<>("consumo"));
+		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("idAplicacion"));
+		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("mes"));
+		tableColumn4.setCellValueFactory(new PropertyValueFactory<>("consumo"));
 
 		refrescarCampos(null);
 
 		// Possible mes values are loaded into the convenient comboBox
 		comboBoxMes.setItems(FXCollections.observableArrayList("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
 				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"));
+		
+		label6.setText(properties.getProperty("entity2_title1"));
+		label7.setText(properties.getProperty("entity2_title2"));
+		label8.setText(properties.getProperty("entity2_title3"));
+		label9.setText(properties.getProperty("entity2_title4"));
+		label10.setText(properties.getProperty("entity2_title5"));
+		label11.setText(properties.getProperty("entity2_title6"));
+		
+		tableColumn5.setText(properties.getProperty("entity2_title1"));
+		tableColumn6.setText(properties.getProperty("entity2_title2"));
+		tableColumn7.setText(properties.getProperty("entity2_title3"));
+		tableColumn8.setText(properties.getProperty("entity2_title4"));
+		tableColumn9.setText(properties.getProperty("entity2_title5"));
+		tableColumn10.setText(properties.getProperty("entity2_title6"));
 
 		// tableViewUsuarios setup
 		// Column values are assigned to attributes within Usuario class
-		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		tableColumnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-		tableColumnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-		tableColumnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+		tableColumn5.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tableColumn6.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		tableColumn7.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+		tableColumn8.setCellValueFactory(new PropertyValueFactory<>("email"));
+		tableColumn9.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		tableColumn10.setCellValueFactory(new PropertyValueFactory<>("direccion"));
 
 		currentFiltersInfo1 = new ArrayList<>();
 		currentFiltersInfo2 = new ArrayList<>();
 
 		// Dynamic search for id aplicacion
-		textFieldAplicacion.textProperty().addListener((observable, oldValue, newValue) -> {
+		textField4.textProperty().addListener((observable, oldValue, newValue) -> {
 			AplicacionDaoImpl aplicacionDao = new AplicacionDaoImpl();
 			// All aplicaciones that meet the name in the text field will be displayed in
 			// the combobox
@@ -175,36 +248,34 @@ public class ControllerEntity3 {
 		// Once a change on any field is made the tableView is updated
 		// Filters can be used altogether
 		UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
-		textFieldIdUsuario.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(
-					usuarioDao.getUsuarios(newValue, textFieldNombre.getText(), textFieldApellidos.getText(),
-							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		textField5.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(newValue, textField6.getText(), textField7.getText(),
+					textField8.getText(), textField9.getText(), textField10.getText()));
 		});
 
-		textFieldNombre.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(
-					usuarioDao.getUsuarios(textFieldIdUsuario.getText(), newValue, textFieldApellidos.getText(),
-							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		textField6.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textField5.getText(), newValue, textField7.getText(),
+					textField8.getText(), textField9.getText(), textField10.getText()));
 		});
 
-		textFieldApellidos.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
-					newValue, textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()));
+		textField7.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textField5.getText(), textField6.getText(), newValue,
+					textField8.getText(), textField9.getText(), textField10.getText()));
 		});
 
-		textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
-					textFieldApellidos.getText(), newValue, textFieldTelefono.getText(), textFieldDireccion.getText()));
+		textField8.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textField5.getText(), textField6.getText(),
+					textField7.getText(), newValue, textField9.getText(), textField10.getText()));
 		});
 
-		textFieldTelefono.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
-					textFieldApellidos.getText(), textFieldEmail.getText(), newValue, textFieldDireccion.getText()));
+		textField9.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textField5.getText(), textField6.getText(),
+					textField7.getText(), textField8.getText(), newValue, textField10.getText()));
 		});
 
-		textFieldDireccion.textProperty().addListener((observable, oldValue, newValue) -> {
-			updateTableViewUsuarios(usuarioDao.getUsuarios(textFieldIdUsuario.getText(), textFieldNombre.getText(),
-					textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(), newValue));
+		textField10.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateTableViewUsuarios(usuarioDao.getUsuarios(textField5.getText(), textField6.getText(),
+					textField7.getText(), textField8.getText(), textField9.getText(), newValue));
 		});
 
 		// Initially, all consumos and usuarios are shown
@@ -339,8 +410,8 @@ public class ControllerEntity3 {
 		List<Consumo> consumos = new ArrayList<>();
 		if (comboBoxMes.getSelectionModel().getSelectedItem() == null
 				&& comboBoxIdUsuario.getSelectionModel().getSelectedItem() == null
-				&& comboBoxAplicacion.getSelectionModel().getSelectedItem() == null
-				&& textFieldConsumoMin.getText().isBlank() && textFieldConsumoMax.getText().isBlank()) {
+				&& comboBoxAplicacion.getSelectionModel().getSelectedItem() == null && textField1.getText().isBlank()
+				&& textField2.getText().isBlank()) {
 			showError(
 					"Al menos uno de los siguientes campos no ha de estar vacío: ID Usuario, ID Aplicación, Mes, ConsumoMin y consumoMax.");
 			error = true;
@@ -435,22 +506,22 @@ public class ControllerEntity3 {
 	}
 
 	private int getConsumoMinValue() {
-		if (!textFieldConsumoMin.getText().isBlank()) {
-			return Integer.parseInt(textFieldConsumoMin.getText());
+		if (!textField1.getText().isBlank()) {
+			return Integer.parseInt(textField1.getText());
 		}
 		return Integer.MIN_VALUE;
 	}
 
 	private int getConsumoMaxValue() {
-		if (!textFieldConsumoMax.getText().isBlank()) {
-			return Integer.parseInt(textFieldConsumoMax.getText());
+		if (!textField2.getText().isBlank()) {
+			return Integer.parseInt(textField2.getText());
 		}
 		return Integer.MAX_VALUE;
 	}
 
 	private int getNuevoConsumoValue() {
-		if (!textFieldNuevoConsumo.getText().isBlank()) {
-			return Integer.parseInt(textFieldNuevoConsumo.getText().toString());
+		if (!textField3.getText().isBlank()) {
+			return Integer.parseInt(textField3.getText().toString());
 		}
 		return 0;
 	}
@@ -474,7 +545,7 @@ public class ControllerEntity3 {
 			comboBoxAplicacion.setValue(aplicacion.getId() + " - " + aplicacion.getDescripcion() + " - "
 					+ aplicacion.getGestor() + " - " + aplicacion.getServidor());
 			comboBoxMes.setValue(consumo.getMes());
-			textFieldNuevoConsumo.setText(Integer.toString(consumo.getConsumo()));
+			textField3.setText(Integer.toString(consumo.getConsumo()));
 
 			// Assign current consumo to the selected one
 			selectedConsumo = consumo;
@@ -486,12 +557,12 @@ public class ControllerEntity3 {
 		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
-			textFieldIdUsuario.setText(usuario.getId());
-			textFieldNombre.setText(usuario.getNombre());
-			textFieldApellidos.setText(usuario.getApellidos());
-			textFieldEmail.setText(usuario.getEmail());
-			textFieldTelefono.setText(usuario.getTelefono());
-			textFieldDireccion.setText(usuario.getDireccion());
+			textField5.setText(usuario.getId());
+			textField6.setText(usuario.getNombre());
+			textField7.setText(usuario.getApellidos());
+			textField8.setText(usuario.getEmail());
+			textField9.setText(usuario.getTelefono());
+			textField10.setText(usuario.getDireccion());
 
 			selectedUsuario = usuario;
 
@@ -609,9 +680,10 @@ public class ControllerEntity3 {
 		comboBoxIdUsuario.setValue(null);
 		comboBoxAplicacion.setValue(null);
 		comboBoxMes.setValue(null);
-		textFieldConsumoMin.setText("");
-		textFieldConsumoMax.setText("");
-		textFieldNuevoConsumo.setText("");
+		textField1.setText("");
+		textField2.setText("");
+		textField3.setText("");
+		textField4.setText("");
 	}
 
 	/**
@@ -619,12 +691,12 @@ public class ControllerEntity3 {
 	 * tableViewUsuarios are set to blank in order not to overwrite values.
 	 */
 	private void setTextFieldsToBlankUsuario() {
-		textFieldIdUsuario.setText("");
-		textFieldNombre.setText("");
-		textFieldApellidos.setText("");
-		textFieldEmail.setText("");
-		textFieldTelefono.setText("");
-		textFieldDireccion.setText("");
+		textField5.setText("");
+		textField6.setText("");
+		textField7.setText("");
+		textField8.setText("");
+		textField9.setText("");
+		textField10.setText("");
 	}
 
 	public void showError(String message) {
