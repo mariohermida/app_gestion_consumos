@@ -1,6 +1,11 @@
 package application.java.controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,13 +31,24 @@ public class ControllerLogin {
 
 	@FXML
 	void acceder(ActionEvent event) {
-		if (textFieldUsuario.getText().equals("root") && passwordFieldContrasenya.getText().equals("sica")) {
+		// Credentials are retrieved from file
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (textFieldUsuario.getText().equals(properties.getProperty("user"))
+				&& passwordFieldContrasenya.getText().equals(properties.getProperty("pass"))) {
 			openNewWindow("Importacion");
 		} else {
 			showError("Credenciales incorrectas");
 		}
 	}
-	
+
 	@FXML
 	void atras(ActionEvent event) {
 		openNewWindow("Principal");

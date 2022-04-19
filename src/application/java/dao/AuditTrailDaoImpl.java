@@ -37,8 +37,8 @@ public class AuditTrailDaoImpl implements AuditTrailDao {
 			e.printStackTrace();
 		}
 		DB_URL = properties.getProperty("url");
-		DB_USER = properties.getProperty("user");
-		DB_PASS = properties.getProperty("pass");
+		DB_USER = properties.getProperty("db_user");
+		DB_PASS = properties.getProperty("db_pass");
 	}
 
 	@Override
