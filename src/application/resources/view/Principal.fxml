@@ -27,12 +27,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="684.0" layoutY="315.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
+      <Button alignment="CENTER" layoutX="657.0" layoutY="300.0" mnemonicParsing="false" onAction="#auditTrailButton" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="684.0" layoutY="411.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #FA8072;" text="Avanzado">
+      <Button alignment="CENTER" layoutX="657.0" layoutY="388.0" mnemonicParsing="false" onAction="#avanzadoButton" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #FA8072;" text="Avanzado">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
