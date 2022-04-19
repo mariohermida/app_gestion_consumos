@@ -36,7 +36,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 /**
  * Class that manages all the events occurred in Consumos.fxml
  */
-public class ControllerConsumos {
+public class ControllerEntity3 {
 
 	@FXML
 	private AnchorPane rootPane;

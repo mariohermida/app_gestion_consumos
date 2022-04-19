@@ -31,7 +31,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 /**
  * Class that manages all the events occurred in Aplicaciones.fxml
  */
-public class ControllerAplicaciones {
+public class ControllerEntity1 {
 	
 	@FXML
 	private Label labelId;
