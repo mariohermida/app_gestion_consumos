@@ -6,17 +6,17 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerImportacion">
    <children>
-      <Button layoutX="513.0" layoutY="280.0" mnemonicParsing="false" onAction="#importarAplicaciones" prefHeight="51.0" prefWidth="287.0" text="Importar aplicaciones">
+      <Button fx:id="importarEntity1Button" layoutX="513.0" layoutY="280.0" mnemonicParsing="false" onAction="#importarEntity1" prefHeight="51.0" prefWidth="287.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button layoutX="513.0" layoutY="363.0" mnemonicParsing="false" onAction="#importarUsuarios" prefHeight="51.0" prefWidth="287.0" text="Importar usuarios">
+      <Button fx:id="importarEntity2Button" layoutX="513.0" layoutY="363.0" mnemonicParsing="false" onAction="#importarEntity2" prefHeight="51.0" prefWidth="287.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button layoutX="513.0" layoutY="443.0" mnemonicParsing="false" onAction="#importarConsumos" prefHeight="51.0" prefWidth="287.0" text="Importar consumos">
+      <Button fx:id="importarEntity3Button" layoutX="513.0" layoutY="443.0" mnemonicParsing="false" onAction="#importarEntity3" prefHeight="51.0" prefWidth="287.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
