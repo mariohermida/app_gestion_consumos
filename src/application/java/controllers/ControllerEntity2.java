@@ -1,11 +1,13 @@
 package application.java.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import application.java.dao.UsuarioDao;
@@ -21,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,63 +34,109 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * Class that manages all the events occurred in Usuarios.fxml
  */
 public class ControllerEntity2 {
-	
+
 	@FXML
 	private AnchorPane rootPane;
-	
-	@FXML
-	private TextField textFieldId;
 
 	@FXML
-	private TextField textFieldNombre;
+	private Label label1;
 
 	@FXML
-	private TextField textFieldApellidos;
+	private Label label2;
 
 	@FXML
-	private TextField textFieldEmail;
+	private Label label3;
 
 	@FXML
-	private TextField textFieldTelefono;
+	private Label label4;
 
 	@FXML
-	private TextField textFieldDireccion;
+	private Label label5;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnId;
+	private Label label6;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnNombre;
+	private TextField textField1;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnApellidos;
+	private TextField textField2;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnEmail;
+	private TextField textField3;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnTelefono;
+	private TextField textField4;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumnDireccion;
+	private TextField textField5;
+
+	@FXML
+	private TextField textField6;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn1;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn2;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn3;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn4;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn5;
+
+	@FXML
+	private TableColumn<Usuario, String> tableColumn6;
 
 	@FXML
 	private TableView<Usuario> tableViewUsuarios;
 
 	private Usuario selectedUsuario; // Current usuario
 
+	// Object for retrieving the values stored in file
+	private Properties properties = new Properties();
+
 	@FXML
 	public void initialize() {
+		// Label texts are retrieved from file
+		try {
+			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\titles.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Texts are established
+		label1.setText(properties.getProperty("entity2_title1"));
+		label2.setText(properties.getProperty("entity2_title2"));
+		label3.setText(properties.getProperty("entity2_title3"));
+		label4.setText(properties.getProperty("entity2_title4"));
+		label5.setText(properties.getProperty("entity2_title5"));
+		label6.setText(properties.getProperty("entity2_title6"));
+
+		// Table column texts are set
+		tableColumn1.setText(properties.getProperty("entity2_title1"));
+		tableColumn2.setText(properties.getProperty("entity2_title2"));
+		tableColumn3.setText(properties.getProperty("entity2_title3"));
+		tableColumn4.setText(properties.getProperty("entity2_title4"));
+		tableColumn5.setText(properties.getProperty("entity2_title5"));
+		tableColumn6.setText(properties.getProperty("entity2_title6"));
+
 		// tableViewUsuarios setup
 		// Columns values are assigned to the attributes within Usuario class
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		tableColumnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-		tableColumnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-		tableColumnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-		
-		//Initially, all existing usuarios are shown
+		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+		tableColumn4.setCellValueFactory(new PropertyValueFactory<>("email"));
+		tableColumn5.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		tableColumn6.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+
+		// Initially, all existing usuarios are shown
 		updateTableViewUsuarios(null);
 	}
 
@@ -95,9 +144,8 @@ public class ControllerEntity2 {
 	void buscar(ActionEvent event) {
 		List<Usuario> usuarios = new ArrayList<>();
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
-		usuarios = usuarioDao.getUsuarios(textFieldId.getText(), textFieldNombre.getText(),
-				textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
-				textFieldDireccion.getText());
+		usuarios = usuarioDao.getUsuarios(textField1.getText(), textField2.getText(), textField3.getText(),
+				textField4.getText(), textField5.getText(), textField6.getText());
 
 		updateTableViewUsuarios(usuarios);
 	}
@@ -106,14 +154,14 @@ public class ControllerEntity2 {
 	void modificar(ActionEvent event) {
 		boolean error = false;
 
-		if (textFieldId.getText().isBlank()) {
+		if (textField1.getText().isBlank()) {
 			showError("El campo ID no puede estar vacío.");
 			error = true;
 		} else {
 			UsuarioDao usuarioDao = new UsuarioDaoImpl();
 			if (!usuarioDao.updateUsuario(selectedUsuario.getId(),
-					new Usuario(textFieldId.getText(), textFieldNombre.getText(), textFieldApellidos.getText(),
-							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()))) {
+					new Usuario(textField1.getText(), textField2.getText(), textField3.getText(), textField4.getText(),
+							textField5.getText(), textField6.getText()))) {
 				showError("Se produjo un error a la hora de modificar el usuario.");
 				error = true;
 			}
@@ -130,14 +178,13 @@ public class ControllerEntity2 {
 	void anyadir(ActionEvent event) {
 		boolean error = false;
 
-		if (textFieldId.getText().isBlank()) {
+		if (textField1.getText().isBlank()) {
 			showError("El campo ID no puede estar vacío.");
 			error = true;
 		} else {
 			UsuarioDao usuarioDao = new UsuarioDaoImpl();
-			if (!usuarioDao.insertUsuario(
-					new Usuario(textFieldId.getText(), textFieldNombre.getText(), textFieldApellidos.getText(),
-							textFieldEmail.getText(), textFieldTelefono.getText(), textFieldDireccion.getText()))) {
+			if (!usuarioDao.insertUsuario(new Usuario(textField1.getText(), textField2.getText(), textField3.getText(),
+					textField4.getText(), textField5.getText(), textField6.getText()))) {
 				showError("Se produjo un error a la hora de añadir el usuario.");
 				error = true;
 			}
@@ -154,16 +201,14 @@ public class ControllerEntity2 {
 	void eliminar(ActionEvent event) {
 		boolean error = false;
 
-		if (textFieldId.getText().isBlank() && textFieldNombre.getText().isBlank()
-				&& textFieldApellidos.getText().isBlank() && textFieldEmail.getText().isBlank()
-				&& textFieldTelefono.getText().isBlank() && textFieldDireccion.getText().isBlank()) {
+		if (textField1.getText().isBlank() && textField2.getText().isBlank() && textField3.getText().isBlank()
+				&& textField4.getText().isBlank() && textField5.getText().isBlank() && textField6.getText().isBlank()) {
 			showError("Los seis campos no pueden estar vacíos.");
 			error = true;
 		} else {
 			UsuarioDao usuarioDao = new UsuarioDaoImpl();
-			if (!usuarioDao.deleteUsuarios(textFieldId.getText(), textFieldNombre.getText(),
-					textFieldApellidos.getText(), textFieldEmail.getText(), textFieldTelefono.getText(),
-					textFieldDireccion.getText())) {
+			if (!usuarioDao.deleteUsuarios(textField1.getText(), textField2.getText(), textField3.getText(),
+					textField4.getText(), textField5.getText(), textField6.getText())) {
 				showError("Se produjo un error a la hora de eliminar el usuario.");
 				error = true;
 			}
@@ -216,12 +261,12 @@ public class ControllerEntity2 {
 		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
-			textFieldId.setText(usuario.getId());
-			textFieldNombre.setText(usuario.getNombre());
-			textFieldApellidos.setText(usuario.getApellidos());
-			textFieldEmail.setText(usuario.getEmail());
-			textFieldTelefono.setText(usuario.getTelefono());
-			textFieldDireccion.setText(usuario.getDireccion());
+			textField1.setText(usuario.getId());
+			textField2.setText(usuario.getNombre());
+			textField3.setText(usuario.getApellidos());
+			textField4.setText(usuario.getEmail());
+			textField5.setText(usuario.getTelefono());
+			textField6.setText(usuario.getDireccion());
 
 			selectedUsuario = usuario;
 		}
@@ -231,7 +276,7 @@ public class ControllerEntity2 {
 	void restablecerCampos(ActionEvent event) {
 		setTextFieldsToBlank();
 	}
-	
+
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
@@ -273,12 +318,12 @@ public class ControllerEntity2 {
 	 * in order not to overwrite values.
 	 */
 	private void setTextFieldsToBlank() {
-		textFieldId.setText("");
-		textFieldNombre.setText("");
-		textFieldApellidos.setText("");
-		textFieldEmail.setText("");
-		textFieldTelefono.setText("");
-		textFieldDireccion.setText("");
+		textField1.setText("");
+		textField2.setText("");
+		textField3.setText("");
+		textField4.setText("");
+		textField5.setText("");
+		textField6.setText("");
 	}
 
 	public void showError(String message) {
