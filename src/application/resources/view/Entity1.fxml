@@ -15,36 +15,36 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="labelId" layoutX="232.0" layoutY="90.0" prefHeight="37.0" prefWidth="102.0" text="ID" textAlignment="RIGHT">
+      <Label fx:id="label1" layoutX="232.0" layoutY="90.0" prefHeight="37.0" prefWidth="102.0" textAlignment="RIGHT">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="232.0" layoutY="127.0" prefHeight="37.0" prefWidth="102.0" text="Descripción">
+      <Label fx:id="label2" layoutX="232.0" layoutY="127.0" prefHeight="37.0" prefWidth="102.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="232.0" layoutY="164.0" prefHeight="37.0" prefWidth="102.0" text="Gestor">
+      <Label fx:id="label3" layoutX="232.0" layoutY="164.0" prefHeight="37.0" prefWidth="102.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="232.0" layoutY="201.0" prefHeight="37.0" prefWidth="102.0" text="Servidor">
+      <Label fx:id="label4" layoutX="232.0" layoutY="201.0" prefHeight="37.0" prefWidth="102.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="textFieldId" layoutX="334.0" layoutY="96.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldDescripcion" layoutX="334.0" layoutY="133.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldGestor" layoutX="334.0" layoutY="170.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldServidor" layoutX="334.0" layoutY="207.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField1" layoutX="334.0" layoutY="96.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField2" layoutX="334.0" layoutY="133.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField3" layoutX="334.0" layoutY="170.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField4" layoutX="334.0" layoutY="207.0" prefHeight="25.0" prefWidth="300.0" />
       <TableView fx:id="tableViewAplicaciones" layoutX="158.0" layoutY="253.0" onMouseClicked="#selectAplicacion" prefHeight="468.0" prefWidth="997.0">
          <columns>
-            <TableColumn fx:id="tableColumnId" prefWidth="145.0" text="ID" />
-            <TableColumn fx:id="tableColumnDescripcion" prefWidth="377.0" text="Descripción" />
-            <TableColumn fx:id="tableColumnGestor" prefWidth="243.0" text="Gestor" />
-            <TableColumn fx:id="tableColumnServidor" prefWidth="231.0" text="Servidor" />
+            <TableColumn fx:id="tableColumn1" prefWidth="145.0" />
+            <TableColumn fx:id="tableColumn2" prefWidth="377.0" />
+            <TableColumn fx:id="tableColumn3" prefWidth="243.0" />
+            <TableColumn fx:id="tableColumn4" prefWidth="231.0" />
          </columns>
       </TableView>
       <Button layoutX="968.0" layoutY="135.0" mnemonicParsing="false" onAction="#exportar" prefHeight="46.0" prefWidth="113.0" text="Exportar">
