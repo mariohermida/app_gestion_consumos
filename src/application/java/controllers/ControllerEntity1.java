@@ -107,10 +107,10 @@ public class ControllerEntity1 {
 
 		// tableViewAplicaciones setup
 		// Column values are assigned to the attributes within Aplicacion class
-		tableColumn1.setCellValueFactory(new PropertyValueFactory<>(properties.getProperty("id")));
-		tableColumn2.setCellValueFactory(new PropertyValueFactory<>(properties.getProperty("descripcion")));
-		tableColumn3.setCellValueFactory(new PropertyValueFactory<>(properties.getProperty("gestor")));
-		tableColumn4.setCellValueFactory(new PropertyValueFactory<>(properties.getProperty("servidor")));
+		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("gestor"));
+		tableColumn4.setCellValueFactory(new PropertyValueFactory<>("servidor"));
 
 		// Initially, all existing aplicaciones are shown
 		updateTableViewAplicaciones(null);

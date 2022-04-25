@@ -45,12 +45,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="textFieldId" layoutX="400.0" layoutY="44.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldNombre" layoutX="400.0" layoutY="81.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldApellidos" layoutX="400.0" layoutY="118.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldEmail" layoutX="400.0" layoutY="155.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldTelefono" layoutX="400.0" layoutY="195.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textFieldDireccion" layoutX="400.0" layoutY="232.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField1" layoutX="400.0" layoutY="44.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField2" layoutX="400.0" layoutY="81.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField3" layoutX="400.0" layoutY="118.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField4" layoutX="400.0" layoutY="155.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField5" layoutX="400.0" layoutY="195.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textField6" layoutX="400.0" layoutY="232.0" prefHeight="25.0" prefWidth="300.0" />
       <TableView fx:id="tableViewUsuarios" layoutX="66.0" layoutY="274.0" onMouseClicked="#selectUsuario" prefHeight="462.0" prefWidth="1182.0">
          <columns>
             <TableColumn fx:id="tableColumn1" prefWidth="88.0" />
