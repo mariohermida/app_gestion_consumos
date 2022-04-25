@@ -86,7 +86,7 @@ public class ControllerEntity1 {
 	public void initialize() {
 		// Label texts are retrieved from file
 		try {
-			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\titles.properties")));
+			properties.load(new FileInputStream(new File("src/application/resources/conf/titles.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

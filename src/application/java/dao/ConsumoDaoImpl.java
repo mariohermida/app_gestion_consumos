@@ -30,7 +30,7 @@ public class ConsumoDaoImpl implements ConsumoDao {
 	public ConsumoDaoImpl() {
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+			properties.load(new FileInputStream(new File("src/application/resources/conf/credentials.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
