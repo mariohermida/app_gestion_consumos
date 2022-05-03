@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Optional;
 import java.util.Properties;
 
 import com.opencsv.CSVReader;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
@@ -34,6 +36,9 @@ public class ControllerImportacion {
 	@FXML
 	private AnchorPane rootPane;
 
+	@FXML
+	private Button inicializacionButton;
+	
 	@FXML
 	private Button importarEntity1Button;
 
@@ -60,6 +65,21 @@ public class ControllerImportacion {
 		importarEntity1Button.setText("Importar " + properties.getProperty("entity1"));
 		importarEntity2Button.setText("Importar " + properties.getProperty("entity2"));
 		importarEntity3Button.setText("Importar " + properties.getProperty("entity3"));
+	}
+	
+	@FXML
+	void inicializar(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Estás seguro de eliminar las aplicaciones y consumos?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			AplicacionDaoImpl aplicacionDaoImpl = new AplicacionDaoImpl();
+			aplicacionDaoImpl.deleteAplicaciones("", "", "", Byte.MIN_VALUE);
+			ConsumoDaoImpl consumoDaoImpl = new ConsumoDaoImpl();
+			consumoDaoImpl.deleteConsumos("", "", "", Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
 	}
 
 	@FXML
