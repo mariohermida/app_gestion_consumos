@@ -1,11 +1,13 @@
 package application.java.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
+import application.java.dao.Usuario_internoDaoImpl;
+import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,22 +33,47 @@ public class ControllerLogin {
 
 	@FXML
 	void acceder(ActionEvent event) {
-		// Credentials are retrieved from file
-		Properties properties = new Properties();
+		Usuario_interno usuario = null;
+
+		Usuario_internoDaoImpl usuario_internoDao = new Usuario_internoDaoImpl();
+		usuario = usuario_internoDao.getUsuario(textFieldUsuario.getText());
+
+		// As passwords are stored using SHA-256 algorithm it is necessary to revert
+		// that step
+		MessageDigest md = null;
 		try {
-			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		String hash = toHexString(md.digest(passwordFieldContrasenya.getText().getBytes(StandardCharsets.UTF_8)));
 
-		if (textFieldUsuario.getText().equals(properties.getProperty("user"))
-				&& passwordFieldContrasenya.getText().equals(properties.getProperty("pass"))) {
+		if (usuario != null && hash.equals(usuario.getPass())) {
 			openNewWindow("Principal");
 		} else {
 			showError("Credenciales incorrectas");
 		}
+	}
+
+	/**
+	 * Convert byte array into hexadecimal value
+	 * 
+	 * @param hash
+	 * @return
+	 */
+	private static String toHexString(byte[] hash) {
+		// Convert byte array into signum representation
+		BigInteger number = new BigInteger(1, hash);
+
+		// Convert message digest into hex value
+		StringBuilder hexString = new StringBuilder(number.toString(16));
+
+		// Pad with leading zeros
+		while (hexString.length() < 64) {
+			hexString.insert(0, '0');
+		}
+
+		return hexString.toString();
 	}
 
 	/**

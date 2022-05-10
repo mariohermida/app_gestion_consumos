@@ -15,8 +15,8 @@ import java.util.Properties;
 import application.java.model.Usuario_interno;
 
 /**
- * Class that implements the methods defined in UsuarioDao (DAO design pattern
- * is applied)
+ * Class that implements the methods defined in Usuario_internoDao (DAO design
+ * pattern is applied)
  */
 public class Usuario_internoDaoImpl implements Usuario_internoDao {
 
@@ -47,13 +47,35 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 	}
 
 	@Override
+	public Usuario_interno getUsuario(String user) {
+		Usuario_interno usuario = null;
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			// Dynamic querying
+			// By default it shows all existing usuarios
+			String query = "SELECT * FROM Usuario_interno WHERE user = '" + user + "'";
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				usuario = new Usuario_interno(rs.getString(1), rs.getString(2), Byte.valueOf(rs.getString(3)));
+			}
+			connection.close();
+			return usuario;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return usuario;
+	}
+
+	@Override
 	public List<Usuario_interno> getUsuarios(String user, byte admin) {
 		List<Usuario_interno> usuarios = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
 			// By default it shows all existing usuarios
-			String query = "SELECT * FROM Usuario WHERE 1 = 1";
+			String query = "SELECT * FROM Usuario_interno WHERE 1 = 1";
 			if (!user.isBlank()) {
 				query += " AND USER LIKE '%" + user + "%'";
 			}
@@ -63,7 +85,7 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				usuarios.add(new Usuario_interno(rs.getString(1), rs.getString(2), Byte.parseByte(rs.getString(3))));
+				usuarios.add(new Usuario_interno(rs.getString(1), rs.getString(2), Byte.valueOf(rs.getString(3))));
 			}
 			connection.close();
 			return usuarios;

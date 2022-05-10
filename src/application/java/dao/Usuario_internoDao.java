@@ -6,6 +6,8 @@ import application.java.model.Usuario_interno;
 public interface Usuario_internoDao {
 
 	public List<Usuario_interno> getAllUsuarios();
+	
+	public Usuario_interno getUsuario(String user);
 
 	public List<Usuario_interno> getUsuarios(String user, byte admin);
 
