@@ -18,7 +18,7 @@ import javafx.scene.control.PasswordField;
 /**
  * Class that manages all the events occurred in Login.fxml
  */
-public class ControllerLogin {
+public class ControllerLoginAvanzado {
 
 	@FXML
 	private AnchorPane rootPane;
