@@ -36,6 +36,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class ControllerEntity1 {
 
 	@FXML
+	private AnchorPane rootPane;
+
+	@FXML
 	private Label label1;
 
 	@FXML
@@ -46,9 +49,6 @@ public class ControllerEntity1 {
 
 	@FXML
 	private Label label4;
-
-	@FXML
-	private AnchorPane rootPane;
 
 	@FXML
 	private TextField textField1;
@@ -92,13 +92,13 @@ public class ControllerEntity1 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Texts are established
 		label1.setText(properties.getProperty("entity1_title1"));
 		label2.setText(properties.getProperty("entity1_title2"));
 		label3.setText(properties.getProperty("entity1_title3"));
 		label4.setText(properties.getProperty("entity1_title4"));
-		
+
 		// Table column texts are set
 		tableColumn1.setText(properties.getProperty("entity1_title1"));
 		tableColumn2.setText(properties.getProperty("entity1_title2"));
@@ -142,9 +142,8 @@ public class ControllerEntity1 {
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
 			try {
-				if (!aplicacionDao.updateAplicacion(selectedAplicacion.getId(),
-						new Aplicacion(textField1.getText(), textField2.getText(), textField3.getText(),
-								Byte.parseByte(textField4.getText())))) {
+				if (!aplicacionDao.updateAplicacion(selectedAplicacion.getId(), new Aplicacion(textField1.getText(),
+						textField2.getText(), textField3.getText(), Byte.parseByte(textField4.getText())))) {
 					showError("Se produjo un error a la hora de modificar la aplicación.");
 					error = true;
 				}
@@ -172,9 +171,8 @@ public class ControllerEntity1 {
 		} else {
 			AplicacionDao aplicacionDao = new AplicacionDaoImpl();
 			try {
-				if (!aplicacionDao
-						.insertAplicacion(new Aplicacion(textField1.getText(), textField2.getText(),
-								textField3.getText(), Byte.parseByte(textField4.getText())))) {
+				if (!aplicacionDao.insertAplicacion(new Aplicacion(textField1.getText(), textField2.getText(),
+						textField3.getText(), Byte.parseByte(textField4.getText())))) {
 					showError("Se produjo un error a la hora de añadir la aplicación.");
 					error = true;
 				}
@@ -196,15 +194,15 @@ public class ControllerEntity1 {
 	void eliminar(ActionEvent event) {
 		boolean error = false;
 
-		if (textField1.getText().isBlank() && textField2.getText().isBlank()
-				&& textField3.getText().isBlank() && textField4.getText().isBlank()) {
+		if (textField1.getText().isBlank() && textField2.getText().isBlank() && textField3.getText().isBlank()
+				&& textField4.getText().isBlank()) {
 			showError("Los cuatro campos no pueden estar vacíos.");
 			error = true;
 		} else {
 			try {
 				AplicacionDao aplicacionDao = new AplicacionDaoImpl();
-				if (!aplicacionDao.deleteAplicaciones(textField1.getText(), textField2.getText(),
-						textField3.getText(), getServidorValue())) {
+				if (!aplicacionDao.deleteAplicaciones(textField1.getText(), textField2.getText(), textField3.getText(),
+						getServidorValue())) {
 					showError("Se produjo un error a la hora de eliminar la aplicación.");
 					error = true;
 				}

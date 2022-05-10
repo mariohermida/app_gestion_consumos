@@ -11,12 +11,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
  * Class that manages all the events occurred in Principal.fxml
  */
 public class ControllerPrincipal {
+
+	// Shortcut for opening advanced functionality
+	private KeyCombination shortcut = new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN,
+			KeyCombination.SHIFT_DOWN);
 
 	@FXML
 	private AnchorPane rootPane;
@@ -32,6 +40,9 @@ public class ControllerPrincipal {
 
 	@FXML
 	private Button entity3Button;
+
+	@FXML
+	private Button avanzadoButton;
 
 	// Object for retrieving the values stored in file
 	private Properties properties = new Properties();
@@ -69,8 +80,10 @@ public class ControllerPrincipal {
 	}
 
 	@FXML
-	void avanzado(ActionEvent event) {
-		openNewWindow("Login");
+	void avanzado(KeyEvent event) {
+		if (shortcut.match(event)) {
+			openNewWindow("Login");
+		}
 	}
 
 	@FXML

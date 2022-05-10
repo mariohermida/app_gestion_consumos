@@ -71,7 +71,7 @@ public class ControllerImportacion {
 	void inicializar(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmación");
-		alert.setContentText("¿Estás seguro de eliminar las aplicaciones y consumos?");
+		alert.setContentText("¿Estás seguro de que deseas eliminar todas las aplicaciones y los consumos?");
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
