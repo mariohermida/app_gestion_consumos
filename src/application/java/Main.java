@@ -20,7 +20,7 @@ public class Main extends Application {
 		// Set this view as the main one
 		primaryStage.setOnCloseRequest(e -> Platform.exit());
 
-		Parent root = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/application/resources/view/Login.fxml"));
 
 		// Set stage settings
 		Stage mystage = new Stage();

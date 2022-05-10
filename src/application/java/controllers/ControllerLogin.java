@@ -16,9 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 
 /**
- * Class that manages all the events occurred in LoginAvanzado.fxml
+ * Class that manages all the events occurred in Login.fxml
  */
-public class ControllerLoginAvanzado {
+public class ControllerLogin {
 
 	@FXML
 	private AnchorPane rootPane;
@@ -43,15 +43,10 @@ public class ControllerLoginAvanzado {
 
 		if (textFieldUsuario.getText().equals(properties.getProperty("user"))
 				&& passwordFieldContrasenya.getText().equals(properties.getProperty("pass"))) {
-			openNewWindow("Importacion");
+			openNewWindow("Principal");
 		} else {
 			showError("Credenciales incorrectas");
 		}
-	}
-
-	@FXML
-	void atras(ActionEvent event) {
-		openNewWindow("Principal");
 	}
 
 	/**
