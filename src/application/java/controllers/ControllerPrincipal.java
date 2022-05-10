@@ -82,7 +82,7 @@ public class ControllerPrincipal {
 	@FXML
 	void avanzado(KeyEvent event) {
 		if (shortcut.match(event)) {
-			openNewWindow("Login");
+			openNewWindow("LoginAvanzado");
 		}
 	}
 
