@@ -5,29 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#avanzado" prefHeight="773.0" prefWidth="1313.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1313.0" styleClass="image" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.java.controllers.ControllerPrincipal">
    <children>
-      <Label fx:id="welcomeLabel" layoutX="379.0" layoutY="147.0" prefHeight="35.0" prefWidth="556.0" style="-fx-background-color: black;" text="  " textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="welcomeLabel" layoutX="433.0" layoutY="162.0" prefHeight="35.0" prefWidth="448.0" style="-fx-background-color: black;" text="Pantalla de administración del software" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="entity1Button" alignment="CENTER" layoutX="412.0" layoutY="263.0" mnemonicParsing="false" onAction="#entity1" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #7FB3D5;">
+      <Button alignment="CENTER" layoutX="488.0" layoutY="281.0" mnemonicParsing="false" onAction="#administracionUsuarios" prefHeight="73.0" prefWidth="339.0" style="-fx-background-color: #C5DA15;" text="Administración de usuarios">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="entity2Button" alignment="CENTER" layoutX="412.0" layoutY="351.0" mnemonicParsing="false" onAction="#entity2" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #7FB3D5;">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="entity3Button" alignment="CENTER" layoutX="412.0" layoutY="437.0" mnemonicParsing="false" onAction="#entity3" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #7FB3D5;">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER" layoutX="657.0" layoutY="351.0" mnemonicParsing="false" onAction="#auditTrail" prefHeight="73.0" prefWidth="218.0" style="-fx-background-color: #C5DA15;" text="Audit Trail">
+      <Button alignment="CENTER" layoutX="488.0" layoutY="384.0" mnemonicParsing="false" onAction="#software" prefHeight="73.0" prefWidth="339.0" style="-fx-background-color: #74D1EA;" text="Software">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
