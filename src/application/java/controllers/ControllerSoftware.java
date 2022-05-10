@@ -20,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Class that manages all the events occurred in Principal.fxml
  */
-public class ControllerPrincipal {
+public class ControllerSoftware {
 
 	// Shortcut for opening advanced functionality
 	private KeyCombination shortcut = new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN,
