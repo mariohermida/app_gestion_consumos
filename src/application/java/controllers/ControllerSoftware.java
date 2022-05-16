@@ -6,11 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -43,6 +47,9 @@ public class ControllerSoftware {
 
 	@FXML
 	private Button avanzadoButton;
+
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
 
 	// Object for retrieving the values stored in file
 	private Properties properties = new Properties();
@@ -91,6 +98,10 @@ public class ControllerSoftware {
 		openNewWindow("AuditTrail");
 	}
 
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
+	}
+
 	/**
 	 * Shows a new view according to the .fxml file called fileName
 	 * 
@@ -99,11 +110,41 @@ public class ControllerSoftware {
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			FXMLLoader loader = null;
+			if (usuarioSession.getPermiso() == 2) {
+				if (fileName.equals("Entity2")) {
+					loader = new FXMLLoader(getClass().getResource("/application/resources/view/Entity2.fxml"));
+					pane = loader.load();
+				} else if (fileName.equals("Entity3")) {
+					loader = new FXMLLoader(getClass().getResource("/application/resources/view/Entity3.fxml"));
+					pane = loader.load();
+				} else {
+					pane = null;
+				}
+			} else if (usuarioSession.getPermiso() == 3) {
+				if (fileName.equals("Entity2")) {
+					loader = new FXMLLoader(getClass().getResource("/application/resources/view/Entity2.fxml"));
+					pane = loader.load();
+				} else {
+					pane = null;
+				}
+			} else {
+				pane = null;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		rootPane.getChildren().setAll(pane);
+
+		if (pane == null) {
+			showError("Usted no tiene permisos para acceder a este contenido.");
+		} else {
+			rootPane.getChildren().setAll(pane);
+		}
+	}
+
+	public void showError(String message) {
+		Alert alert = new Alert(AlertType.ERROR, message);
+		alert.showAndWait();
 	}
 
 }

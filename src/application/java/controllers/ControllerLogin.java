@@ -31,6 +31,9 @@ public class ControllerLogin {
 	@FXML
 	private PasswordField passwordFieldContrasenya;
 
+	// User that has just logged into the system
+	private Usuario_interno usuario_session;
+
 	@FXML
 	void acceder(ActionEvent event) {
 		Usuario_interno usuario = null;
@@ -49,7 +52,8 @@ public class ControllerLogin {
 		String hash = toHexString(md.digest(passwordFieldContrasenya.getText().getBytes(StandardCharsets.UTF_8)));
 
 		if (usuario != null && hash.equals(usuario.getClave())) {
-			if (usuario.getPermiso() == 1) {
+			usuario_session = usuario;
+			if (usuario.getPermiso() == 0 || usuario.getPermiso() == 1) {
 				openNewWindow("Principal");
 			} else {
 				openNewWindow("Software");
@@ -88,7 +92,13 @@ public class ControllerLogin {
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			pane = loader.load();
+			// If the GUI is redirected to Software window, the logged user will be sent
+			if (fileName.equals("Software")) {
+				ControllerSoftware controllerSoftware = loader.getController();
+				controllerSoftware.setUsuarioSession(usuario_session);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
