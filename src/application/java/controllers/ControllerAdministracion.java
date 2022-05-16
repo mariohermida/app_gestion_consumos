@@ -1,14 +1,15 @@
 package application.java.controllers;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.java.dao.UsuarioDao;
-import application.java.dao.UsuarioDaoImpl;
 import application.java.dao.Usuario_internoDao;
 import application.java.dao.Usuario_internoDaoImpl;
-import application.java.model.Usuario;
 import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +77,7 @@ public class ControllerAdministracion {
 	void buscar(ActionEvent event) {
 		List<Usuario_interno> usuarios = new ArrayList<>();
 		Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
-		usuarios = usuario_internoDao.getUsuarios(textFieldUsuario.getText(), getPermisoValue());
+		usuarios = usuario_internoDao.getUsuarios(getUsuarioValue(), getPermisoValue());
 
 		updateTableViewUsuarios(usuarios);
 	}
@@ -88,12 +89,69 @@ public class ControllerAdministracion {
 
 	@FXML
 	void anyadir(ActionEvent event) {
-		System.out.println("anyadir");
+		boolean error = false;
+
+		if (getUsuarioValue().isBlank() || getClaveValue().isBlank() || textFieldPermiso.getText().isBlank()) {
+			showError("Ninguno de los campos ha de estar vacío.");
+			error = true;
+		} else {
+			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+			if (!usuario_internoDao.insertUsuario(
+					new Usuario_interno(getUsuarioValue(), returnHash(getClaveValue()), getPermisoValue()))) {
+				showError("Se produjo un error a la hora de añadir el usuario.");
+				error = true;
+			}
+		}
+
+		if (!error) {
+			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewUsuarios(null);
+		}
 	}
 
 	@FXML
 	void eliminar(ActionEvent event) {
 		System.out.println("eliminar");
+	}
+
+	/**
+	 * Returns the SHA-256 hash of the input text as a string
+	 * 
+	 * @param text Input to be hashed
+	 * @return
+	 */
+	private String returnHash(String text) {
+		// As passwords are stored using SHA-256 algorithm it is necessary to revert
+		// that step
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return toHexString(md.digest(text.getBytes(StandardCharsets.UTF_8)));
+	}
+
+	/**
+	 * Convert byte array into hexadecimal value
+	 * 
+	 * @param hash
+	 * @return
+	 */
+	private static String toHexString(byte[] hash) {
+		// Convert byte array into signum representation
+		BigInteger number = new BigInteger(1, hash);
+
+		// Convert message digest into hex value
+		StringBuilder hexString = new StringBuilder(number.toString(16));
+
+		// Pad with leading zeros
+		while (hexString.length() < 64) {
+			hexString.insert(0, '0');
+		}
+
+		return hexString.toString();
 	}
 
 	@FXML
@@ -107,6 +165,14 @@ public class ControllerAdministracion {
 
 			selectedUsuario = usuario;
 		}
+	}
+
+	private String getUsuarioValue() {
+		return textFieldUsuario.getText();
+	}
+
+	private String getClaveValue() {
+		return textFieldClave.getText();
 	}
 
 	private byte getPermisoValue() {

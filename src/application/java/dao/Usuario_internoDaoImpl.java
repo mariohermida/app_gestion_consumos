@@ -104,7 +104,18 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 
 	@Override
 	public boolean insertUsuario(Usuario_interno usuario) {
-		// TODO Auto-generated method stub
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "INSERT INTO Usuario_interno (Usuario, Clave, Permiso) VALUES ('" + usuario.getUsuario() + "', '"
+					+ usuario.getClave() + "', '" + usuario.getPermiso() + "')";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
