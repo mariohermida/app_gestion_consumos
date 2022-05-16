@@ -1,9 +1,14 @@
 package application.java.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import application.java.dao.UsuarioDao;
+import application.java.dao.UsuarioDaoImpl;
 import application.java.dao.Usuario_internoDao;
 import application.java.dao.Usuario_internoDaoImpl;
+import application.java.model.Usuario;
 import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,13 +33,13 @@ public class ControllerAdministracion {
 	private AnchorPane rootPane;
 
 	@FXML
-	private TextField textField1;
+	private TextField textFieldUsuario;
 
 	@FXML
-	private TextField textField2;
+	private TextField textFieldClave;
 
 	@FXML
-	private TextField textField3;
+	private TextField textFieldPermiso;
 
 	@FXML
 	private TableColumn<Usuario_interno, String> tableColumn1;
@@ -69,7 +74,11 @@ public class ControllerAdministracion {
 
 	@FXML
 	void buscar(ActionEvent event) {
-		System.out.println("buscar");
+		List<Usuario_interno> usuarios = new ArrayList<>();
+		Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+		usuarios = usuario_internoDao.getUsuarios(textFieldUsuario.getText(), getPermisoValue());
+
+		updateTableViewUsuarios(usuarios);
 	}
 
 	@FXML
@@ -92,12 +101,19 @@ public class ControllerAdministracion {
 		Usuario_interno usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
-			textField1.setText(usuario.getUsuario());
-			textField2.setText(usuario.getClave());
-			textField3.setText(Byte.toString(usuario.getPermiso()));
+			textFieldUsuario.setText(usuario.getUsuario());
+			textFieldClave.setText(usuario.getClave());
+			textFieldPermiso.setText(Byte.toString(usuario.getPermiso()));
 
 			selectedUsuario = usuario;
 		}
+	}
+
+	private byte getPermisoValue() {
+		if (!textFieldPermiso.getText().isBlank()) {
+			return Byte.parseByte(textFieldPermiso.getText());
+		}
+		return Byte.MIN_VALUE;
 	}
 
 	@FXML
@@ -146,9 +162,9 @@ public class ControllerAdministracion {
 	 * in order not to overwrite values.
 	 */
 	private void setTextFieldsToBlank() {
-		textField1.setText("");
-		textField2.setText("");
-		textField3.setText("");
+		textFieldUsuario.setText("");
+		textFieldClave.setText("");
+		textFieldPermiso.setText("");
 	}
 
 	public void showError(String message) {

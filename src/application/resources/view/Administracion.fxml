@@ -15,19 +15,19 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="label6" layoutX="307.0" layoutY="174.0" prefHeight="37.0" prefWidth="96.0" text="Permisos">
+      <Label fx:id="label2" layoutX="307.0" layoutY="135.0" prefHeight="37.0" prefWidth="96.0" text="Permisos">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="textField1" layoutX="403.0" layoutY="106.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textField2" layoutX="403.0" layoutY="143.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="textField3" layoutX="403.0" layoutY="180.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldClave" layoutX="403.0" layoutY="205.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldUsuario" layoutX="403.0" layoutY="106.0" prefHeight="25.0" prefWidth="300.0" />
+      <TextField fx:id="textFieldPermiso" layoutX="403.0" layoutY="141.0" prefHeight="25.0" prefWidth="300.0" />
       <TableView fx:id="tableViewUsuarios" layoutX="183.0" layoutY="252.0" onMouseClicked="#selectUsuario" prefHeight="413.0" prefWidth="806.0">
          <columns>
             <TableColumn fx:id="tableColumn1" prefWidth="126.0" />
             <TableColumn fx:id="tableColumn2" prefWidth="611.0" />
-            <TableColumn fx:id="tableColumn3" prefWidth="60.0" />
+            <TableColumn fx:id="tableColumn3" prefWidth="65.0" />
          </columns>
       </TableView>
       <Button layoutX="733.0" layoutY="95.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="113.0" text="Buscar">
@@ -55,12 +55,12 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="label61" layoutX="307.0" layoutY="100.0" prefHeight="37.0" prefWidth="96.0" text="Usuario">
+      <Label fx:id="label1" layoutX="307.0" layoutY="100.0" prefHeight="37.0" prefWidth="96.0" text="Usuario">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="label611" layoutX="307.0" layoutY="137.0" prefHeight="37.0" prefWidth="96.0" text="Contraseña">
+      <Label fx:id="label3" layoutX="300.0" layoutY="187.0" prefHeight="60.0" prefWidth="96.0" text="Nueva&#10;Contraseña" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
