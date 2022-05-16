@@ -53,7 +53,7 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
 			// By default it shows all existing usuarios
-			String query = "SELECT * FROM Usuario_interno WHERE user = '" + user + "'";
+			String query = "SELECT * FROM Usuario_interno WHERE Usuario = '" + user + "'";
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -69,7 +69,7 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 	}
 
 	@Override
-	public List<Usuario_interno> getUsuarios(String user, byte admin) {
+	public List<Usuario_interno> getUsuarios(String user, byte permiso) {
 		List<Usuario_interno> usuarios = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -77,10 +77,10 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 			// By default it shows all existing usuarios
 			String query = "SELECT * FROM Usuario_interno WHERE 1 = 1";
 			if (!user.isBlank()) {
-				query += " AND USER LIKE '%" + user + "%'";
+				query += " AND Usuario LIKE '%" + user + "%'";
 			}
-			if (admin != Byte.MIN_VALUE) {
-				query += " AND ADMIN LIKE '%" + admin + "%'";
+			if (permiso != Byte.MIN_VALUE) {
+				query += " AND Permiso LIKE '%" + permiso + "%'";
 			}
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(query);

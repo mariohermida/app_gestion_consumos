@@ -2,9 +2,9 @@ package application.java.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import application.java.dao.UsuarioDao;
-import application.java.dao.UsuarioDaoImpl;
-import application.java.model.Usuario;
+import application.java.dao.Usuario_internoDao;
+import application.java.dao.Usuario_internoDaoImpl;
+import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,26 +37,31 @@ public class ControllerAdministracion {
 	private TextField textField3;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumn1;
+	private TableColumn<Usuario_interno, String> tableColumn1;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumn2;
+	private TableColumn<Usuario_interno, String> tableColumn2;
 
 	@FXML
-	private TableColumn<Usuario, String> tableColumn3;
+	private TableColumn<Usuario_interno, Byte> tableColumn3;
 
 	@FXML
-	private TableView<Usuario> tableViewUsuarios;
+	private TableView<Usuario_interno> tableViewUsuarios;
 
-	private Usuario selectedUsuario; // Current usuario
+	private Usuario_interno selectedUsuario; // Current usuario
 
 	@FXML
 	public void initialize() {
+
+		tableColumn1.setText("Usuario");
+		tableColumn2.setText("Clave");
+		tableColumn3.setText("Permiso");
+
 		// tableViewUsuarios setup
-		// Columns values are assigned to the attributes within Usuario class
-		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+		// Columns values are assigned to the attributes within Usuario_interno class
+		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("clave"));
+		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("permiso"));
 
 		// Initially, all existing usuarios are shown
 		updateTableViewUsuarios(null);
@@ -84,12 +89,12 @@ public class ControllerAdministracion {
 
 	@FXML
 	void selectUsuario(MouseEvent event) {
-		Usuario usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
+		Usuario_interno usuario = tableViewUsuarios.getSelectionModel().getSelectedItem();
 
 		if (usuario != null) {
-			textField1.setText(usuario.getId());
-			textField2.setText(usuario.getNombre());
-			textField3.setText(usuario.getApellidos());
+			textField1.setText(usuario.getUsuario());
+			textField2.setText(usuario.getClave());
+			textField3.setText(Byte.toString(usuario.getPermiso()));
 
 			selectedUsuario = usuario;
 		}
@@ -117,18 +122,18 @@ public class ControllerAdministracion {
 	 * 
 	 * @param listUsuarios
 	 */
-	private void updateTableViewUsuarios(List<Usuario> listUsuarios) {
-		UsuarioDao usuarioDao = new UsuarioDaoImpl();
-		List<Usuario> usuarios;
+	private void updateTableViewUsuarios(List<Usuario_interno> listUsuarios) {
+		Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+		List<Usuario_interno> usuarios;
 		if (listUsuarios == null) { // Take all existing usuarios
-			usuarios = usuarioDao.getAllUsuarios();
+			usuarios = usuario_internoDao.getAllUsuarios();
 		} else { // Show the ones given
 			usuarios = listUsuarios;
 		}
 
 		// List is converted into ObservableList type
-		ObservableList<Usuario> observableList = FXCollections.observableArrayList();
-		for (Usuario usuario : usuarios) {
+		ObservableList<Usuario_interno> observableList = FXCollections.observableArrayList();
+		for (Usuario_interno usuario : usuarios) {
 			observableList.add(usuario);
 		}
 

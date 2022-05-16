@@ -6,26 +6,26 @@ package application.java.model;
  */
 public class Usuario_interno {
 
-	private String user;
-	private String pass;
-	private byte admin;
+	private String usuario;
+	private String clave;
+	private byte permiso;
 
-	public Usuario_interno(String user, String pass, byte admin) {
-		this.user = user;
-		this.pass = pass;
-		this.admin = admin;
+	public Usuario_interno(String usuario, String clave, byte permiso) {
+		this.usuario = usuario;
+		this.clave = clave;
+		this.permiso = permiso;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getClave() {
+		return clave;
 	}
 
-	public byte getAdmin() {
-		return admin;
+	public byte getPermiso() {
+		return permiso;
 	}
 
 }

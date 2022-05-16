@@ -9,7 +9,7 @@ public interface Usuario_internoDao {
 	
 	public Usuario_interno getUsuario(String user);
 
-	public List<Usuario_interno> getUsuarios(String user, byte admin);
+	public List<Usuario_interno> getUsuarios(String user, byte permiso);
 
 	public boolean updateUsuario(String user, Usuario_interno usuario);
 
