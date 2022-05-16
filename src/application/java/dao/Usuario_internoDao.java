@@ -14,6 +14,8 @@ public interface Usuario_internoDao {
 	public boolean updateUsuario(String user, Usuario_interno usuario);
 
 	public boolean insertUsuario(Usuario_interno usuario);
+	
+	public boolean deleteAllUsuarios();
 
 	public boolean deleteUsuarios(String user);
 }

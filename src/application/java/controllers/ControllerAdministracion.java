@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import application.java.dao.Usuario_internoDao;
 import application.java.dao.Usuario_internoDaoImpl;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -84,7 +86,25 @@ public class ControllerAdministracion {
 
 	@FXML
 	void modificar(ActionEvent event) {
-		System.out.println("modificar");
+		boolean error = false;
+
+		if (getUsuarioValue().isBlank() || getClaveValue().isBlank()) {
+			showError("Los campos usuario y contraseña no puede estar vacíos.");
+			error = true;
+		} else {
+			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+			if (!usuario_internoDao.updateUsuario(selectedUsuario.getUsuario(),
+					new Usuario_interno(getUsuarioValue(), returnHash(getClaveValue()), getPermisoValue()))) {
+				showError("Se produjo un error a la hora de modificar el usuario.");
+				error = true;
+			}
+		}
+
+		if (!error) {
+			setTextFieldsToBlank();
+			// After the insertion the list is updated
+			updateTableViewUsuarios(null);
+		}
 	}
 
 	@FXML
@@ -112,7 +132,48 @@ public class ControllerAdministracion {
 
 	@FXML
 	void eliminar(ActionEvent event) {
-		System.out.println("eliminar");
+		boolean error = false;
+
+		if (getUsuarioValue().isBlank()) {
+			showError("El campo usuario no puede ser vacío.");
+			error = true;
+		} else {
+			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+			if (!usuario_internoDao.deleteUsuarios(getUsuarioValue())) {
+				showError("Se produjo un error a la hora de eliminar el usuario.");
+				error = true;
+			}
+		}
+
+		if (!error) {
+			setTextFieldsToBlank();
+			// After the deletion the list is updated
+			updateTableViewUsuarios(null);
+		}
+	}
+	
+	@FXML
+	void resetearUsuarios(ActionEvent event) {
+		boolean error = false;
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Estás seguro de que deseas eliminar todos los usuarios internos?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
+			if (!usuario_internoDao.deleteAllUsuarios()) {
+				showError("Se produjo un error a la hora de eliminar el usuario.");
+				error = true;
+			}
+		}
+		
+		if (!error && result.get() == ButtonType.OK) {
+			setTextFieldsToBlank();
+			// After the deletion the list is updated
+			updateTableViewUsuarios(null);
+		}
 	}
 
 	/**
@@ -160,7 +221,6 @@ public class ControllerAdministracion {
 
 		if (usuario != null) {
 			textFieldUsuario.setText(usuario.getUsuario());
-			textFieldClave.setText(usuario.getClave());
 			textFieldPermiso.setText(Byte.toString(usuario.getPermiso()));
 
 			selectedUsuario = usuario;

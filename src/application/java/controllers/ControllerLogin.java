@@ -49,7 +49,11 @@ public class ControllerLogin {
 		String hash = toHexString(md.digest(passwordFieldContrasenya.getText().getBytes(StandardCharsets.UTF_8)));
 
 		if (usuario != null && hash.equals(usuario.getClave())) {
-			openNewWindow("Principal");
+			if (usuario.getPermiso() == 1) {
+				openNewWindow("Principal");
+			} else {
+				openNewWindow("Software");
+			}
 		} else {
 			showError("Credenciales incorrectas");
 		}

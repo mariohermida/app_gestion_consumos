@@ -75,7 +75,7 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 			// Dynamic querying
 			// By default it shows all existing usuarios
-			String query = "SELECT * FROM Usuario_interno WHERE 1 = 1";
+			String query = "SELECT * FROM Usuario_interno WHERE Usuario != 'root'";
 			if (!user.isBlank()) {
 				query += " AND Usuario LIKE '%" + user + "%'";
 			}
@@ -98,7 +98,18 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 
 	@Override
 	public boolean updateUsuario(String user, Usuario_interno usuario) {
-		// TODO Auto-generated method stub
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "UPDATE Usuario_interno SET usuario = '" + usuario.getUsuario() + "', Clave = '"
+					+ usuario.getClave() + "', Permiso = '" + usuario.getPermiso() + "' WHERE usuario = '" + user + "'";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
@@ -106,8 +117,24 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 	public boolean insertUsuario(Usuario_interno usuario) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "INSERT INTO Usuario_interno (Usuario, Clave, Permiso) VALUES ('" + usuario.getUsuario() + "', '"
-					+ usuario.getClave() + "', '" + usuario.getPermiso() + "')";
+			String query = "INSERT INTO Usuario_interno (Usuario, Clave, Permiso) VALUES ('" + usuario.getUsuario()
+					+ "', '" + usuario.getClave() + "', '" + usuario.getPermiso() + "')";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean deleteAllUsuarios() {
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "DELETE FROM Usuario_interno WHERE usuario != 'root'";
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
@@ -121,7 +148,17 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 
 	@Override
 	public boolean deleteUsuarios(String user) {
-		// TODO Auto-generated method stub
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			String query = "DELETE FROM Usuario_interno WHERE usuario != 'root' and usuario = '" + user + "'";
+			Statement st = connection.createStatement();
+			st.execute(query);
+			connection.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 

@@ -38,11 +38,11 @@
       <TextField fx:id="textFieldUsuario" layoutX="403.0" layoutY="106.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldPermiso" layoutX="403.0" layoutY="141.0" prefHeight="25.0" prefWidth="300.0" />
       <TextField fx:id="textFieldClave" layoutX="403.0" layoutY="205.0" prefHeight="25.0" prefWidth="300.0" />
-      <TableView fx:id="tableViewUsuarios" layoutX="183.0" layoutY="252.0" onMouseClicked="#selectUsuario" prefHeight="413.0" prefWidth="806.0">
+      <TableView fx:id="tableViewUsuarios" layoutX="183.0" layoutY="252.0" onMouseClicked="#selectUsuario" prefHeight="413.0" prefWidth="950.0">
          <columns>
-            <TableColumn fx:id="tableColumn1" prefWidth="126.0" />
-            <TableColumn fx:id="tableColumn2" prefWidth="611.0" />
-            <TableColumn fx:id="tableColumn3" prefWidth="65.0" />
+            <TableColumn fx:id="tableColumn1" prefWidth="197.0" />
+            <TableColumn fx:id="tableColumn2" prefWidth="573.0" />
+            <TableColumn fx:id="tableColumn3" prefWidth="177.0" />
          </columns>
       </TableView>
       <Button layoutX="733.0" layoutY="95.0" mnemonicParsing="false" onAction="#buscar" prefHeight="46.0" prefWidth="113.0" text="Buscar">
@@ -61,6 +61,11 @@
          </font>
       </Button>
       <Button layoutX="876.0" layoutY="167.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="113.0" text="Eliminar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="1020.0" layoutY="114.0" mnemonicParsing="false" onAction="#resetearUsuarios" prefHeight="80.0" prefWidth="113.0" text="Resetear&#10;usuarios">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
