@@ -18,6 +18,7 @@ import application.java.dao.UsuarioDaoImpl;
 import application.java.model.Aplicacion;
 import application.java.model.Consumo;
 import application.java.model.Usuario;
+import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +39,7 @@ public class ControllerImportacion {
 
 	@FXML
 	private Button inicializacionButton;
-	
+
 	@FXML
 	private Button importarEntity1Button;
 
@@ -50,6 +51,9 @@ public class ControllerImportacion {
 
 	// Object for retrieving the values stored in file
 	private Properties properties = new Properties();
+
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
 
 	@FXML
 	public void initialize() {
@@ -66,7 +70,7 @@ public class ControllerImportacion {
 		importarEntity2Button.setText("Importar " + properties.getProperty("entity2"));
 		importarEntity3Button.setText("Importar " + properties.getProperty("entity3"));
 	}
-	
+
 	@FXML
 	void inicializar(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -74,7 +78,7 @@ public class ControllerImportacion {
 		alert.setContentText("¿Estás seguro de que deseas eliminar todas las aplicaciones y los consumos?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			AplicacionDaoImpl aplicacionDaoImpl = new AplicacionDaoImpl();
 			aplicacionDaoImpl.deleteAplicaciones("", "", "", Byte.MIN_VALUE);
 			ConsumoDaoImpl consumoDaoImpl = new ConsumoDaoImpl();
@@ -155,12 +159,19 @@ public class ControllerImportacion {
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/Software.fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ControllerSoftware controllerSoftware = loader.getController();
+		controllerSoftware.setUsuarioSession(usuarioSession);
 		rootPane.getChildren().setAll(pane);
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	public void showError(String message) {

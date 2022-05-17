@@ -58,6 +58,9 @@ public class ControllerAdministracion {
 
 	private Usuario_interno selectedUsuario; // Current usuario
 
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
+
 	@FXML
 	public void initialize() {
 
@@ -151,24 +154,24 @@ public class ControllerAdministracion {
 			updateTableViewUsuarios(null);
 		}
 	}
-	
+
 	@FXML
 	void resetearUsuarios(ActionEvent event) {
 		boolean error = false;
-		
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmación");
 		alert.setContentText("¿Estás seguro de que deseas eliminar todos los usuarios internos?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
 			if (!usuario_internoDao.deleteAllUsuarios()) {
 				showError("Se produjo un error a la hora de eliminar el usuario.");
 				error = true;
 			}
 		}
-		
+
 		if (!error && result.get() == ButtonType.OK) {
 			setTextFieldsToBlank();
 			// After the deletion the list is updated
@@ -250,12 +253,19 @@ public class ControllerAdministracion {
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/Principal.fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ControllerPrincipal controller = loader.getController();
+		controller.setUsuarioSession(usuarioSession);
 		rootPane.getChildren().setAll(pane);
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	/**

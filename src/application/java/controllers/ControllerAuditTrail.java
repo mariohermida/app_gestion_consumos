@@ -23,6 +23,7 @@ import com.itextpdf.layout.element.Text;
 import application.java.dao.AuditTrailDao;
 import application.java.dao.AuditTrailDaoImpl;
 import application.java.model.AuditTrail;
+import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +67,9 @@ public class ControllerAuditTrail {
 
 	@FXML
 	private TableView<AuditTrail> tableViewAuditTrail;
+
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
 
 	@FXML
 	public void initialize() {
@@ -194,12 +198,19 @@ public class ControllerAuditTrail {
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/Software.fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ControllerSoftware controller = loader.getController();
+		controller.setUsuarioSession(usuarioSession);
 		rootPane.getChildren().setAll(pane);
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	/**

@@ -10,7 +10,6 @@ import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -98,6 +97,11 @@ public class ControllerSoftware {
 		openNewWindow("AuditTrail");
 	}
 
+	@FXML
+	void atras(ActionEvent event) {
+		openNewWindow("Principal");
+	}
+
 	public void setUsuarioSession(Usuario_interno usuarioSession) {
 		this.usuarioSession = usuarioSession;
 	}
@@ -109,9 +113,12 @@ public class ControllerSoftware {
 	 */
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
+		FXMLLoader loader = null;
 		try {
-			FXMLLoader loader = null;
-			if (usuarioSession.getPermiso() == 2) {
+			if (usuarioSession.getPermiso() == 0 || usuarioSession.getPermiso() == 1) {
+				loader = new FXMLLoader(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+				pane = loader.load();
+			} else if (usuarioSession.getPermiso() == 2) {
 				if (fileName.equals("Entity2")) {
 					loader = new FXMLLoader(getClass().getResource("/application/resources/view/Entity2.fxml"));
 					pane = loader.load();
@@ -131,13 +138,43 @@ public class ControllerSoftware {
 			} else {
 				pane = null;
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		if (pane == null) {
 			showError("Usted no tiene permisos para acceder a este contenido.");
-		} else {
+		} else { // pane != null
+			// According to the next GUI, a different controller is created for setting the
+			// logged user
+			switch (fileName) {
+			case "Entity1":
+				ControllerEntity1 controllerEntity1 = loader.getController();
+				controllerEntity1.setUsuarioSession(usuarioSession);
+				break;
+			case "Entity2":
+				ControllerEntity2 controllerEntity2 = loader.getController();
+				controllerEntity2.setUsuarioSession(usuarioSession);
+				break;
+			case "Entity3":
+				ControllerEntity3 controllerEntity3 = loader.getController();
+				controllerEntity3.setUsuarioSession(usuarioSession);
+				break;
+			case "LoginAvanzado":
+				ControllerLoginAvanzado controllerLoginAvanzado = loader.getController();
+				controllerLoginAvanzado.setUsuarioSession(usuarioSession);
+				break;
+			case "AuditTrail":
+				ControllerAuditTrail controllerAuditTrail = loader.getController();
+				controllerAuditTrail.setUsuarioSession(usuarioSession);
+				break;
+			case "Principal":
+				ControllerPrincipal controllerPrincipal = loader.getController();
+				controllerPrincipal.setUsuarioSession(usuarioSession);
+				break;
+			}
+
 			rootPane.getChildren().setAll(pane);
 		}
 	}

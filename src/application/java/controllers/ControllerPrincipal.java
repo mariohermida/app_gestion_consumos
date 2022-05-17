@@ -2,6 +2,7 @@ package application.java.controllers;
 
 import java.io.IOException;
 
+import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,9 @@ public class ControllerPrincipal {
 	@FXML
 	AnchorPane rootPane;
 
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
+
 	@FXML
 	void administracionUsuarios(ActionEvent event) {
 		openNewWindow("Administracion");
@@ -25,6 +29,10 @@ public class ControllerPrincipal {
 		openNewWindow("Software");
 	}
 
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
+	}
+
 	/**
 	 * Shows a new view according to the .fxml file called fileName
 	 * 
@@ -32,10 +40,19 @@ public class ControllerPrincipal {
 	 */
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		// If the GUI is redirected to Software window, the logged user will be sent
+		if (fileName.equals("Software")) {
+			ControllerSoftware controller = loader.getController();
+			controller.setUsuarioSession(usuarioSession);
+		} else if (fileName.equals("Administracion")) {
+			ControllerAdministracion controller = loader.getController();
+			controller.setUsuarioSession(usuarioSession);
 		}
 		rootPane.getChildren().setAll(pane);
 	}

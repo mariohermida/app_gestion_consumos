@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import application.java.dao.UsuarioDao;
 import application.java.dao.UsuarioDaoImpl;
 import application.java.model.Usuario;
+import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -99,6 +100,9 @@ public class ControllerEntity2 {
 
 	// Object for retrieving the values stored in file
 	private Properties properties = new Properties();
+
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
 
 	@FXML
 	public void initialize() {
@@ -280,12 +284,19 @@ public class ControllerEntity2 {
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/Software.fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ControllerSoftware controller = loader.getController();
+		controller.setUsuarioSession(usuarioSession);
 		rootPane.getChildren().setAll(pane);
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	/**

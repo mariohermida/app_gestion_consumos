@@ -92,12 +92,16 @@ public class ControllerLogin {
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 			pane = loader.load();
 			// If the GUI is redirected to Software window, the logged user will be sent
 			if (fileName.equals("Software")) {
 				ControllerSoftware controllerSoftware = loader.getController();
 				controllerSoftware.setUsuarioSession(usuario_session);
+			} else if (fileName.equals("Principal")) {
+				ControllerPrincipal controllerPrincipal = loader.getController();
+				controllerPrincipal.setUsuarioSession(usuario_session);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -18,6 +18,7 @@ import application.java.dao.UsuarioDaoImpl;
 import application.java.model.Aplicacion;
 import application.java.model.Consumo;
 import application.java.model.Usuario;
+import application.java.model.Usuario_interno;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -165,6 +166,9 @@ public class ControllerEntity3 {
 	// Object for retrieving the values stored in file
 	private Properties properties = new Properties();
 
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
+
 	// This method is called once this class is created
 	// It is the first function to be executed
 	@FXML
@@ -183,12 +187,12 @@ public class ControllerEntity3 {
 		label3.setText(properties.getProperty("entity3_title3"));
 		label4.setText(properties.getProperty("entity3_title4"));
 		label5.setText(properties.getProperty("entity3_title5"));
-		
+
 		tableColumn1.setText(properties.getProperty("entity3_title1"));
 		tableColumn2.setText(properties.getProperty("entity3_title2"));
 		tableColumn3.setText(properties.getProperty("entity3_title3"));
 		tableColumn4.setText(properties.getProperty("entity3_title4"));
-		
+
 		// tableViewConsumos setup
 		// Column values are assigned to attributes within Consumo class
 		tableColumn1.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
@@ -201,14 +205,14 @@ public class ControllerEntity3 {
 		// Possible mes values are loaded into the convenient comboBox
 		comboBoxMes.setItems(FXCollections.observableArrayList("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
 				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"));
-		
+
 		label6.setText(properties.getProperty("entity2_title1"));
 		label7.setText(properties.getProperty("entity2_title2"));
 		label8.setText(properties.getProperty("entity2_title3"));
 		label9.setText(properties.getProperty("entity2_title4"));
 		label10.setText(properties.getProperty("entity2_title5"));
 		label11.setText(properties.getProperty("entity2_title6"));
-		
+
 		tableColumn5.setText(properties.getProperty("entity2_title1"));
 		tableColumn6.setText(properties.getProperty("entity2_title2"));
 		tableColumn7.setText(properties.getProperty("entity2_title3"));
@@ -614,12 +618,19 @@ public class ControllerEntity3 {
 	@FXML
 	void atras(ActionEvent event) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/Software.fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/Principal.fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ControllerSoftware controller = loader.getController();
+		controller.setUsuarioSession(usuarioSession);
 		rootPane.getChildren().setAll(pane);
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	/**

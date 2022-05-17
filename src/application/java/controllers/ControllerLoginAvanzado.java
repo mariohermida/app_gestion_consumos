@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import application.java.model.Usuario_interno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,9 @@ public class ControllerLoginAvanzado {
 	@FXML
 	private PasswordField passwordFieldContrasenya;
 
+	// User that has just logged into the system
+	private Usuario_interno usuarioSession;
+
 	@FXML
 	void acceder(ActionEvent event) {
 		// Credentials are retrieved from file
@@ -51,7 +55,11 @@ public class ControllerLoginAvanzado {
 
 	@FXML
 	void atras(ActionEvent event) {
-		openNewWindow("Principal");
+		openNewWindow("Software");
+	}
+
+	public void setUsuarioSession(Usuario_interno usuarioSession) {
+		this.usuarioSession = usuarioSession;
 	}
 
 	/**
@@ -61,10 +69,18 @@ public class ControllerLoginAvanzado {
 	 */
 	private void openNewWindow(String fileName) {
 		AnchorPane pane = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
 		try {
-			pane = FXMLLoader.load(getClass().getResource("/application/resources/view/" + fileName + ".fxml"));
+			pane = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		if (fileName.equals("Software")) {
+			ControllerSoftware controller = loader.getController();
+			controller.setUsuarioSession(usuarioSession);
+		} else if (fileName.equals("Importacion")) {
+			ControllerImportacion controller = loader.getController();
+			controller.setUsuarioSession(usuarioSession);
 		}
 		rootPane.getChildren().setAll(pane);
 	}
