@@ -30,7 +30,8 @@ public class AuditTrailDaoImpl implements AuditTrailDao {
 	public AuditTrailDaoImpl() {
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File("src/application/resources/conf/credentials.properties")));
+			//properties.load(new FileInputStream(new File("src/application/resources/conf/credentials.properties")));
+			properties.load(new FileInputStream(new File("conf/credentials.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

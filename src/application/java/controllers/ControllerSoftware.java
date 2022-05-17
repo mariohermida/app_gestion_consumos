@@ -57,7 +57,8 @@ public class ControllerSoftware {
 	public void initialize() {
 		// Title name for buttons are retrieved from file
 		try {
-			properties.load(new FileInputStream(new File("src/application/resources/conf/titles.properties")));
+			//properties.load(new FileInputStream(new File("src/application/resources/conf/titles.properties")));
+			properties.load(new FileInputStream(new File("conf/titles.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

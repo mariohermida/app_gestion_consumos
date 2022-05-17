@@ -59,7 +59,8 @@ public class ControllerImportacion {
 	public void initialize() {
 		// Title name for buttons are retrieved from file
 		try {
-			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\titles.properties")));
+			//properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\titles.properties")));
+			properties.load(new FileInputStream(new File("conf/titles.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -38,7 +38,8 @@ public class ControllerLoginAvanzado {
 		// Credentials are retrieved from file
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+			//properties.load(new FileInputStream(new File("C:\\Users\\SIC-LN-34\\Desktop\\M\\credentials.properties")));
+			properties.load(new FileInputStream(new File("conf/credentials.properties")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
