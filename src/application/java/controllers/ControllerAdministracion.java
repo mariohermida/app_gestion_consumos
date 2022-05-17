@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -42,7 +43,7 @@ public class ControllerAdministracion {
 	private TextField textFieldClave;
 
 	@FXML
-	private TextField textFieldPermiso;
+	private ComboBox<String> comboBoxPermiso;
 
 	@FXML
 	private TableColumn<Usuario_interno, String> tableColumn1;
@@ -74,6 +75,10 @@ public class ControllerAdministracion {
 		tableColumn2.setCellValueFactory(new PropertyValueFactory<>("clave"));
 		tableColumn3.setCellValueFactory(new PropertyValueFactory<>("permiso"));
 
+		// Possible mes values are loaded into the convenient comboBox
+		comboBoxPermiso.setItems(
+				FXCollections.observableArrayList("1 (Administrador)", "2 (Usuarios y consumos)", "3 (Sólo consumos)"));
+
 		// Initially, all existing usuarios are shown
 		updateTableViewUsuarios(null);
 	}
@@ -91,15 +96,24 @@ public class ControllerAdministracion {
 	void modificar(ActionEvent event) {
 		boolean error = false;
 
-		if (getUsuarioValue().isBlank() || getClaveValue().isBlank()) {
-			showError("Los campos usuario y contraseña no puede estar vacíos.");
+		if (getUsuarioValue().isBlank()) {
+			showError("El campo usuario no puede estar vacío.");
 			error = true;
 		} else {
 			Usuario_internoDao usuario_internoDao = new Usuario_internoDaoImpl();
-			if (!usuario_internoDao.updateUsuario(selectedUsuario.getUsuario(),
-					new Usuario_interno(getUsuarioValue(), returnHash(getClaveValue()), getPermisoValue()))) {
-				showError("Se produjo un error a la hora de modificar el usuario.");
-				error = true;
+			if (getClaveValue().isEmpty()) {
+				if (!usuario_internoDao.updateUsuario(selectedUsuario.getUsuario(),
+						new Usuario_interno(getUsuarioValue(), returnHash(getClaveValue()), getPermisoValue()),
+						false)) {
+					showError("Se produjo un error a la hora de modificar el usuario.");
+					error = true;
+				}
+			} else {
+				if (!usuario_internoDao.updateUsuario(selectedUsuario.getUsuario(),
+						new Usuario_interno(getUsuarioValue(), returnHash(getClaveValue()), getPermisoValue()), true)) {
+					showError("Se produjo un error a la hora de modificar el usuario.");
+					error = true;
+				}
 			}
 		}
 
@@ -114,7 +128,7 @@ public class ControllerAdministracion {
 	void anyadir(ActionEvent event) {
 		boolean error = false;
 
-		if (getUsuarioValue().isBlank() || getClaveValue().isBlank() || textFieldPermiso.getText().isBlank()) {
+		if (getUsuarioValue().isBlank() || getClaveValue().isBlank() || getPermisoValue() == Byte.MIN_VALUE) {
 			showError("Ninguno de los campos ha de estar vacío.");
 			error = true;
 		} else {
@@ -224,7 +238,17 @@ public class ControllerAdministracion {
 
 		if (usuario != null) {
 			textFieldUsuario.setText(usuario.getUsuario());
-			textFieldPermiso.setText(Byte.toString(usuario.getPermiso()));
+			switch (Byte.toString(usuario.getPermiso())) {
+			case "1":
+				comboBoxPermiso.setValue("1 (Administrador)");
+				break;
+			case "2":
+				comboBoxPermiso.setValue("2 (Usuarios y consumos)");
+				break;
+			case "3":
+				comboBoxPermiso.setValue("3 (Sólo consumos)");
+				break;
+			}
 
 			selectedUsuario = usuario;
 		}
@@ -239,8 +263,15 @@ public class ControllerAdministracion {
 	}
 
 	private byte getPermisoValue() {
-		if (!textFieldPermiso.getText().isBlank()) {
-			return Byte.parseByte(textFieldPermiso.getText());
+		if (comboBoxPermiso.getSelectionModel().getSelectedItem() != null) {
+			switch (comboBoxPermiso.getSelectionModel().getSelectedItem().toString()) {
+			case "1 (Administrador)":
+				return 1;
+			case "2 (Usuarios y consumos)":
+				return 2;
+			case "3 (Sólo consumos)":
+				return 3;
+			}
 		}
 		return Byte.MIN_VALUE;
 	}
@@ -300,7 +331,7 @@ public class ControllerAdministracion {
 	private void setTextFieldsToBlank() {
 		textFieldUsuario.setText("");
 		textFieldClave.setText("");
-		textFieldPermiso.setText("");
+		comboBoxPermiso.setValue(null);
 	}
 
 	public void showError(String message) {

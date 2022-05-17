@@ -11,7 +11,7 @@ public interface Usuario_internoDao {
 
 	public List<Usuario_interno> getUsuarios(String user, byte permiso);
 
-	public boolean updateUsuario(String user, Usuario_interno usuario);
+	public boolean updateUsuario(String user, Usuario_interno usuario, boolean password);
 
 	public boolean insertUsuario(Usuario_interno usuario);
 	

@@ -97,11 +97,18 @@ public class Usuario_internoDaoImpl implements Usuario_internoDao {
 	}
 
 	@Override
-	public boolean updateUsuario(String user, Usuario_interno usuario) {
+	public boolean updateUsuario(String user, Usuario_interno usuario, boolean password) {
 		try {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-			String query = "UPDATE Usuario_interno SET usuario = '" + usuario.getUsuario() + "', Clave = '"
-					+ usuario.getClave() + "', Permiso = '" + usuario.getPermiso() + "' WHERE usuario = '" + user + "'";
+			String query;
+			if (password) {
+				query = "UPDATE Usuario_interno SET usuario = '" + usuario.getUsuario() + "', Clave = '"
+						+ usuario.getClave() + "', Permiso = '" + usuario.getPermiso() + "' WHERE usuario = '" + user
+						+ "'";
+			} else {
+				query = "UPDATE Usuario_interno SET usuario = '" + usuario.getUsuario() + "', Permiso = '"
+						+ usuario.getPermiso() + "' WHERE usuario = '" + user + "'";
+			}
 			Statement st = connection.createStatement();
 			st.execute(query);
 			connection.close();
